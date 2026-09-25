@@ -1,0 +1,1031 @@
+.police-visitor-details-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top right, #eaf2ff 0, transparent 35%), #f5f7fb;
+  padding: 30px;
+  color: #172033;
+}
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.police-details-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.details-back-button {
+  border: none;
+  background: transparent;
+  color: #2563eb;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 0;
+  cursor: pointer;
+}
+
+.police-details-header h1 {
+  margin: 12px 0 5px;
+  font-size: 30px;
+  line-height: 1.2;
+  font-weight: 800;
+}
+
+.police-details-header p {
+  margin: 0;
+  color: #687386;
+  font-size: 14px;
+}
+
+.details-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.details-edit-button,
+.details-delete-button {
+  border-radius: 10px;
+  padding: 11px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.details-edit-button {
+  border: 1px solid #dbe4ff;
+  background: #eff4ff;
+  color: #315efb;
+}
+
+.details-edit-button:hover {
+  background: #e4ecff;
+}
+
+.details-delete-button {
+  border: 1px solid #ffd5da;
+  background: #fff1f2;
+  color: #dc2626;
+}
+
+.details-delete-button:hover {
+  background: #ffe4e6;
+}
+
+.details-delete-button:disabled,
+.details-edit-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* =====================================================
+   ALERTS
+===================================================== */
+
+.police-details-success,
+.police-details-error {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 13px 16px;
+  border-radius: 11px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.police-details-success {
+  background: #ecfdf3;
+  border: 1px solid #bbf7d0;
+  color: #15803d;
+}
+
+.police-details-error {
+  background: #fff1f2;
+  border: 1px solid #fecdd3;
+  color: #be123c;
+}
+
+.police-details-error button {
+  border: none;
+  background: transparent;
+  color: #be123c;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* =====================================================
+   MAIN PROFILE
+===================================================== */
+
+.visitor-details-grid {
+  display: grid;
+  grid-template-columns: 270px minmax(0, 1fr);
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.visitor-profile-card,
+.visitor-information-card,
+.visit-history-card,
+.active-visit-card {
+  background: #ffffff;
+  border: 1px solid #e5eaf1;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(31, 41, 55, 0.04);
+}
+
+/* =====================================================
+   PROFILE CARD
+===================================================== */
+
+.visitor-profile-card {
+  padding: 25px;
+  text-align: center;
+}
+
+.visitor-large-photo-wrapper {
+  width: 150px;
+  height: 150px;
+  margin: 0 auto 18px;
+}
+
+.visitor-large-photo,
+.visitor-large-placeholder {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.visitor-large-photo {
+  object-fit: cover;
+  border: 5px solid #eef4ff;
+}
+
+.visitor-large-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e8eefc;
+  color: #2563eb;
+  font-size: 48px;
+  font-weight: 800;
+}
+
+.visitor-profile-code {
+  display: inline-block;
+  background: #f1f5f9;
+  color: #475467;
+  padding: 7px 12px;
+  border-radius: 8px;
+  font-family: monospace;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.visitor-profile-status {
+  margin: 15px auto 0;
+  display: inline-flex;
+  padding: 7px 12px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.visitor-profile-status.inside {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.visitor-profile-status.exited {
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+/* =====================================================
+   INFORMATION CARD
+===================================================== */
+
+.visitor-information-card {
+  padding: 28px;
+}
+
+.details-section-title {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 25px;
+}
+
+.details-section-title > span {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 11px;
+  background: #eff6ff;
+  color: #2563eb;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.details-section-title h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.details-section-title p {
+  margin: 4px 0 0;
+  color: #7a8495;
+  font-size: 13px;
+}
+
+.visitor-info-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.visitor-info-item {
+  background: #f8fafc;
+  border: 1px solid #edf0f5;
+  border-radius: 12px;
+  padding: 15px;
+}
+
+.visitor-info-item span {
+  display: block;
+  color: #8a94a6;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 7px;
+}
+
+.visitor-info-item strong {
+  display: block;
+  color: #172033;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.details-code {
+  font-family: monospace;
+}
+
+/* =====================================================
+   FORMS
+===================================================== */
+
+.visitor-edit-form,
+.visit-edit-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.details-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.details-form-group label {
+  color: #344054;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.details-form-group input,
+.details-form-group textarea,
+.details-form-group select {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #d9dee8;
+  background: #ffffff;
+  color: #172033;
+  border-radius: 10px;
+  padding: 12px 13px;
+  outline: none;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.details-form-group textarea {
+  resize: vertical;
+}
+
+.details-form-group input:focus,
+.details-form-group textarea:focus,
+.details-form-group select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+}
+
+.details-full-width {
+  grid-column: 1 / -1;
+}
+
+.details-form-actions,
+.visit-edit-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.details-cancel-button,
+.details-save-button {
+  border-radius: 9px;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.details-cancel-button {
+  border: 1px solid #d9dee8;
+  background: #ffffff;
+  color: #475467;
+}
+
+.details-save-button {
+  border: none;
+  background: #2563eb;
+  color: white;
+}
+
+.details-save-button:hover {
+  background: #1d4ed8;
+}
+
+/* =====================================================
+   CURRENT VISIT
+===================================================== */
+
+.active-visit-card {
+  padding: 25px;
+  margin-bottom: 20px;
+  border-color: #ccebd7;
+  background: linear-gradient(135deg, #ffffff, #f6fff9);
+}
+
+.active-visit-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 22px;
+}
+
+.active-badge {
+  display: inline-flex;
+  background: #dcfce7;
+  color: #15803d;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.active-visit-header h2 {
+  margin: 10px 0 4px;
+  font-size: 20px;
+}
+
+.active-visit-header p {
+  margin: 0;
+  color: #758094;
+  font-size: 13px;
+}
+
+.checkout-visit-button {
+  border: none;
+  background: #dc2626;
+  color: white;
+  padding: 11px 16px;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.checkout-visit-button:hover {
+  background: #b91c1c;
+}
+
+.checkout-visit-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.current-visit-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.current-visit-grid > div {
+  background: white;
+  border: 1px solid #e5ece7;
+  border-radius: 11px;
+  padding: 13px;
+}
+
+.current-visit-grid span,
+.current-visit-grid strong {
+  display: block;
+}
+
+.current-visit-grid span {
+  color: #8a94a6;
+  font-size: 11px;
+  margin-bottom: 6px;
+}
+
+.current-visit-grid strong {
+  font-size: 13px;
+  color: #172033;
+}
+
+/* =====================================================
+   ATTACHMENTS
+===================================================== */
+
+.visit-attachments-section {
+  margin-top: 22px;
+  border-top: 1px solid #e4ebe6;
+  padding-top: 20px;
+}
+
+.attachments-title,
+.attachment-label {
+  font-size: 13px;
+  font-weight: 800;
+  color: #344054;
+  margin-bottom: 12px;
+}
+
+.attachments-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.attachment-card {
+  display: flex;
+  gap: 13px;
+  align-items: flex-start;
+  background: #ffffff;
+  border: 1px solid #e5eaf1;
+  border-radius: 13px;
+  padding: 14px;
+}
+
+.attachment-icon {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eff6ff;
+  color: #2563eb;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.attachment-icon.document {
+  font-size: 10px;
+}
+
+.attachment-icon.small {
+  width: 36px;
+  height: 36px;
+  flex-basis: 36px;
+}
+
+.attachment-content {
+  min-width: 0;
+  flex: 1;
+}
+
+.attachment-content strong {
+  display: block;
+  color: #172033;
+  font-size: 13px;
+}
+
+.attachment-content > span {
+  display: block;
+  margin-top: 4px;
+  color: #8a94a6;
+  font-size: 11px;
+}
+
+.visit-audio-player {
+  display: block;
+  width: 100%;
+  max-width: 360px;
+  height: 36px;
+  margin-top: 12px;
+}
+
+.document-actions {
+  display: flex;
+  gap: 7px;
+  margin-top: 11px;
+}
+
+.document-actions button {
+  border: 1px solid #dbe4ff;
+  background: #eff4ff;
+  color: #315efb;
+  border-radius: 7px;
+  padding: 7px 11px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.document-actions button:hover {
+  background: #e0e9ff;
+}
+
+/* =====================================================
+   VISIT HISTORY
+===================================================== */
+
+.visit-history-card {
+  padding: 28px;
+}
+
+.visit-history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.visit-history-item {
+  display: flex;
+  gap: 15px;
+  border: 1px solid #e5eaf1;
+  border-radius: 14px;
+  padding: 18px;
+  background: #ffffff;
+}
+
+.visit-history-number {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: #f1f5f9;
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.visit-history-main {
+  min-width: 0;
+  flex: 1;
+}
+
+.visit-history-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  align-items: center;
+}
+
+.visit-history-top > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.visit-history-code {
+  color: #475467;
+  font-family: monospace;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.visit-history-status {
+  padding: 5px 9px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.visit-history-status.inside {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.visit-history-status.exited {
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+.visit-history-date {
+  color: #7a8495;
+  font-size: 11px;
+}
+
+.visit-history-details {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.visit-history-details > div {
+  background: #f8fafc;
+  border-radius: 9px;
+  padding: 11px;
+}
+
+.visit-history-details span,
+.visit-history-details strong {
+  display: block;
+}
+
+.visit-history-details span {
+  color: #98a2b3;
+  font-size: 10px;
+  margin-bottom: 5px;
+}
+
+.visit-history-details strong {
+  color: #344054;
+  font-size: 12px;
+}
+
+/* =====================================================
+   HISTORY ATTACHMENTS
+===================================================== */
+
+.visit-history-attachments {
+  margin-top: 17px;
+  padding-top: 15px;
+  border-top: 1px solid #edf0f5;
+}
+
+.history-attachment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.history-voice-card,
+.history-document-card {
+  border: 1px solid #e5eaf1;
+  background: #fafcff;
+  border-radius: 11px;
+  padding: 12px;
+}
+
+.history-attachment-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.history-attachment-heading strong {
+  font-size: 12px;
+}
+
+.history-document-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.history-document-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.history-document-info > div:last-child {
+  min-width: 0;
+}
+
+.history-document-info strong,
+.history-document-info span {
+  display: block;
+}
+
+.history-document-info strong {
+  color: #344054;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.history-document-info span {
+  color: #98a2b3;
+  font-size: 10px;
+  margin-top: 3px;
+}
+
+.history-document-card .document-actions {
+  margin-top: 0;
+  flex-shrink: 0;
+}
+
+/* =====================================================
+   HISTORY ACTIONS
+===================================================== */
+
+.visit-history-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 7px;
+  margin-top: 15px;
+}
+
+.visit-checkout-small,
+.visit-edit-small,
+.visit-delete-small {
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.visit-checkout-small {
+  border: none;
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.visit-edit-small {
+  border: 1px solid #dbe4ff;
+  background: #eff4ff;
+  color: #315efb;
+}
+
+.visit-delete-small {
+  border: 1px solid #ffd5da;
+  background: #fff1f2;
+  color: #dc2626;
+}
+
+.visit-checkout-small:hover {
+  background: #bbf7d0;
+}
+
+.visit-edit-small:hover {
+  background: #e0e9ff;
+}
+
+.visit-delete-small:hover {
+  background: #ffe4e6;
+}
+
+.visit-checkout-small:disabled,
+.visit-edit-small:disabled,
+.visit-delete-small:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* =====================================================
+   EDIT VISIT
+===================================================== */
+
+.visit-edit-form {
+  margin-top: 15px;
+}
+
+.visit-edit-form select {
+  cursor: pointer;
+}
+
+/* =====================================================
+   EMPTY / LOADING
+===================================================== */
+
+.no-visit-history {
+  padding: 45px;
+  text-align: center;
+  color: #98a2b3;
+  background: #f8fafc;
+  border-radius: 12px;
+}
+
+.police-details-loading {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #667085;
+  font-size: 14px;
+}
+
+.police-details-error-card {
+  max-width: 550px;
+  margin: 80px auto;
+  background: white;
+  border: 1px solid #e5eaf1;
+  border-radius: 18px;
+  padding: 40px;
+  text-align: center;
+}
+
+.police-details-error-card h2 {
+  margin: 0 0 10px;
+}
+
+.police-details-error-card p {
+  color: #667085;
+  font-size: 14px;
+}
+
+.police-details-error-card button {
+  margin-top: 15px;
+  border: none;
+  background: #2563eb;
+  color: white;
+  border-radius: 9px;
+  padding: 11px 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 1000px) {
+  .visitor-details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .visitor-profile-card {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    gap: 20px;
+  }
+
+  .visitor-large-photo-wrapper {
+    width: 110px;
+    height: 110px;
+    margin: 0;
+  }
+
+  .current-visit-grid,
+  .visit-history-details {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .attachments-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .police-visitor-details-page {
+    padding: 20px 15px;
+  }
+
+  .police-details-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .details-header-actions {
+    width: 100%;
+  }
+
+  .details-edit-button,
+  .details-delete-button {
+    flex: 1;
+  }
+
+  .visitor-profile-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .visitor-large-photo-wrapper {
+    margin: 0 auto 5px;
+  }
+
+  .visitor-info-list,
+  .visitor-edit-form,
+  .visit-edit-form {
+    grid-template-columns: 1fr;
+  }
+
+  .details-full-width {
+    grid-column: auto;
+  }
+
+  .active-visit-header {
+    flex-direction: column;
+  }
+
+  .checkout-visit-button {
+    width: 100%;
+  }
+
+  .current-visit-grid,
+  .visit-history-details {
+    grid-template-columns: 1fr;
+  }
+
+  .visit-history-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .visit-history-item {
+    padding: 14px;
+  }
+
+  .history-document-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .history-document-card .document-actions {
+    width: 100%;
+  }
+
+  .history-document-card .document-actions button {
+    flex: 1;
+  }
+
+  .visit-history-actions {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .police-details-header h1 {
+    font-size: 25px;
+  }
+
+  .visitor-information-card,
+  .visit-history-card,
+  .active-visit-card {
+    padding: 18px;
+  }
+
+  .details-header-actions {
+    flex-direction: column;
+  }
+
+  .details-edit-button,
+  .details-delete-button {
+    width: 100%;
+  }
+
+  .details-form-actions,
+  .visit-edit-actions {
+    flex-direction: column;
+  }
+
+  .details-cancel-button,
+  .details-save-button {
+    width: 100%;
+  }
+
+  .attachments-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .attachment-card {
+    flex-direction: column;
+  }
+
+  .visit-audio-player {
+    max-width: 100%;
+  }
+}

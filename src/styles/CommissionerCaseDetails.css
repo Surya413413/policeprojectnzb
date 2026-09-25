@@ -1,0 +1,806 @@
+/* =========================================================
+   POLICESETU AI — COMMISSIONER CASE DETAILS
+   LIGHT + DARK MODE
+========================================================= */
+
+/* =========================================================
+   THEME VARIABLES
+========================================================= */
+
+:root {
+  /* Light mode */
+  --ccd-page-bg: #f4f7fb;
+  --ccd-card-bg: #ffffff;
+  --ccd-card-soft: #f7f9fb;
+  --ccd-card-hover: #f5f7fa;
+
+  --ccd-text: #172033;
+  --ccd-text-secondary: #52627a;
+  --ccd-text-muted: #78869a;
+  --ccd-text-light: #8994a5;
+
+  --ccd-border: #e2e8f0;
+  --ccd-border-light: #e4e9f1;
+  --ccd-border-soft: #edf0f4;
+
+  --ccd-primary: #667e9f;
+  --ccd-primary-text: #334863;
+
+  --ccd-header-bg: #ffffff;
+
+  --ccd-badge-bg: #eef3f8;
+  --ccd-badge-text: #40536d;
+
+  --ccd-high-bg: #fff1dd;
+  --ccd-high-text: #9b5c11;
+
+  --ccd-low-bg: #eef7f2;
+  --ccd-low-text: #3c7b5a;
+
+  --ccd-readonly-bg: #f1f4f7;
+  --ccd-readonly-text: #66758b;
+
+  --ccd-error-bg: #fff7f7;
+  --ccd-error-border: #f1d2d2;
+  --ccd-error-text: #9b3c3c;
+
+  --ccd-timeline-bg: #fafbfd;
+  --ccd-timeline-line: #dfe5ed;
+
+  --ccd-shadow: rgba(31, 48, 78, 0.05);
+}
+
+/* =========================================================
+   DARK MODE
+========================================================= */
+
+html[data-theme="dark"] {
+  --ccd-page-bg: #0f172a;
+  --ccd-card-bg: #111c2f;
+  --ccd-card-soft: #18253a;
+  --ccd-card-hover: #1b2a40;
+
+  --ccd-text: #f1f5f9;
+  --ccd-text-secondary: #c3cfdf;
+  --ccd-text-muted: #a7b4c8;
+  --ccd-text-light: #91a0b5;
+
+  --ccd-border: #2a3a53;
+  --ccd-border-light: #2b3b54;
+  --ccd-border-soft: #26344b;
+
+  --ccd-primary: #82a9dc;
+  --ccd-primary-text: #d3e2f5;
+
+  --ccd-header-bg: #111c2f;
+
+  --ccd-badge-bg: #203047;
+  --ccd-badge-text: #c5d4e8;
+
+  --ccd-high-bg: #3b2d1b;
+  --ccd-high-text: #f2c17e;
+
+  --ccd-low-bg: #193329;
+  --ccd-low-text: #8bd0aa;
+
+  --ccd-readonly-bg: #202e42;
+  --ccd-readonly-text: #b7c4d6;
+
+  --ccd-error-bg: #321d24;
+  --ccd-error-border: #6b3540;
+  --ccd-error-text: #f3a5b0;
+
+  --ccd-timeline-bg: #17243a;
+  --ccd-timeline-line: #34455e;
+
+  --ccd-shadow: rgba(0, 0, 0, 0.28);
+}
+
+/* =========================================================
+   MAIN PAGE
+========================================================= */
+
+.commissioner-case-details-page {
+  min-height: 100vh;
+  background: var(--ccd-page-bg);
+  color: var(--ccd-text);
+
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.commissioner-case-details-header {
+  min-height: 76px;
+  padding: 20px 32px;
+
+  background: var(--ccd-header-bg);
+  border-bottom: 1px solid var(--ccd-border-light);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.commissioner-case-details-header span,
+.commissioner-case-hero > div:first-child > span,
+.commissioner-detail-card-header span,
+.commissioner-analysis-grid article > span {
+  color: var(--ccd-text-muted);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.commissioner-case-details-header h1 {
+  margin: 7px 0 4px;
+  font-size: 30px;
+  letter-spacing: -0.04em;
+  color: var(--ccd-text);
+}
+
+.commissioner-case-details-header p {
+  margin: 0;
+  color: var(--ccd-text-muted);
+  font-size: 13px;
+}
+
+/* =========================================================
+   BACK BUTTON
+========================================================= */
+
+.commissioner-back-button {
+  border: 1px solid var(--ccd-border);
+  background: var(--ccd-card-bg);
+  color: var(--ccd-primary-text);
+
+  border-radius: 10px;
+  padding: 10px 14px;
+
+  font-weight: 700;
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.commissioner-back-button:hover {
+  background: var(--ccd-card-hover);
+}
+
+/* =========================================================
+   MAIN CONTENT
+========================================================= */
+
+.commissioner-case-details-main {
+  width: min(1380px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 26px 0 60px;
+}
+
+/* =========================================================
+   LOADING / ERROR
+========================================================= */
+
+.commissioner-case-details-loading,
+.commissioner-case-details-error {
+  padding: 18px;
+  border-radius: 12px;
+
+  background: var(--ccd-card-bg);
+  border: 1px solid var(--ccd-border-light);
+
+  color: var(--ccd-text);
+}
+
+.commissioner-case-details-error {
+  margin-bottom: 16px;
+
+  color: var(--ccd-error-text);
+  background: var(--ccd-error-bg);
+  border-color: var(--ccd-error-border);
+}
+
+/* =========================================================
+   CASE HERO
+========================================================= */
+
+.commissioner-case-hero {
+  padding: 22px;
+
+  border: 1px solid var(--ccd-border);
+  border-radius: 16px;
+
+  background: var(--ccd-card-bg);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 20px;
+  margin-bottom: 16px;
+
+  box-shadow: 0 4px 18px var(--ccd-shadow);
+}
+
+.commissioner-case-hero h2 {
+  margin: 8px 0 5px;
+
+  font-size: 27px;
+  letter-spacing: -0.03em;
+
+  color: var(--ccd-text);
+}
+
+.commissioner-case-hero p {
+  margin: 0;
+
+  color: var(--ccd-text-muted);
+  font-size: 13px;
+}
+
+.commissioner-case-hero-badges {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+/* =========================================================
+   CASE BADGES
+========================================================= */
+
+.commissioner-case-badge {
+  padding: 7px 10px;
+
+  border-radius: 999px;
+
+  background: var(--ccd-badge-bg);
+  color: var(--ccd-badge-text);
+
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.commissioner-case-badge.priority-high,
+.commissioner-case-badge.priority-urgent {
+  background: var(--ccd-high-bg);
+  color: var(--ccd-high-text);
+}
+
+.commissioner-case-badge.priority-low {
+  background: var(--ccd-low-bg);
+  color: var(--ccd-low-text);
+}
+
+/* =========================================================
+   DETAILS GRID
+========================================================= */
+
+.commissioner-details-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.commissioner-details-grid > div,
+.commissioner-visitor-info > div {
+  padding: 14px;
+
+  border: 1px solid var(--ccd-border-light);
+  border-radius: 11px;
+
+  background: var(--ccd-card-bg);
+
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.commissioner-details-grid span,
+.commissioner-details-grid strong,
+.commissioner-visitor-info span,
+.commissioner-visitor-info strong {
+  display: block;
+}
+
+.commissioner-details-grid span,
+.commissioner-visitor-info span {
+  color: var(--ccd-text-muted);
+  font-size: 10px;
+}
+
+.commissioner-details-grid strong,
+.commissioner-visitor-info strong {
+  margin-top: 6px;
+
+  font-size: 12px;
+  line-height: 1.4;
+
+  color: var(--ccd-text);
+}
+
+/* =========================================================
+   DETAIL CARD
+========================================================= */
+
+.commissioner-detail-card {
+  margin-bottom: 16px;
+
+  background: var(--ccd-card-bg);
+  border: 1px solid var(--ccd-border);
+
+  border-radius: 16px;
+  overflow: hidden;
+
+  box-shadow: 0 4px 18px var(--ccd-shadow);
+
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.commissioner-detail-card-header {
+  min-height: 62px;
+  padding: 14px 18px;
+
+  border-bottom: 1px solid var(--ccd-border-soft);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+}
+
+.commissioner-detail-card-header h3 {
+  margin: 6px 0 0;
+
+  font-size: 17px;
+  color: var(--ccd-text);
+}
+
+.commissioner-detail-card-header > span:last-child {
+  letter-spacing: 0;
+  text-transform: none;
+
+  font-weight: 600;
+  color: var(--ccd-text-muted);
+}
+
+/* =========================================================
+   READ ONLY BADGE
+========================================================= */
+
+.commissioner-readonly {
+  padding: 5px 8px;
+
+  border-radius: 7px;
+
+  background: var(--ccd-readonly-bg);
+  color: var(--ccd-readonly-text) !important;
+
+  font-size: 9px !important;
+}
+
+/* =========================================================
+   VISITOR INFORMATION
+========================================================= */
+
+.commissioner-visitor-info {
+  padding: 16px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr;
+
+  gap: 10px;
+}
+
+/* =========================================================
+   AI ANALYSIS
+========================================================= */
+
+.commissioner-analysis-grid {
+  padding: 16px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  gap: 12px;
+}
+
+.commissioner-analysis-grid article {
+  padding: 15px;
+
+  border-radius: 11px;
+
+  background: var(--ccd-card-soft);
+
+  transition: background-color 0.25s ease;
+}
+
+.commissioner-analysis-grid article p {
+  margin: 8px 0 0;
+
+  color: var(--ccd-text-secondary);
+
+  font-size: 12px;
+  line-height: 1.65;
+
+  white-space: pre-wrap;
+}
+
+/* =========================================================
+   AI FOOTER
+========================================================= */
+
+.commissioner-ai-footer {
+  padding: 0 16px 14px;
+
+  display: flex;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  color: var(--ccd-text-muted);
+  font-size: 10px;
+}
+
+.commissioner-ai-disclaimer {
+  margin: 0 16px 16px;
+
+  padding: 11px 12px;
+
+  border-radius: 9px;
+
+  background: var(--ccd-card-soft);
+  color: var(--ccd-text-muted);
+
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   EVIDENCE
+========================================================= */
+
+.commissioner-evidence-list {
+  padding: 10px 16px 16px;
+
+  display: grid;
+  gap: 9px;
+}
+
+.commissioner-evidence-item {
+  padding: 12px 13px;
+
+  border: 1px solid var(--ccd-border-light);
+  border-radius: 10px;
+
+  background: var(--ccd-card-bg);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.commissioner-evidence-item:hover {
+  background: var(--ccd-card-hover);
+}
+
+.commissioner-evidence-item > div:first-child {
+  min-width: 0;
+}
+
+.commissioner-evidence-item strong,
+.commissioner-evidence-item small {
+  display: block;
+}
+
+.commissioner-evidence-item strong {
+  font-size: 12px;
+  color: var(--ccd-text);
+
+  overflow-wrap: anywhere;
+}
+
+.commissioner-evidence-item small {
+  margin-top: 4px;
+
+  color: var(--ccd-text-light);
+  font-size: 10px;
+}
+
+.commissioner-evidence-item audio {
+  width: min(360px, 100%);
+}
+
+/* =========================================================
+   EVIDENCE ACTION BUTTONS
+========================================================= */
+
+.commissioner-evidence-actions {
+  display: flex;
+  gap: 7px;
+  flex-shrink: 0;
+}
+
+.commissioner-evidence-actions a {
+  text-decoration: none;
+
+  border: 1px solid var(--ccd-border);
+  border-radius: 7px;
+
+  padding: 7px 9px;
+
+  color: var(--ccd-primary-text);
+  background: var(--ccd-card-bg);
+
+  font-size: 10px;
+  font-weight: 700;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.commissioner-evidence-actions a:hover {
+  background: var(--ccd-card-hover);
+}
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.commissioner-empty-block {
+  padding: 35px 18px;
+
+  color: var(--ccd-text-light);
+
+  font-size: 12px;
+  text-align: center;
+}
+
+/* =========================================================
+   TIMELINE
+========================================================= */
+
+.commissioner-timeline {
+  padding: 18px;
+
+  display: grid;
+  gap: 0;
+}
+
+.commissioner-timeline article {
+  position: relative;
+
+  display: grid;
+  grid-template-columns: 16px 1fr;
+
+  gap: 12px;
+
+  padding-bottom: 18px;
+}
+
+.commissioner-timeline article:not(:last-child)::before {
+  content: "";
+
+  position: absolute;
+
+  left: 7px;
+  top: 13px;
+  bottom: 0;
+
+  width: 1px;
+
+  background: var(--ccd-timeline-line);
+}
+
+.commissioner-timeline-dot {
+  width: 14px;
+  height: 14px;
+
+  margin-top: 2px;
+
+  border-radius: 50%;
+
+  background: var(--ccd-card-bg);
+
+  border: 3px solid var(--ccd-primary);
+
+  z-index: 1;
+}
+
+.commissioner-timeline-content {
+  padding: 13px;
+
+  border: 1px solid var(--ccd-border-light);
+  border-radius: 11px;
+
+  background: var(--ccd-timeline-bg);
+
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.commissioner-timeline-top {
+  display: flex;
+  justify-content: space-between;
+
+  gap: 15px;
+}
+
+.commissioner-timeline-top strong {
+  font-size: 12px;
+  color: var(--ccd-text);
+}
+
+.commissioner-timeline-top span {
+  color: var(--ccd-text-light);
+  font-size: 10px;
+}
+
+.commissioner-timeline-meta {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 7px;
+
+  margin-top: 8px;
+}
+
+.commissioner-timeline-meta span {
+  padding: 4px 7px;
+
+  border-radius: 6px;
+
+  background: var(--ccd-badge-bg);
+  color: var(--ccd-badge-text);
+
+  font-size: 9px;
+}
+
+.commissioner-timeline-content p {
+  margin: 9px 0 0;
+
+  color: var(--ccd-text-secondary);
+
+  font-size: 11px;
+  line-height: 1.55;
+
+  white-space: pre-wrap;
+}
+
+.commissioner-timeline-content > small {
+  display: block;
+
+  margin-top: 8px;
+
+  color: var(--ccd-text-muted);
+
+  font-size: 9px;
+}
+
+/* =========================================================
+   DARK MODE — AUDIO PLAYER
+========================================================= */
+
+html[data-theme="dark"] .commissioner-evidence-item audio {
+  filter: brightness(0.9);
+}
+
+/* =========================================================
+   RESPONSIVE — TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+  .commissioner-case-details-header {
+    padding: 18px 16px;
+  }
+
+  .commissioner-case-details-main {
+    width: calc(100% - 24px);
+  }
+
+  .commissioner-details-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .commissioner-visitor-info {
+    grid-template-columns: 1fr;
+  }
+
+  .commissioner-analysis-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .commissioner-case-hero {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .commissioner-case-hero-badges {
+    justify-content: flex-start;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE — MOBILE
+========================================================= */
+
+@media (max-width: 560px) {
+  .commissioner-case-details-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .commissioner-case-details-header h1 {
+    font-size: 25px;
+  }
+
+  .commissioner-case-details-main {
+    padding-top: 16px;
+  }
+
+  .commissioner-details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .commissioner-ai-footer {
+    flex-direction: column;
+  }
+
+  .commissioner-evidence-item {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .commissioner-evidence-item audio {
+    width: 100%;
+  }
+
+  .commissioner-evidence-actions {
+    width: 100%;
+  }
+
+  .commissioner-evidence-actions a {
+    flex: 1;
+    text-align: center;
+  }
+
+  .commissioner-timeline-top {
+    flex-direction: column;
+  }
+
+  .commissioner-case-hero {
+    padding: 18px;
+  }
+
+  .commissioner-detail-card-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

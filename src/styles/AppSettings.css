@@ -1,0 +1,61 @@
+.app-settings {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.app-settings select {
+  min-width: 125px;
+  height: 40px;
+  padding: 0 12px;
+
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+
+  background: var(--bg-card);
+  color: var(--text-primary);
+
+  font-size: 14px;
+  cursor: pointer;
+  outline: none;
+}
+
+.theme-toggle {
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+
+  background: var(--bg-card);
+  color: var(--text-primary);
+
+  cursor: pointer;
+  font-size: 18px;
+
+  transition: 0.2s ease;
+}
+
+.theme-toggle:hover {
+  transform: translateY(-1px);
+}
+
+@media (max-width: 600px) {
+  .app-settings {
+    gap: 6px;
+  }
+
+  .app-settings select {
+    min-width: 105px;
+    font-size: 13px;
+  }
+
+  .theme-toggle {
+    width: 38px;
+    height: 38px;
+  }
+}

@@ -1,0 +1,340 @@
+.police-case-timeline {
+  margin-top: 24px;
+  padding: 28px;
+  background: #ffffff;
+  border: 1px solid #e7ebf0;
+  border-radius: 18px;
+  box-shadow: 0 8px 30px rgba(15, 23, 42, 0.05);
+}
+
+/* HEADER */
+
+.case-timeline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid #edf0f4;
+}
+
+.case-timeline-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  color: #64748b;
+}
+
+.case-timeline-header h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: #172033;
+}
+
+.case-timeline-header p {
+  margin: 7px 0 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.case-timeline-count {
+  min-width: 70px;
+  padding: 10px 14px;
+  text-align: center;
+  border: 1px solid #e5eaf0;
+  border-radius: 12px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #1e40af;
+}
+
+.case-timeline-count span {
+  display: block;
+  margin-top: 2px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #64748b;
+}
+
+/* STATES */
+
+.case-timeline-state,
+.case-timeline-empty,
+.case-timeline-error {
+  margin-top: 22px;
+  padding: 32px;
+  text-align: center;
+  border-radius: 14px;
+  background: #f8fafc;
+}
+
+.case-timeline-state p,
+.case-timeline-empty p,
+.case-timeline-error p {
+  margin: 8px 0 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.case-timeline-loader {
+  width: 28px;
+  height: 28px;
+  margin: 0 auto;
+  border: 3px solid #e2e8f0;
+  border-top-color: #2563eb;
+  border-radius: 50%;
+  animation: caseTimelineSpin 0.8s linear infinite;
+}
+
+@keyframes caseTimelineSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.case-timeline-empty-icon {
+  font-size: 28px;
+}
+
+.case-timeline-empty h3,
+.case-timeline-error strong {
+  display: block;
+  margin: 10px 0 0;
+  color: #334155;
+}
+
+.case-timeline-error {
+  background: #fff7f7;
+  border: 1px solid #fee2e2;
+}
+
+/* TIMELINE */
+
+.case-timeline-list {
+  margin-top: 28px;
+}
+
+.case-timeline-item {
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr);
+  gap: 16px;
+}
+
+.case-timeline-marker-column {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.case-timeline-marker {
+  position: relative;
+  z-index: 2;
+
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  background: #eff6ff;
+  border: 2px solid #bfdbfe;
+
+  color: #1d4ed8;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.case-timeline-line {
+  position: absolute;
+  top: 34px;
+  bottom: -20px;
+  width: 2px;
+  background: #e2e8f0;
+}
+
+/* CARD */
+
+.case-timeline-card {
+  margin-bottom: 22px;
+  padding: 20px;
+  border: 1px solid #e7ebf0;
+  border-radius: 15px;
+  background: #ffffff;
+}
+
+.case-timeline-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.case-timeline-date {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 12px;
+  color: #64748b;
+}
+
+.case-timeline-card-header h3 {
+  margin: 0;
+  color: #172033;
+  font-size: 17px;
+  line-height: 1.4;
+}
+
+.case-timeline-status {
+  flex-shrink: 0;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #f1f5f9;
+  color: #475569;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* STATUS VARIANTS */
+
+.case-timeline-status.new {
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.case-timeline-status.under-verification {
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+.case-timeline-status.evidence-collection {
+  background: #f5f3ff;
+  color: #6d28d9;
+}
+
+.case-timeline-status.referred {
+  background: #f0fdf4;
+  color: #15803d;
+}
+
+.case-timeline-status.complaint-registered {
+  background: #fefce8;
+  color: #a16207;
+}
+
+.case-timeline-status.fir-registered {
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
+.case-timeline-status.closed {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+/* DETAILS */
+
+.case-timeline-details {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.case-timeline-details > div {
+  padding: 12px;
+  border-radius: 10px;
+  background: #f8fafc;
+}
+
+.case-timeline-details span,
+.case-timeline-remarks > span {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.case-timeline-details strong {
+  display: block;
+  font-size: 13px;
+  color: #334155;
+}
+
+/* REMARKS */
+
+.case-timeline-remarks {
+  margin-top: 15px;
+  padding: 14px;
+  border-left: 3px solid #cbd5e1;
+  background: #f8fafc;
+  border-radius: 0 10px 10px 0;
+}
+
+.case-timeline-remarks p {
+  margin: 0;
+  color: #475569;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* OFFICER */
+
+.case-timeline-officer {
+  margin-top: 14px;
+  font-size: 12px;
+  color: #64748b;
+}
+
+.case-timeline-officer strong {
+  color: #334155;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 800px) {
+  .police-case-timeline {
+    padding: 20px;
+  }
+
+  .case-timeline-details {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .case-timeline-header {
+    flex-direction: column;
+  }
+
+  .case-timeline-count {
+    align-self: flex-start;
+  }
+
+  .case-timeline-item {
+    grid-template-columns: 34px minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .case-timeline-marker {
+    width: 30px;
+    height: 30px;
+    font-size: 11px;
+  }
+
+  .case-timeline-card {
+    padding: 15px;
+  }
+
+  .case-timeline-card-header {
+    flex-direction: column;
+  }
+
+  .case-timeline-status {
+    align-self: flex-start;
+  }
+}

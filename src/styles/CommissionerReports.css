@@ -1,0 +1,657 @@
+/* =========================================================
+   POLICESETU AI — COMMISSIONER REPORTS
+   LIGHT + DARK MODE
+========================================================= */
+
+/* =========================================================
+   LIGHT THEME
+========================================================= */
+
+:root {
+  --cr-bg: #f4f7fb;
+  --cr-card: #ffffff;
+  --cr-card-soft: #fafbfd;
+
+  --cr-text: #172033;
+  --cr-text-secondary: #30435f;
+  --cr-muted: #78869a;
+  --cr-muted-light: #8994a5;
+
+  --cr-border: #e4e9f1;
+  --cr-border-light: #edf0f4;
+  --cr-border-input: #dfe5ed;
+
+  --cr-input-bg: #ffffff;
+  --cr-hover: #f6f8fb;
+
+  --cr-button-bg: #ffffff;
+  --cr-button-text: #30435f;
+  --cr-button-border: #dbe2eb;
+
+  --cr-table-header: #fafbfd;
+  --cr-table-text: #526177;
+
+  --cr-workload-bg: #fafbfd;
+  --cr-workload-border: #e7ebf0;
+
+  --cr-error-bg: #fff6f6;
+  --cr-error-border: #f1cdcd;
+  --cr-error-text: #9b3c3c;
+
+  --cr-primary: #315b95;
+}
+
+/* =========================================================
+   DARK THEME
+========================================================= */
+
+html[data-theme="dark"] {
+  --cr-bg: #0f172a;
+  --cr-card: #111c2f;
+  --cr-card-soft: #162238;
+
+  --cr-text: #f1f5f9;
+  --cr-text-secondary: #d1dbea;
+  --cr-muted: #a8b6ca;
+  --cr-muted-light: #94a3b8;
+
+  --cr-border: #2a3a53;
+  --cr-border-light: #26344b;
+  --cr-border-input: #34455f;
+
+  --cr-input-bg: #0f1a2d;
+  --cr-hover: #18253a;
+
+  --cr-button-bg: #17263d;
+  --cr-button-text: #d7e2f0;
+  --cr-button-border: #34455f;
+
+  --cr-table-header: #162238;
+  --cr-table-text: #c0ccdc;
+
+  --cr-workload-bg: #162238;
+  --cr-workload-border: #2a3a53;
+
+  --cr-error-bg: #321d24;
+  --cr-error-border: #6b3540;
+  --cr-error-text: #f3a5b0;
+
+  --cr-primary: #79a4dc;
+}
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.commissioner-reports-page {
+  min-height: 100vh;
+
+  background: var(--cr-bg);
+  color: var(--cr-text);
+
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.commissioner-reports-header {
+  padding: 25px 34px;
+
+  background: var(--cr-card);
+
+  border-bottom: 1px solid var(--cr-border);
+
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.commissioner-reports-header span,
+.commissioner-report-table-head > div > span {
+  color: var(--cr-muted);
+
+  font-size: 10px;
+
+  font-weight: 800;
+
+  letter-spacing: 0.14em;
+
+  text-transform: uppercase;
+}
+
+.commissioner-reports-header h1 {
+  margin: 7px 0 4px;
+
+  color: var(--cr-text);
+
+  font-size: 30px;
+
+  letter-spacing: -0.04em;
+}
+
+.commissioner-reports-header p {
+  margin: 0;
+
+  color: var(--cr-muted);
+
+  font-size: 13px;
+}
+
+.commissioner-reports-header button {
+  border: 1px solid var(--cr-button-border);
+
+  background: var(--cr-button-bg);
+
+  color: var(--cr-button-text);
+
+  border-radius: 10px;
+
+  padding: 10px 14px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.commissioner-reports-header button:hover {
+  background: var(--cr-hover);
+
+  border-color: var(--cr-primary);
+
+  color: var(--cr-primary);
+}
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.commissioner-reports-main {
+  width: min(1450px, calc(100% - 48px));
+
+  margin: 0 auto;
+
+  padding: 26px 0 55px;
+}
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+.commissioner-reports-error {
+  margin-bottom: 15px;
+
+  padding: 12px 14px;
+
+  border-radius: 10px;
+
+  background: var(--cr-error-bg);
+
+  border: 1px solid var(--cr-error-border);
+
+  color: var(--cr-error-text);
+
+  font-size: 12px;
+}
+
+/* =========================================================
+   REPORT TOOLBAR
+========================================================= */
+
+.commissioner-report-toolbar {
+  padding: 14px;
+
+  background: var(--cr-card);
+
+  border: 1px solid var(--cr-border);
+
+  border-radius: 14px;
+
+  display: grid;
+
+  grid-template-columns:
+    190px
+    150px
+    150px
+    minmax(220px, 1fr)
+    auto
+    auto;
+
+  gap: 9px;
+
+  margin-bottom: 15px;
+
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.commissioner-report-toolbar input,
+.commissioner-report-toolbar select {
+  min-height: 42px;
+
+  border: 1px solid var(--cr-border-input);
+
+  border-radius: 9px;
+
+  padding: 0 11px;
+
+  background: var(--cr-input-bg);
+
+  color: var(--cr-text-secondary);
+
+  outline: none;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.commissioner-report-toolbar input::placeholder {
+  color: var(--cr-muted);
+}
+
+.commissioner-report-toolbar input:focus,
+.commissioner-report-toolbar select:focus {
+  border-color: var(--cr-primary);
+}
+
+.commissioner-report-toolbar select option {
+  background: var(--cr-input-bg);
+
+  color: var(--cr-text);
+}
+
+.commissioner-report-toolbar button {
+  min-height: 42px;
+
+  border: 1px solid var(--cr-button-border);
+
+  border-radius: 9px;
+
+  padding: 0 12px;
+
+  background: var(--cr-button-bg);
+
+  color: var(--cr-button-text);
+
+  font-size: 11px;
+
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.commissioner-report-toolbar button:hover {
+  background: var(--cr-hover);
+
+  border-color: var(--cr-primary);
+
+  color: var(--cr-primary);
+}
+
+.commissioner-report-toolbar button:disabled {
+  opacity: 0.55;
+
+  cursor: not-allowed;
+}
+
+/* =========================================================
+   SUMMARY CARDS
+========================================================= */
+
+.commissioner-report-summary {
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 10px;
+
+  margin-bottom: 15px;
+}
+
+.commissioner-report-summary > div {
+  padding: 15px;
+
+  background: var(--cr-card);
+
+  border: 1px solid var(--cr-border);
+
+  border-radius: 12px;
+
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.commissioner-report-summary span,
+.commissioner-report-summary strong {
+  display: block;
+}
+
+.commissioner-report-summary span {
+  color: var(--cr-muted);
+
+  font-size: 10px;
+}
+
+.commissioner-report-summary strong {
+  margin-top: 6px;
+
+  color: var(--cr-text);
+
+  font-size: 20px;
+}
+
+/* =========================================================
+   REPORT TABLE CONTAINER
+========================================================= */
+
+.commissioner-report-table {
+  background: var(--cr-card);
+
+  border: 1px solid var(--cr-border);
+
+  border-radius: 15px;
+
+  overflow: hidden;
+
+  margin-bottom: 15px;
+
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+/* =========================================================
+   REPORT TABLE HEADER
+========================================================= */
+
+.commissioner-report-table-head {
+  min-height: 68px;
+
+  padding: 15px 18px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 15px;
+
+  border-bottom: 1px solid var(--cr-border-light);
+}
+
+.commissioner-report-table-head h2 {
+  margin: 6px 0 0;
+
+  color: var(--cr-text);
+
+  font-size: 17px;
+}
+
+.commissioner-report-table-head > span {
+  color: var(--cr-muted-light);
+
+  font-size: 10px;
+}
+
+/* =========================================================
+   REPORT TABLE
+========================================================= */
+
+.commissioner-report-scroll {
+  overflow-x: auto;
+}
+
+.commissioner-report-scroll table {
+  width: 100%;
+
+  border-collapse: collapse;
+
+  min-width: 1050px;
+}
+
+.commissioner-report-scroll th {
+  padding: 11px 13px;
+
+  background: var(--cr-table-header);
+
+  color: var(--cr-muted);
+
+  font-size: 10px;
+
+  text-align: left;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.07em;
+
+  white-space: nowrap;
+}
+
+.commissioner-report-scroll td {
+  padding: 12px 13px;
+
+  border-top: 1px solid var(--cr-border-light);
+
+  color: var(--cr-table-text);
+
+  font-size: 11px;
+
+  white-space: nowrap;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.commissioner-report-scroll tbody tr:hover {
+  background: var(--cr-hover);
+}
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.commissioner-report-empty {
+  padding: 55px 20px;
+
+  text-align: center;
+
+  color: var(--cr-muted-light);
+
+  font-size: 13px;
+}
+
+/* =========================================================
+   OFFICER WORKLOAD
+========================================================= */
+
+.commissioner-workload-report {
+  padding: 15px;
+
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 10px;
+}
+
+.commissioner-workload-report > div {
+  padding: 13px;
+
+  border: 1px solid var(--cr-workload-border);
+
+  border-radius: 10px;
+
+  background: var(--cr-workload-bg);
+
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.commissioner-workload-report strong,
+.commissioner-workload-report span {
+  display: block;
+}
+
+.commissioner-workload-report strong {
+  color: var(--cr-text);
+
+  font-size: 12px;
+}
+
+.commissioner-workload-report span {
+  margin-top: 5px;
+
+  color: var(--cr-muted);
+
+  font-size: 10px;
+}
+
+/* =========================================================
+   FOOTER NOTE
+========================================================= */
+
+.commissioner-report-note {
+  color: var(--cr-muted);
+
+  font-size: 11px;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1100px) {
+  .commissioner-report-toolbar {
+    grid-template-columns:
+      1fr
+      1fr
+      1fr;
+  }
+
+  .commissioner-report-summary {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .commissioner-workload-report {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+  .commissioner-reports-header {
+    padding: 20px 16px;
+
+    align-items: flex-start;
+  }
+
+  .commissioner-reports-main {
+    width: calc(100% - 24px);
+  }
+
+  .commissioner-report-toolbar,
+  .commissioner-report-summary,
+  .commissioner-workload-report {
+    grid-template-columns: 1fr;
+  }
+
+  .commissioner-reports-header {
+    flex-direction: column;
+  }
+
+  .commissioner-reports-header button {
+    width: 100%;
+  }
+}
+
+/* =========================================================
+   PRINT
+========================================================= */
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  .commissioner-reports-page {
+    background: #fff !important;
+
+    color: #000 !important;
+  }
+
+  .commissioner-reports-main {
+    width: 100%;
+
+    padding: 0;
+  }
+
+  .commissioner-report-table {
+    border: 0;
+
+    margin-bottom: 12px;
+
+    background: #fff !important;
+  }
+
+  .commissioner-report-scroll {
+    overflow: visible;
+  }
+
+  .commissioner-report-scroll table {
+    min-width: 0;
+  }
+
+  .commissioner-report-scroll th,
+  .commissioner-report-scroll td {
+    white-space: normal;
+
+    font-size: 9px;
+
+    color: #000 !important;
+
+    background: #fff !important;
+
+    border-color: #ccc !important;
+  }
+
+  .commissioner-report-summary > div {
+    background: #fff !important;
+
+    border-color: #ccc !important;
+  }
+
+  .commissioner-report-summary span,
+  .commissioner-report-summary strong {
+    color: #000 !important;
+  }
+}

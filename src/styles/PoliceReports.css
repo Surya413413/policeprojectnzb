@@ -1,0 +1,311 @@
+.police-reports-page {
+  min-height: 100vh;
+  background: #f5f7fb;
+  color: #172033;
+}
+.police-reports-header {
+  height: 76px;
+  background: #fff;
+  border-bottom: 1px solid #e7ebf2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  gap: 24px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.police-reports-header > div:nth-child(2) {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.police-reports-header > div:nth-child(2) span {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #64748b;
+}
+.police-reports-header > div:nth-child(2) strong {
+  font-size: 18px;
+}
+.reports-back-button,
+.reports-header-user button {
+  border: 1px solid #dce2eb;
+  background: #fff;
+  border-radius: 10px;
+  padding: 9px 13px;
+  cursor: pointer;
+}
+.reports-header-user {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 14px;
+  font-weight: 700;
+}
+.police-reports-main {
+  max-width: 1450px;
+  margin: 0 auto;
+  padding: 34px;
+}
+.reports-title-row {
+  margin-bottom: 24px;
+}
+.reports-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  font-weight: 800;
+  color: #64748b;
+}
+.reports-title-row h1 {
+  margin: 6px 0;
+  font-size: 32px;
+}
+.reports-title-row p {
+  margin: 0;
+  color: #667085;
+}
+.reports-error {
+  background: #fff0f0;
+  border: 1px solid #ffcaca;
+  color: #b42318;
+  padding: 12px 14px;
+  border-radius: 10px;
+  margin-bottom: 18px;
+}
+.reports-filter-card,
+.report-print-area {
+  background: #fff;
+  border: 1px solid #e4e8ef;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(20, 35, 60, 0.05);
+}
+.reports-filter-card {
+  padding: 22px;
+  margin-bottom: 20px;
+}
+.reports-filter-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1.5fr;
+  gap: 16px;
+}
+.reports-filter-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 800;
+  color: #475467;
+}
+.reports-filter-grid input,
+.reports-filter-grid select {
+  height: 44px;
+  border: 1px solid #d8dee8;
+  border-radius: 9px;
+  padding: 0 12px;
+  font: inherit;
+  color: #172033;
+  background: #fff;
+}
+.reports-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+}
+.reports-actions button {
+  border: 0;
+  border-radius: 10px;
+  padding: 11px 16px;
+  background: #173b8f;
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+}
+.reports-actions button.secondary {
+  background: #fff;
+  color: #173b8f;
+  border: 1px solid #173b8f;
+}
+.reports-actions button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.reports-note {
+  display: block;
+  margin-top: 12px;
+  color: #667085;
+}
+.reports-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 20px;
+}
+.reports-summary-grid > div {
+  background: #fff;
+  border: 1px solid #e4e8ef;
+  border-radius: 14px;
+  padding: 18px;
+}
+.reports-summary-grid span {
+  display: block;
+  color: #667085;
+  font-size: 12px;
+  font-weight: 700;
+}
+.reports-summary-grid strong {
+  display: block;
+  font-size: 27px;
+  margin-top: 8px;
+}
+.report-print-area {
+  overflow: hidden;
+}
+.report-print-header {
+  padding: 22px;
+  border-bottom: 1px solid #e4e8ef;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.report-print-header span {
+  font-size: 11px;
+  letter-spacing: 0.13em;
+  font-weight: 900;
+  color: #64748b;
+}
+.report-print-header h2 {
+  margin: 6px 0 0;
+  font-size: 21px;
+}
+.report-print-header > div:last-child {
+  text-align: right;
+}
+.report-print-header p {
+  margin: 4px 0;
+  font-weight: 700;
+}
+.report-print-header small {
+  color: #667085;
+}
+.report-table-wrapper {
+  overflow: auto;
+}
+.report-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px;
+}
+.report-table th,
+.report-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #edf0f4;
+  text-align: left;
+  font-size: 12px;
+  vertical-align: top;
+}
+.report-table th {
+  background: #f8fafc;
+  color: #475467;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+.reports-empty {
+  padding: 55px;
+  text-align: center;
+  color: #667085;
+}
+.no-print {
+}
+@media (max-width: 900px) {
+  .police-reports-header {
+    padding: 0 16px;
+  }
+  .police-reports-header > div:nth-child(2) {
+    display: none;
+  }
+  .police-reports-main {
+    padding: 20px 14px;
+  }
+  .reports-filter-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .reports-summary-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .reports-header-user span {
+    display: none;
+  }
+  .report-print-header {
+    flex-direction: column;
+  }
+  .report-print-header > div:last-child {
+    text-align: left;
+  }
+}
+@media (max-width: 560px) {
+  .reports-filter-grid {
+    grid-template-columns: 1fr;
+  }
+  .reports-actions {
+    flex-direction: column;
+  }
+  .reports-actions button {
+    width: 100%;
+  }
+  .reports-summary-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .reports-title-row h1 {
+    font-size: 26px;
+  }
+}
+@media print {
+  body {
+    background: #fff;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .police-reports-page {
+    background: #fff;
+  }
+  .police-reports-main {
+    max-width: none;
+    padding: 0;
+  }
+  .report-print-area {
+    border: 0;
+    box-shadow: none;
+    border-radius: 0;
+  }
+  .report-print-header {
+    padding: 0 0 15px;
+  }
+  .report-table {
+    min-width: 0;
+  }
+  .report-table th,
+  .report-table td {
+    font-size: 9px;
+    padding: 6px;
+  }
+  .report-table-wrapper {
+    overflow: visible;
+  }
+  .reports-summary-grid {
+    display: grid;
+    margin: 0 0 15px;
+  }
+  .reports-summary-grid > div {
+    border: 1px solid #ddd;
+    box-shadow: none;
+  }
+  .report-print-area {
+    break-inside: auto;
+  }
+}

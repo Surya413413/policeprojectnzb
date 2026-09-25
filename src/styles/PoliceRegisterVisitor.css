@@ -1,0 +1,877 @@
+/* =====================================================
+   POLICE REGISTER VISITOR
+===================================================== */
+
+.police-register-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(37, 99, 235, 0.06),
+      transparent 32%
+    ),
+    #f5f7fb;
+  padding: 32px;
+  color: #172033;
+}
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.police-register-header {
+  max-width: 1100px;
+  margin: 0 auto 28px;
+  display: flex;
+  align-items: flex-start;
+  gap: 22px;
+}
+
+.police-register-back {
+  border: 1px solid #e1e7f0;
+  background: #ffffff;
+  color: #315efb;
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.police-register-back:hover {
+  background: #eef3ff;
+  border-color: #cddaff;
+}
+
+.police-register-eyebrow {
+  color: #315efb;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+  margin-bottom: 5px;
+}
+
+.police-register-header h1 {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 750;
+  letter-spacing: -0.4px;
+}
+
+.police-register-header p {
+  margin: 7px 0 0;
+  color: #697386;
+  font-size: 14px;
+}
+
+/* =====================================================
+   ALERTS
+===================================================== */
+
+.police-register-alert {
+  max-width: 1100px;
+  margin: 0 auto 18px;
+  padding: 13px 16px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.police-register-alert.error {
+  background: #fff1f2;
+  border: 1px solid #fecdd3;
+  color: #be123c;
+}
+
+.police-register-alert.success {
+  background: #ecfdf3;
+  border: 1px solid #bbf7d0;
+  color: #15803d;
+}
+
+/* =====================================================
+   MAIN CARD
+===================================================== */
+
+.police-register-card {
+  max-width: 1100px;
+  margin: 0 auto;
+  background: #ffffff;
+  border: 1px solid #e3e8f0;
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(23, 32, 51, 0.05);
+  overflow: hidden;
+}
+
+/* =====================================================
+   SECTIONS
+===================================================== */
+
+.police-register-section {
+  padding: 30px;
+  border-bottom: 1px solid #edf0f5;
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.section-icon {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: #eef3ff;
+  color: #315efb;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.section-heading h2 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.section-heading p {
+  margin: 4px 0 0;
+  color: #8992a3;
+  font-size: 12px;
+}
+
+/* =====================================================
+   PHOTO
+===================================================== */
+
+.photo-capture-layout {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.photo-preview-large {
+  width: 155px;
+  height: 155px;
+  flex-shrink: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #dfe5ee;
+  background: #f8fafc;
+}
+
+.photo-preview-large img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo-empty {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  color: #98a2b3;
+}
+
+.photo-empty span {
+  font-size: 42px;
+  opacity: 0.55;
+}
+
+.photo-empty small {
+  font-size: 11px;
+}
+
+.photo-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 9px;
+}
+
+.capture-camera-button,
+.upload-photo-button,
+.remove-photo-button {
+  min-width: 190px;
+  padding: 11px 15px;
+  border-radius: 9px;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.capture-camera-button {
+  border: 1px solid #315efb;
+  background: #315efb;
+  color: #ffffff;
+}
+
+.capture-camera-button:hover {
+  background: #244bd4;
+}
+
+.upload-photo-button {
+  border: 1px solid #dce3ee;
+  background: #ffffff;
+  color: #344054;
+}
+
+.upload-photo-button:hover {
+  background: #f8fafc;
+}
+
+.upload-photo-button.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.remove-photo-button {
+  border: 1px solid #ffd4d8;
+  background: #fff1f2;
+  color: #dc2626;
+}
+
+.remove-photo-button:hover {
+  background: #ffe4e6;
+}
+
+/* =====================================================
+   CAMERA
+===================================================== */
+
+.camera-panel {
+  margin-top: 22px;
+  padding: 18px;
+  background: #101828;
+  border-radius: 14px;
+}
+
+.camera-preview {
+  width: 100%;
+  max-width: 650px;
+  margin: 0 auto;
+  background: #000000;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.camera-preview video {
+  width: 100%;
+  display: block;
+  max-height: 420px;
+  object-fit: cover;
+}
+
+.camera-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.capture-button,
+.camera-close-button {
+  border: none;
+  border-radius: 9px;
+  padding: 11px 18px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.capture-button {
+  background: #ffffff;
+  color: #172033;
+}
+
+.camera-close-button {
+  background: #344054;
+  color: #ffffff;
+}
+
+/* =====================================================
+   FORM
+===================================================== */
+
+.police-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.police-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.police-form-field.full {
+  grid-column: 1 / -1;
+}
+
+.police-form-field label {
+  font-size: 12px;
+  color: #344054;
+  font-weight: 700;
+}
+
+.police-form-field label span {
+  color: #dc2626;
+  margin-left: 3px;
+}
+
+.police-form-field input,
+.police-form-field select,
+.police-form-field textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #d9dee8;
+  border-radius: 10px;
+  padding: 12px 13px;
+  background: #ffffff;
+  color: #172033;
+  font-family: inherit;
+  font-size: 13px;
+  outline: none;
+  transition: 0.2s ease;
+}
+
+.police-form-field input::placeholder,
+.police-form-field textarea::placeholder {
+  color: #a1a9b7;
+}
+
+.police-form-field input:focus,
+.police-form-field select:focus,
+.police-form-field textarea:focus {
+  border-color: #315efb;
+  box-shadow: 0 0 0 3px rgba(49, 94, 251, 0.08);
+}
+
+.police-form-field input:disabled,
+.police-form-field textarea:disabled {
+  background: #f7f8fa;
+  color: #8992a3;
+  cursor: not-allowed;
+}
+
+.police-form-field textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* =====================================================
+   EXISTING VISITOR
+===================================================== */
+
+.existing-visitor-box {
+  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 14px 16px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 12px;
+}
+
+.existing-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #dbeafe;
+  color: #2563eb;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.existing-info {
+  flex: 1;
+}
+
+.existing-info span {
+  display: block;
+  color: #2563eb;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+}
+
+.existing-info strong {
+  display: block;
+  margin-top: 3px;
+  font-size: 13px;
+}
+
+.existing-info small {
+  display: block;
+  margin-top: 2px;
+  color: #667085;
+  font-size: 11px;
+}
+
+.existing-badge {
+  background: #dbeafe;
+  color: #1d4ed8;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+/* =====================================================
+   VOICE RECORDER
+===================================================== */
+
+.voice-recorder-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px;
+  background: #f8fafc;
+  border: 1px solid #e4e9f1;
+  border-radius: 14px;
+}
+
+.voice-recorder-icon {
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background: #eef3ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 23px;
+}
+
+.voice-recorder-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.voice-recorder-content > strong {
+  display: block;
+  font-size: 13px;
+}
+
+.voice-recorder-content > span {
+  display: block;
+  margin-top: 3px;
+  color: #8992a3;
+  font-size: 11px;
+}
+
+.voice-hint {
+  margin-top: 8px !important;
+}
+
+.recording-status {
+  display: flex !important;
+  align-items: center;
+  gap: 7px;
+  color: #dc2626 !important;
+  margin-top: 8px;
+  font-weight: 700;
+}
+
+.recording-status strong {
+  font-family: monospace;
+}
+
+.recording-dot {
+  width: 8px;
+  height: 8px;
+  background: #dc2626;
+  border-radius: 50%;
+  animation: recordingPulse 1s infinite;
+}
+
+@keyframes recordingPulse {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.3;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.voice-player {
+  width: 100%;
+  max-width: 350px;
+  height: 36px;
+  margin-top: 8px;
+}
+
+.voice-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.start-recording-button,
+.stop-recording-button,
+.remove-recording-button {
+  border: none;
+  border-radius: 9px;
+  padding: 10px 13px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.start-recording-button {
+  background: #315efb;
+  color: #ffffff;
+}
+
+.start-recording-button:hover {
+  background: #244bd4;
+}
+
+.stop-recording-button {
+  background: #dc2626;
+  color: #ffffff;
+}
+
+.remove-recording-button {
+  background: #fff1f2;
+  color: #dc2626;
+}
+
+/* =====================================================
+   DOCUMENT
+===================================================== */
+
+.document-upload-box {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px;
+  border: 1.5px dashed #cdd5e1;
+  border-radius: 13px;
+  background: #fafbfc;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.document-upload-box:hover {
+  background: #f5f8ff;
+  border-color: #9db3f8;
+}
+
+.document-upload-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 11px;
+  background: #eef3ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 21px;
+}
+
+.document-upload-box > div:nth-child(2) {
+  flex: 1;
+}
+
+.document-upload-box strong {
+  display: block;
+  font-size: 13px;
+}
+
+.document-upload-box span {
+  display: block;
+  margin-top: 4px;
+  color: #8992a3;
+  font-size: 11px;
+}
+
+.document-browse {
+  padding: 9px 14px;
+  border-radius: 8px;
+  background: #ffffff;
+  border: 1px solid #dce2eb;
+  color: #315efb;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.selected-document {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+  padding: 12px 14px;
+  border: 1px solid #e1e6ee;
+  background: #ffffff;
+  border-radius: 10px;
+}
+
+.document-file-icon {
+  font-size: 20px;
+}
+
+.document-file-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.document-file-info strong {
+  display: block;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.document-file-info span {
+  display: block;
+  margin-top: 3px;
+  color: #8992a3;
+  font-size: 10px;
+}
+
+.remove-document-button {
+  border: none;
+  background: #fff1f2;
+  color: #dc2626;
+  border-radius: 7px;
+  padding: 7px 10px;
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.police-register-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px 30px;
+  background: #fafbfc;
+}
+
+.footer-security-note {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-security-note > span {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #edf9f2;
+}
+
+.footer-security-note strong {
+  display: block;
+  font-size: 11px;
+}
+
+.footer-security-note small {
+  display: block;
+  margin-top: 3px;
+  color: #8992a3;
+  font-size: 10px;
+}
+
+.police-register-actions {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.police-register-cancel,
+.police-register-reset,
+.police-register-submit {
+  border: none;
+  border-radius: 9px;
+  padding: 11px 17px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.police-register-cancel {
+  background: #eef1f5;
+  color: #475467;
+}
+
+.police-register-reset {
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+.police-register-submit {
+  background: #315efb;
+  color: #ffffff;
+  min-width: 145px;
+}
+
+.police-register-submit:hover {
+  background: #244bd4;
+}
+
+.police-register-cancel:hover {
+  background: #e4e8ed;
+}
+
+.police-register-reset:hover {
+  background: #ffedd5;
+}
+
+.police-register-cancel:disabled,
+.police-register-reset:disabled,
+.police-register-submit:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 800px) {
+  .police-register-page {
+    padding: 20px 14px;
+  }
+
+  .police-register-header {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .police-register-card {
+    border-radius: 14px;
+  }
+
+  .police-register-section {
+    padding: 22px 18px;
+  }
+
+  .police-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .police-form-field.full {
+    grid-column: auto;
+  }
+
+  .photo-capture-layout {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .photo-actions {
+    width: 100%;
+  }
+
+  .capture-camera-button,
+  .upload-photo-button,
+  .remove-photo-button {
+    width: 100%;
+  }
+
+  .voice-recorder-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .voice-actions {
+    width: 100%;
+  }
+
+  .start-recording-button,
+  .stop-recording-button {
+    flex: 1;
+  }
+
+  .police-register-footer {
+    align-items: stretch;
+    flex-direction: column;
+    padding: 20px 18px;
+  }
+
+  .police-register-actions {
+    width: 100%;
+  }
+
+  .police-register-actions button {
+    flex: 1;
+  }
+}
+
+@media (max-width: 500px) {
+  .police-register-header h1 {
+    font-size: 24px;
+  }
+
+  .police-register-section {
+    padding: 18px 14px;
+  }
+
+  .photo-preview-large {
+    width: 130px;
+    height: 130px;
+  }
+
+  .existing-visitor-box {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .existing-badge {
+    margin-left: 55px;
+  }
+
+  .document-upload-box {
+    align-items: flex-start;
+  }
+
+  .document-browse {
+    display: none;
+  }
+
+  .selected-document {
+    align-items: flex-start;
+  }
+
+  .police-register-actions {
+    flex-wrap: wrap;
+  }
+
+  .police-register-actions button {
+    width: 100%;
+    flex: none;
+  }
+}

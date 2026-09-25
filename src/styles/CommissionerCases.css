@@ -1,0 +1,687 @@
+/* =========================================================
+   COMMISSIONER CASE REVIEW
+   LIGHT + DARK MODE
+========================================================= */
+
+/* =========================
+   THEME VARIABLES
+========================= */
+
+:root {
+  --cc-bg: #f4f7fb;
+  --cc-card: #ffffff;
+  --cc-card-soft: #fafbfd;
+
+  --cc-text: #172033;
+  --cc-text-secondary: #334863;
+  --cc-muted: #78869a;
+  --cc-muted-light: #8994a5;
+
+  --cc-border: #e4e9f1;
+  --cc-border-light: #edf0f4;
+  --cc-border-input: #dfe5ed;
+
+  --cc-input-bg: #ffffff;
+  --cc-hover: #f6f8fb;
+  --cc-soft-bg: #f7f9fb;
+  --cc-detail-bg: #f8fafc;
+
+  --cc-primary: #315b95;
+  --cc-primary-hover: #274b7d;
+
+  --cc-pill-bg: #eef3f8;
+  --cc-pill-text: #465970;
+
+  --cc-high-bg: #fff1dd;
+  --cc-high-text: #9b5c11;
+
+  --cc-low-bg: #eef7f2;
+  --cc-low-text: #3c7b5a;
+
+  --cc-error-bg: #fff6f6;
+  --cc-error-border: #f1cdcd;
+  --cc-error-text: #9b3c3c;
+
+  --cc-modal-overlay: rgba(20, 30, 45, 0.34);
+  --cc-modal-shadow: rgba(19, 32, 52, 0.2);
+
+  --cc-button-bg: #ffffff;
+  --cc-button-text: #334863;
+  --cc-button-border: #dbe2eb;
+
+  --cc-close-bg: #f2f4f7;
+}
+
+/* =========================
+   DARK MODE
+========================= */
+
+html[data-theme="dark"] {
+  --cc-bg: #0f172a;
+  --cc-card: #111c2f;
+  --cc-card-soft: #162238;
+
+  --cc-text: #f1f5f9;
+  --cc-text-secondary: #cbd5e1;
+  --cc-muted: #a8b6ca;
+  --cc-muted-light: #94a3b8;
+
+  --cc-border: #2a3a53;
+  --cc-border-light: #26344b;
+  --cc-border-input: #34455f;
+
+  --cc-input-bg: #0f1a2d;
+  --cc-hover: #18253a;
+  --cc-soft-bg: #19273b;
+  --cc-detail-bg: #18263a;
+
+  --cc-primary: #79a4dc;
+  --cc-primary-hover: #91b8ea;
+
+  --cc-pill-bg: #203047;
+  --cc-pill-text: #c1cfe1;
+
+  --cc-high-bg: #3b2d1b;
+  --cc-high-text: #f2c17e;
+
+  --cc-low-bg: #193329;
+  --cc-low-text: #8bd0aa;
+
+  --cc-error-bg: #321d24;
+  --cc-error-border: #6b3540;
+  --cc-error-text: #f3a5b0;
+
+  --cc-modal-overlay: rgba(0, 0, 0, 0.62);
+  --cc-modal-shadow: rgba(0, 0, 0, 0.45);
+
+  --cc-button-bg: #17263d;
+  --cc-button-text: #d7e2f0;
+  --cc-button-border: #34455f;
+
+  --cc-close-bg: #24334a;
+}
+
+/* =========================================================
+   COMMISSIONER CASE REVIEW
+========================================================= */
+
+.commissioner-cases-page {
+  min-height: 100vh;
+  background: var(--cc-bg);
+  color: var(--cc-text);
+
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.commissioner-cases-header {
+  padding: 25px 34px;
+  background: var(--cc-card);
+  border-bottom: 1px solid var(--cc-border);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.commissioner-cases-header span {
+  color: var(--cc-muted);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+
+.commissioner-cases-header h1 {
+  margin: 7px 0 4px;
+  font-size: 30px;
+  letter-spacing: -0.04em;
+  color: var(--cc-text);
+}
+
+.commissioner-cases-header p {
+  margin: 0;
+  color: var(--cc-muted);
+  font-size: 13px;
+}
+
+.commissioner-cases-header button {
+  border: 1px solid var(--cc-button-border);
+  background: var(--cc-button-bg);
+  color: var(--cc-button-text);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-weight: 700;
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.commissioner-cases-header button:hover {
+  background: var(--cc-hover);
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.commissioner-cases-main {
+  width: min(1400px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 26px 0 50px;
+}
+
+/* =========================
+   ERROR
+========================= */
+
+.commissioner-cases-error {
+  margin-bottom: 15px;
+  padding: 12px 14px;
+
+  border-radius: 10px;
+  background: var(--cc-error-bg);
+  border: 1px solid var(--cc-error-border);
+  color: var(--cc-error-text);
+
+  font-size: 12px;
+}
+
+/* =========================
+   TOOLBAR
+========================= */
+
+.commissioner-case-toolbar {
+  padding: 14px;
+  background: var(--cc-card);
+  border: 1px solid var(--cc-border);
+  border-radius: 14px;
+
+  display: grid;
+  grid-template-columns: 1fr 190px 170px;
+  gap: 10px;
+
+  margin-bottom: 15px;
+
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.commissioner-case-toolbar input,
+.commissioner-case-toolbar select {
+  width: 100%;
+  min-height: 42px;
+
+  border: 1px solid var(--cc-border-input);
+  border-radius: 9px;
+
+  background: var(--cc-input-bg);
+  padding: 0 12px;
+
+  color: var(--cc-text-secondary);
+
+  outline: none;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.commissioner-case-toolbar input::placeholder {
+  color: var(--cc-muted);
+}
+
+.commissioner-case-toolbar input:focus,
+.commissioner-case-toolbar select:focus {
+  border-color: var(--cc-primary);
+}
+
+.commissioner-case-toolbar select option {
+  background: var(--cc-input-bg);
+  color: var(--cc-text);
+}
+
+/* =========================
+   TABLE CONTAINER
+========================= */
+
+.commissioner-case-table-wrap {
+  background: var(--cc-card);
+  border: 1px solid var(--cc-border);
+  border-radius: 15px;
+  overflow: hidden;
+
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+/* =========================
+   TABLE HEADER
+========================= */
+
+.commissioner-case-table-head {
+  padding: 16px 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-bottom: 1px solid var(--cc-border-light);
+}
+
+.commissioner-case-table-head strong {
+  font-size: 15px;
+  color: var(--cc-text);
+}
+
+.commissioner-case-table-head span {
+  color: var(--cc-muted);
+  font-size: 11px;
+}
+
+/* =========================
+   TABLE
+========================= */
+
+.commissioner-case-table-scroll {
+  overflow-x: auto;
+}
+
+.commissioner-case-table-scroll table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px;
+}
+
+.commissioner-case-table-scroll th {
+  padding: 11px 14px;
+
+  background: var(--cc-card-soft);
+  color: var(--cc-muted);
+
+  font-size: 10px;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.commissioner-case-table-scroll td {
+  padding: 13px 14px;
+
+  border-top: 1px solid var(--cc-border-light);
+
+  font-size: 12px;
+  vertical-align: middle;
+
+  color: var(--cc-text-secondary);
+}
+
+.commissioner-case-table-scroll tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.commissioner-case-table-scroll tbody tr:hover {
+  background: var(--cc-hover);
+}
+
+.commissioner-case-table-scroll td strong,
+.commissioner-case-table-scroll td small {
+  display: block;
+}
+
+.commissioner-case-table-scroll td strong {
+  color: var(--cc-text);
+}
+
+.commissioner-case-table-scroll td small {
+  margin-top: 4px;
+  color: var(--cc-muted-light);
+  font-size: 10px;
+}
+
+/* =========================
+   CASE STATUS PILL
+========================= */
+
+.case-pill {
+  display: inline-flex;
+
+  padding: 5px 8px;
+  border-radius: 999px;
+
+  background: var(--cc-pill-bg);
+  color: var(--cc-pill-text);
+
+  font-size: 10px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+/* =========================
+   PRIORITY
+========================= */
+
+.priority-high,
+.priority-urgent {
+  background: var(--cc-high-bg);
+  color: var(--cc-high-text);
+}
+
+.priority-low {
+  background: var(--cc-low-bg);
+  color: var(--cc-low-text);
+}
+
+/* =========================
+   REVIEW BUTTON
+========================= */
+
+.case-review-button {
+  border: 1px solid var(--cc-button-border);
+  background: var(--cc-button-bg);
+  color: var(--cc-button-text);
+
+  border-radius: 8px;
+  padding: 7px 10px;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.case-review-button:hover {
+  background: var(--cc-hover);
+  border-color: var(--cc-primary);
+  color: var(--cc-primary);
+}
+
+/* =========================
+   EMPTY STATE
+========================= */
+
+.commissioner-case-empty {
+  padding: 55px 20px;
+
+  text-align: center;
+
+  color: var(--cc-muted-light);
+  font-size: 13px;
+}
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.commissioner-case-modal-backdrop {
+  position: fixed;
+  inset: 0;
+
+  z-index: 100;
+
+  padding: 24px;
+
+  background: var(--cc-modal-overlay);
+
+  display: grid;
+  place-items: center;
+}
+
+/* =========================
+   MODAL CONTAINER
+========================= */
+
+.commissioner-case-modal {
+  width: min(720px, 100%);
+  max-height: calc(100vh - 48px);
+
+  overflow-y: auto;
+
+  background: var(--cc-card);
+
+  border-radius: 17px;
+  border: 1px solid var(--cc-border);
+
+  box-shadow: 0 25px 70px var(--cc-modal-shadow);
+
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+/* =========================
+   MODAL HEADER
+========================= */
+
+.commissioner-case-modal-header {
+  padding: 20px;
+
+  display: flex;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  border-bottom: 1px solid var(--cc-border-light);
+}
+
+.commissioner-case-modal-header span,
+.commissioner-case-detail-block > span {
+  color: var(--cc-muted);
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.commissioner-case-modal-header h2 {
+  margin: 7px 0 4px;
+
+  font-size: 23px;
+
+  color: var(--cc-text);
+}
+
+.commissioner-case-modal-header p {
+  margin: 0;
+
+  color: var(--cc-muted);
+
+  font-size: 12px;
+}
+
+.commissioner-case-modal-header button {
+  width: 34px;
+  height: 34px;
+
+  border: 0;
+  border-radius: 9px;
+
+  background: var(--cc-close-bg);
+  color: var(--cc-text);
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.commissioner-case-modal-header button:hover {
+  background: var(--cc-hover);
+}
+
+/* =========================
+   MODAL DETAIL GRID
+========================= */
+
+.commissioner-case-detail-grid {
+  padding: 18px 20px;
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 10px;
+}
+
+.commissioner-case-detail-grid > div {
+  padding: 12px;
+
+  border-radius: 11px;
+
+  background: var(--cc-soft-bg);
+}
+
+.commissioner-case-detail-grid span,
+.commissioner-case-detail-grid strong {
+  display: block;
+}
+
+.commissioner-case-detail-grid span {
+  color: var(--cc-muted);
+
+  font-size: 10px;
+}
+
+.commissioner-case-detail-grid strong {
+  margin-top: 6px;
+
+  font-size: 12px;
+
+  color: var(--cc-text);
+}
+
+/* =========================
+   DETAIL BLOCK
+========================= */
+
+.commissioner-case-detail-block {
+  padding: 0 20px 18px;
+}
+
+.commissioner-case-detail-block p {
+  margin: 8px 0 0;
+
+  padding: 12px;
+
+  border-radius: 10px;
+
+  background: var(--cc-detail-bg);
+  color: var(--cc-text-secondary);
+
+  font-size: 12px;
+  line-height: 1.6;
+
+  white-space: pre-wrap;
+}
+
+/* =========================
+   MODAL FOOTER
+========================= */
+
+.commissioner-case-modal-footer {
+  padding: 14px 20px;
+
+  border-top: 1px solid var(--cc-border-light);
+
+  display: flex;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  color: var(--cc-muted-light);
+
+  font-size: 10px;
+}
+
+.commissioner-case-modal-footer span {
+  text-align: right;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 800px) {
+  .commissioner-cases-header {
+    padding: 20px 16px;
+
+    align-items: flex-start;
+  }
+
+  .commissioner-cases-main {
+    width: calc(100% - 24px);
+  }
+
+  .commissioner-case-toolbar {
+    grid-template-columns: 1fr;
+  }
+
+  .commissioner-case-detail-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .commissioner-case-modal-footer {
+    flex-direction: column;
+  }
+
+  .commissioner-case-modal-footer span {
+    text-align: left;
+  }
+}
+
+@media (max-width: 480px) {
+  .commissioner-cases-header {
+    flex-direction: column;
+  }
+
+  .commissioner-cases-header button {
+    width: 100%;
+  }
+
+  .commissioner-case-detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .commissioner-case-modal-backdrop {
+    padding: 12px;
+  }
+
+  .commissioner-case-modal {
+    max-height: calc(100vh - 24px);
+    border-radius: 14px;
+  }
+}
+
+/* =========================================================
+   SMOOTH THEME TRANSITION
+========================================================= */
+
+.commissioner-cases-page *,
+.commissioner-case-modal {
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}

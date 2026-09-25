@@ -1,0 +1,464 @@
+/* =========================================================
+   COMMISSIONER VISITOR RECORDS
+   LIGHT + DARK MODE
+========================================================= */
+
+/* =========================================================
+   LIGHT THEME
+========================================================= */
+
+:root {
+  --cv-bg: #f4f7fb;
+  --cv-card: #ffffff;
+  --cv-card-soft: #fafbfd;
+
+  --cv-text: #172033;
+  --cv-text-secondary: #2d3c55;
+  --cv-table-text: #526177;
+
+  --cv-muted: #78869a;
+  --cv-muted-light: #8994a5;
+
+  --cv-border: #e4e9f1;
+  --cv-border-light: #edf0f4;
+  --cv-input-border: #dfe5ed;
+
+  --cv-input-bg: #ffffff;
+  --cv-hover: #f6f8fb;
+
+  --cv-button-bg: #ffffff;
+  --cv-button-text: #315b83;
+  --cv-button-border: #d9e2ed;
+
+  --cv-error-bg: #fff6f6;
+  --cv-error-border: #f1cdcd;
+  --cv-error-text: #9b3c3c;
+
+  --cv-primary: #315b83;
+}
+
+/* =========================================================
+   DARK THEME
+========================================================= */
+
+html[data-theme="dark"] {
+  --cv-bg: #0f172a;
+  --cv-card: #111c2f;
+  --cv-card-soft: #162238;
+
+  --cv-text: #f1f5f9;
+  --cv-text-secondary: #d7e2f0;
+  --cv-table-text: #c0ccdc;
+
+  --cv-muted: #a8b6ca;
+  --cv-muted-light: #94a3b8;
+
+  --cv-border: #2a3a53;
+  --cv-border-light: #26344b;
+  --cv-input-border: #34455f;
+
+  --cv-input-bg: #0f1a2d;
+  --cv-hover: #18253a;
+
+  --cv-button-bg: #17263d;
+  --cv-button-text: #8fb6e7;
+  --cv-button-border: #34455f;
+
+  --cv-error-bg: #321d24;
+  --cv-error-border: #6b3540;
+  --cv-error-text: #f3a5b0;
+
+  --cv-primary: #79a4dc;
+}
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.commissioner-visitors-page {
+  min-height: 100vh;
+
+  background: var(--cv-bg);
+
+  color: var(--cv-text);
+
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.commissioner-visitors-header {
+  padding: 25px 34px;
+
+  background: var(--cv-card);
+
+  border-bottom: 1px solid var(--cv-border);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 20px;
+
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.commissioner-visitors-header span,
+.commissioner-visitors-table-head span {
+  color: var(--cv-muted);
+
+  font-size: 10px;
+
+  font-weight: 800;
+
+  letter-spacing: 0.14em;
+
+  text-transform: uppercase;
+}
+
+.commissioner-visitors-header h1 {
+  margin: 7px 0 4px;
+
+  color: var(--cv-text);
+
+  font-size: 30px;
+
+  letter-spacing: -0.04em;
+}
+
+.commissioner-visitors-header p {
+  margin: 0;
+
+  color: var(--cv-muted);
+
+  font-size: 13px;
+}
+
+.commissioner-visitors-header button {
+  border: 1px solid var(--cv-button-border);
+
+  background: var(--cv-button-bg);
+
+  color: var(--cv-text-secondary);
+
+  border-radius: 10px;
+
+  padding: 10px 14px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.commissioner-visitors-header button:hover {
+  background: var(--cv-hover);
+
+  border-color: var(--cv-primary);
+
+  color: var(--cv-primary);
+}
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.commissioner-visitors-main {
+  width: min(1450px, calc(100% - 48px));
+
+  margin: 0 auto;
+
+  padding: 26px 0 50px;
+}
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+.commissioner-visitors-error {
+  margin-bottom: 15px;
+
+  padding: 12px 14px;
+
+  border-radius: 10px;
+
+  background: var(--cv-error-bg);
+
+  border: 1px solid var(--cv-error-border);
+
+  color: var(--cv-error-text);
+
+  font-size: 12px;
+}
+
+/* =========================================================
+   TOOLBAR
+========================================================= */
+
+.commissioner-visitors-toolbar {
+  padding: 14px;
+
+  background: var(--cv-card);
+
+  border: 1px solid var(--cv-border);
+
+  border-radius: 14px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  margin-bottom: 15px;
+
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.commissioner-visitors-toolbar input {
+  flex: 1;
+
+  min-height: 42px;
+
+  border: 1px solid var(--cv-input-border);
+
+  border-radius: 9px;
+
+  padding: 0 12px;
+
+  background: var(--cv-input-bg);
+
+  color: var(--cv-text-secondary);
+
+  outline: none;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.commissioner-visitors-toolbar input::placeholder {
+  color: var(--cv-muted);
+}
+
+.commissioner-visitors-toolbar input:focus {
+  border-color: var(--cv-primary);
+}
+
+.commissioner-visitors-toolbar span {
+  color: var(--cv-muted);
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+/* =========================================================
+   TABLE WRAPPER
+========================================================= */
+
+.commissioner-visitors-table-wrap {
+  background: var(--cv-card);
+
+  border: 1px solid var(--cv-border);
+
+  border-radius: 15px;
+
+  overflow: hidden;
+
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+/* =========================================================
+   TABLE HEADER
+========================================================= */
+
+.commissioner-visitors-table-head {
+  padding: 15px 18px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 15px;
+
+  border-bottom: 1px solid var(--cv-border-light);
+}
+
+.commissioner-visitors-table-head h2 {
+  margin: 6px 0 0;
+
+  color: var(--cv-text);
+
+  font-size: 17px;
+}
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.commissioner-visitors-scroll {
+  overflow-x: auto;
+}
+
+.commissioner-visitors-scroll table {
+  width: 100%;
+
+  min-width: 1050px;
+
+  border-collapse: collapse;
+}
+
+.commissioner-visitors-scroll th {
+  padding: 11px 13px;
+
+  background: var(--cv-card-soft);
+
+  color: var(--cv-muted);
+
+  font-size: 10px;
+
+  text-align: left;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.07em;
+
+  white-space: nowrap;
+}
+
+.commissioner-visitors-scroll td {
+  padding: 13px;
+
+  border-top: 1px solid var(--cv-border-light);
+
+  color: var(--cv-table-text);
+
+  font-size: 11px;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.commissioner-visitors-scroll tbody tr:hover {
+  background: var(--cv-hover);
+}
+
+.commissioner-visitors-scroll td strong {
+  color: var(--cv-text);
+
+  font-weight: 700;
+}
+
+/* =========================================================
+   VIEW CASE BUTTON
+========================================================= */
+
+.commissioner-visitors-scroll button {
+  border: 1px solid var(--cv-button-border);
+
+  background: var(--cv-button-bg);
+
+  color: var(--cv-button-text);
+
+  border-radius: 8px;
+
+  padding: 8px 10px;
+
+  font-size: 10px;
+
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.commissioner-visitors-scroll button:hover {
+  background: var(--cv-hover);
+
+  border-color: var(--cv-primary);
+
+  color: var(--cv-primary);
+}
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.commissioner-visitors-empty {
+  padding: 55px 20px;
+
+  text-align: center;
+
+  color: var(--cv-muted-light);
+
+  font-size: 13px;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 700px) {
+  .commissioner-visitors-header {
+    padding: 20px 16px;
+
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .commissioner-visitors-header button {
+    width: 100%;
+  }
+
+  .commissioner-visitors-main {
+    width: calc(100% - 24px);
+  }
+
+  .commissioner-visitors-toolbar {
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+  .commissioner-visitors-toolbar input {
+    width: 100%;
+  }
+
+  .commissioner-visitors-toolbar span {
+    text-align: left;
+  }
+
+  .commissioner-visitors-table-head {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+}

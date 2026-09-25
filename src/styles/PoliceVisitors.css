@@ -1,0 +1,535 @@
+.police-visitors-page {
+  min-height: 100vh;
+  background: #f5f7fb;
+  padding: 30px;
+}
+
+/* HEADER */
+
+.police-visitors-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.police-visitors-header h1 {
+  margin: 10px 0 5px;
+  font-size: 30px;
+  font-weight: 700;
+  color: #172033;
+}
+
+.police-visitors-header p {
+  margin: 0;
+  color: #687386;
+  font-size: 14px;
+}
+
+.back-button {
+  border: none;
+  background: transparent;
+  color: #2563eb;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+
+.visitor-total {
+  background: white;
+  border: 1px solid #e7ebf2;
+  border-radius: 14px;
+  padding: 14px 20px;
+  min-width: 150px;
+}
+
+.visitor-total span {
+  display: block;
+  color: #7a8495;
+  font-size: 12px;
+}
+
+.visitor-total strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 24px;
+  color: #172033;
+}
+
+/* SEARCH */
+
+.visitor-search-box {
+  display: flex;
+  gap: 10px;
+  background: white;
+  padding: 15px;
+  border: 1px solid #e7ebf2;
+  border-radius: 14px;
+  margin-bottom: 20px;
+}
+
+.visitor-search-box input {
+  flex: 1;
+  border: 1px solid #d9dee8;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 14px;
+  outline: none;
+}
+
+.visitor-search-box input:focus {
+  border-color: #2563eb;
+}
+
+.visitor-search-box button {
+  border: none;
+  background: #eef2f7;
+  color: #344054;
+  padding: 0 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* TABLE */
+
+.visitors-table-wrapper {
+  background: white;
+  border: 1px solid #e7ebf2;
+  border-radius: 16px;
+  overflow-x: auto;
+}
+
+.police-visitors-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 950px;
+}
+
+.police-visitors-table th {
+  background: #f8fafc;
+  padding: 15px 18px;
+  text-align: left;
+  font-size: 12px;
+  color: #667085;
+  font-weight: 700;
+  border-bottom: 1px solid #e7ebf2;
+}
+
+.police-visitors-table td {
+  padding: 15px 18px;
+  border-bottom: 1px solid #edf0f5;
+  font-size: 14px;
+  color: #344054;
+}
+
+.police-visitors-table tbody tr:hover {
+  background: #fafcff;
+}
+
+/* VISITOR */
+
+.police-visitor-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 220px;
+}
+
+.police-visitor-photo,
+.police-visitor-placeholder {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.police-visitor-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e8eefc;
+  color: #2563eb;
+  font-weight: 700;
+}
+
+.police-visitor-info strong {
+  display: block;
+  color: #172033;
+  font-size: 14px;
+}
+
+.police-visitor-info span {
+  display: block;
+  margin-top: 3px;
+  color: #98a2b3;
+  font-size: 11px;
+}
+
+.visitor-code {
+  font-family: monospace;
+  font-weight: 700;
+  color: #475467;
+}
+
+/* STATUS */
+
+.visitor-status {
+  display: inline-flex;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.visitor-status.inside {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.visitor-status.exited {
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+/* BUTTON */
+
+.view-visitor-button {
+  border: none;
+  background: #eff6ff;
+  color: #2563eb;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.view-visitor-button:hover {
+  background: #dbeafe;
+}
+
+/* STATES */
+
+.police-loading {
+  background: white;
+  border-radius: 14px;
+  padding: 50px;
+  text-align: center;
+  color: #667085;
+}
+
+.police-error {
+  background: #fff1f2;
+  border: 1px solid #fecdd3;
+  color: #be123c;
+  padding: 13px 16px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.empty-visitors {
+  text-align: center;
+  padding: 50px !important;
+  color: #98a2b3 !important;
+}
+
+.visitor-result-count {
+  margin-top: 15px;
+  font-size: 13px;
+  color: #667085;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+  .police-visitors-page {
+    padding: 20px 15px;
+  }
+
+  .police-visitors-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .visitor-total {
+    width: 100%;
+  }
+
+  .visitor-search-box {
+    flex-direction: column;
+  }
+
+  .visitor-search-box button {
+    padding: 12px;
+  }
+}
+
+/* ==========================================
+   HEADER ACTIONS
+========================================== */
+
+.visitor-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ==========================================
+   REGISTER VISITOR
+========================================== */
+
+.police-register-button {
+  border: none;
+  background: #2563eb;
+  color: #ffffff;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.police-register-button:hover {
+  background: #1d4ed8;
+}
+
+.police-register-button:active {
+  transform: translateY(1px);
+}
+
+/* ==========================================
+   ACTION BUTTONS
+========================================== */
+
+.visitor-action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+
+/* ==========================================
+   EDIT VISITOR
+========================================== */
+
+.edit-visitor-button {
+  border: 1px solid #dbe4ff;
+  background: #f0f4ff;
+  color: #315efb;
+  padding: 8px 13px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.edit-visitor-button:hover {
+  background: #e0e9ff;
+  border-color: #c7d5ff;
+}
+
+.edit-visitor-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ==========================================
+   DELETE VISITOR
+========================================== */
+
+.delete-visitor-button {
+  border: 1px solid #ffd5da;
+  background: #fff1f2;
+  color: #dc2626;
+  padding: 8px 13px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.delete-visitor-button:hover {
+  background: #ffe4e6;
+  border-color: #fecdd3;
+}
+
+.delete-visitor-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ==========================================
+   SUCCESS MESSAGE
+========================================== */
+
+.police-success {
+  background: #ecfdf3;
+  border: 1px solid #bbf7d0;
+  color: #15803d;
+  padding: 13px 16px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* ==========================================
+   RESPONSIVE ACTIONS
+========================================== */
+
+@media (max-width: 768px) {
+  .visitor-header-actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .police-register-button {
+    width: 100%;
+  }
+
+  .visitor-total {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .visitor-action-buttons {
+    flex-wrap: wrap;
+  }
+
+  .view-visitor-button,
+  .edit-visitor-button,
+  .delete-visitor-button {
+    padding: 8px 11px;
+  }
+}
+
+/* =========================================================
+   POLICE VISITOR SMALL UPDATES
+   Add these styles to PoliceVisitors.css
+========================================================= */
+
+.visitor-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 14px 0;
+  padding: 12px 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.visitor-filter-group {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.visitor-filter-group > span {
+  margin-right: 4px;
+  color: #64748b;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.visitor-filter-group button {
+  border: 1px solid #dbe1e8;
+  border-radius: 8px;
+  padding: 7px 10px;
+  background: #fff;
+  color: #475569;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.visitor-filter-group button:hover {
+  background: #f8fafc;
+}
+
+.visitor-filter-group button.active {
+  border-color: #2563eb;
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.visitor-case-status {
+  display: inline-flex;
+  align-items: center;
+  max-width: 150px;
+  padding: 5px 8px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.visitor-case-status.active {
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+.visitor-case-status.closed {
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.visitor-case-status.none {
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+.visitor-evidence-summary {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  color: #475569;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.ai-mini-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 6px;
+  border-radius: 6px;
+  background: #eef2ff;
+  color: #4338ca;
+  font-size: 9px;
+  font-weight: 800;
+}
+
+@media (max-width: 800px) {
+  .visitor-filter-bar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .visitor-filter-group {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 2px;
+  }
+
+  .visitor-filter-group > span {
+    flex-shrink: 0;
+  }
+
+  .visitor-filter-group button {
+    flex-shrink: 0;
+  }
+}
