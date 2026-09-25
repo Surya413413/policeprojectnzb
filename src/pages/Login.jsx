@@ -5,6 +5,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
+import "../styles/Login.css";
 
 import { useNavigate } from "react-router-dom";
 
@@ -135,47 +136,36 @@ function Login() {
 
   if (checkingAuth) {
     return (
-      <div className="min-h-screen bg-slate-100 flex items-center justify-center">
-        <div className="text-center">
-          <div className="text-lg font-semibold text-slate-700">
-            Checking account...
-          </div>
-          <div className="text-sm text-slate-400 mt-1">Please wait</div>
+      <div className="login-page login-loading-page">
+        <div className="login-loading">
+          <div className="login-loading-title">Checking account...</div>
+          <div className="login-loading-subtitle">Please wait</div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-100 flex items-center justify-center px-4">
-      <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-blue-600 text-white text-2xl font-bold shadow-lg">
-            PS
-          </div>
+    <div className="login-page">
+      <div className="login-container">
+        <div className="login-brand">
+          <div className="login-logo">PS</div>
 
-          <h1 className="mt-4 text-3xl font-bold text-slate-900">
-            POLICESETU AI
-          </h1>
+          <h1>POLICESETU AI</h1>
 
-          <p className="mt-2 text-slate-500">
-            Secure Station Management Portal
-          </p>
+          <p>Secure Station Management Portal</p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-xl p-8">
-          <div className="mb-6">
-            <h2 className="text-2xl font-bold text-slate-900">Sign In</h2>
-            <p className="mt-1 text-sm text-slate-500">
-              Sign in using your authorized account
-            </p>
+        <div className="login-card">
+          <div className="login-card-header">
+            <h2>Sign In</h2>
+
+            <p>Sign in using your authorized account</p>
           </div>
 
-          <form onSubmit={handleLogin} className="space-y-5">
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">
-                Email Address
-              </label>
+          <form onSubmit={handleLogin} className="login-form">
+            <div className="login-field">
+              <label>Email Address</label>
 
               <input
                 type="email"
@@ -184,14 +174,11 @@ function Login() {
                 placeholder="Enter your email"
                 autoComplete="email"
                 required
-                className="w-full px-4 py-3 rounded-xl border border-slate-300 outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">
-                Password
-              </label>
+            <div className="login-field">
+              <label>Password</label>
 
               <input
                 type="password"
@@ -200,27 +187,18 @@ function Login() {
                 placeholder="Enter your password"
                 autoComplete="current-password"
                 required
-                className="w-full px-4 py-3 rounded-xl border border-slate-300 outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
 
-            {error && (
-              <div className="rounded-xl bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-600">
-                {error}
-              </div>
-            )}
+            {error && <div className="login-error">{error}</div>}
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-semibold transition"
-            >
+            <button type="submit" disabled={loading} className="login-button">
               {loading ? "Signing in..." : "Sign In"}
             </button>
           </form>
         </div>
 
-        <p className="text-center text-xs text-slate-400 mt-6">
+        <p className="login-footer">
           POLICESETU AI • Secure Station Management
         </p>
       </div>
