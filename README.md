@@ -6,7 +6,7 @@ POLICESETU AI is a role-based visitor and case management application
 built with React.js, Vite, Firebase, Firestore, Firebase AI
 Logic/Gemini, React Router, React Icons, and CSS.
 
-1. Project Workflow
+### 1. Project Workflow
 
 WATCHMAN
 ↓
@@ -30,7 +30,7 @@ Suggested Police Actions
 ↓
 COMMISSIONER REVIEW
 
-2. Roles
+### 2. Roles
 
 WATCHMAN
 
@@ -101,7 +101,7 @@ Officer workload
 
 Real-time monitoring
 
-3. Technology Stack
+### 3. Technology Stack
 
 Frontend React.js + Vite + JavaScript
 Routing React Router
@@ -119,7 +119,7 @@ Current Gemini model:
 
 gemini-3.6-flash
 
-4. Project Structure
+### 4. Project Structure
 
 src/
 ├── components/
@@ -180,7 +180,7 @@ src/
 ├── index.css
 └── main.jsx
 
-5. Installation
+### 5. Installation
 
 Clone the repository:
 
@@ -203,7 +203,7 @@ Open:
 
 http://localhost:5173/
 
-6. Firebase Setup
+### 6. Firebase Setup
 
 Create a Firebase project and register the web application.
 
@@ -225,7 +225,7 @@ Firebase Storage (planned/available for production evidence)
 
 Enable Email/Password authentication.
 
-7. Firebase Configuration
+ ### 7. Firebase Configuration
 
 Configuration is located at:
 
@@ -258,7 +258,7 @@ export default app;
 Never commit private service-account credentials, private keys,
 passwords, or secrets.
 
-8. Authentication
+### 8. Authentication
 
 There is no public Watchman/Police registration page.
 
@@ -288,7 +288,7 @@ WATCHMAN → /gate
 POLICE → /police
 COMMISSIONER → /commissioner
 
-9. Firestore Collections
+### 9. Firestore Collections
 
 users/
 {uid}
@@ -307,7 +307,7 @@ staff/
 counters/
 {counterId}
 
-10. Visitor Model
+### 10. Visitor Model
 
 Example visitor:
 
@@ -337,7 +337,7 @@ updatedAt: "..."
 
 A visitor can have multiple visits.
 
-11. Police Case Model
+### 11. Police Case Model
 
 A visit can contain case information:
 
@@ -362,7 +362,7 @@ Case action history:
 
 visits/{visitId}/caseActions/{actionId}
 
-12. Evidence
+### 12. Evidence
 
 Evidence is collected by Police, not Watchman.
 
@@ -403,7 +403,7 @@ Mobile scanning uses:
   capture="environment"
 />
 
-13. Temporary Evidence Storage
+### 13. Temporary Evidence Storage
 
 During development, evidence may be stored as Base64 in Firestore.
 
@@ -429,7 +429,7 @@ Firestore metadata + Storage URL
 
 Firebase Storage should be used for production evidence files.
 
-14. Gemini AI
+### 14. Gemini AI
 
 Firebase AI Logic is used to connect the application with Gemini.
 
@@ -454,7 +454,7 @@ AI files:
 src/services/aiTest.js
 src/services/aiCaseService.js
 
-15. AI Case Analysis
+### 15. AI Case Analysis
 
 The Police Officer can provide:
 
@@ -490,7 +490,7 @@ Whether a person should be arrested
 The investigating officer remains responsible for verifying facts,
 evidence, and applicable law.
 
-16. Firebase App Check
+### 16. Firebase App Check
 
 The web application uses Firebase App Check.
 
@@ -505,7 +505,7 @@ local development when required.
 
 Production App Check configuration should be reviewed before deployment.
 
-17. Real-Time Firestore
+### 17. Real-Time Firestore
 
 The dashboards use Firestore real-time listeners.
 
@@ -523,7 +523,7 @@ setRecords(records);
 This allows Watchman, Police, and Commissioner dashboards to receive
 live changes.
 
-18. Police Dashboard
+### 18. Police Dashboard
 
 The Police Dashboard provides:
 
@@ -549,7 +549,7 @@ Active
 Closed
 All Cases
 
-19. Police Visitor Details
+### 19. Police Visitor Details
 
 Displays:
 
@@ -583,7 +583,7 @@ Supporting documents
 
 The latest visit is used for current case evidence.
 
-20. Case Evidence UI
+### 20. Case Evidence UI
 
 The case evidence page supports:
 
@@ -609,7 +609,7 @@ Download
 
 Remove
 
-21. Case Actions
+### 21. Case Actions
 
 Police can save:
 
@@ -624,7 +624,7 @@ Officer Name
 
 Case action history is stored in Firestore.
 
-22. Commissioner Dashboard
+### 22. Commissioner Dashboard
 
 The Commissioner dashboard provides:
 
@@ -655,7 +655,7 @@ Reports
 
 Staff Management
 
-23. Staff Management
+### 23. Staff Management
 
 Route:
 
@@ -695,7 +695,7 @@ Planned
 Automated Firebase Authentication account creation will be implemented
 later through a trusted backend/Cloud Function.
 
-24. Language Support
+### 24. Language Support
 
 Supported languages:
 
@@ -720,7 +720,7 @@ Static UI labels should use the translation files.
 Dynamic visitor/case content can later use a translation API when
 required.
 
-25. Theme Support
+### 25. Theme Support
 
 Supported themes:
 
@@ -737,7 +737,7 @@ src/components/AppSettings.jsx
 
 The selected theme and language are stored in localStorage.
 
-26. React Icons
+### 26. React Icons
 
 Install:
 
@@ -753,7 +753,7 @@ FaArrowRight,
 FaUserShield
 } from "react-icons/fa";
 
-27. Security
+### 27. Security
 
 Frontend route protection is not enough.
 
@@ -782,7 +782,7 @@ return get(
 
 Review Firestore rules carefully before production.
 
-28. Development Workflow
+### 28. Development Workflow
 
 For a new feature:
 
@@ -855,7 +855,7 @@ Reports
 ↓
 Staff Management
 
-30. Troubleshooting
+### 30. Troubleshooting
 
 Firebase API key error
 
@@ -904,7 +904,7 @@ and:
 role: "COMMISSIONER"
 }
 
-31. Production Build
+### 31. Production Build
 
 Build:
 
@@ -934,7 +934,7 @@ git push -u origin main
 
 Do not force-push unless intentionally rewriting remote history.
 
-33. Production Checklist
+### 33. Production Checklist
 
 Before production:
 
@@ -972,7 +972,7 @@ Run production build
 
 Check browser console
 
-34. Current Status
+### 34. Current Status
 
 Completed
 
@@ -1048,7 +1048,7 @@ Additional AI workflow improvements
 
 Additional reporting improvements
 
-35. High-Level Architecture
+### 35. High-Level Architecture
 
                     POLICESETU AI
                           |
@@ -1078,7 +1078,7 @@ Additional reporting improvements
 
 - Firebase Storage is planned for production evidence storage.
 
-36. Core Principles
+### 36. Core Principles
 
 Watchman manages the gate.
 
