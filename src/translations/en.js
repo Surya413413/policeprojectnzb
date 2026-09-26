@@ -162,6 +162,50 @@ const en = {
     visitor: "Visitor",
   },
 
+  staff: {
+    commissioner: "Commissioner",
+    title: "Staff Management",
+    subtitle: "Manage authorized Watchman and Police staff accounts.",
+
+    backToDashboard: "Back to dashboard",
+    addStaff: "Add Staff",
+
+    totalStaff: "Total Staff",
+    activeStaff: "Active Staff",
+    watchmen: "Watchmen",
+    policeOfficers: "Police Officers",
+
+    addStaffTitle: "Staff Account Creation",
+    addStaffMessage:
+      "Staff accounts should be created through the secure administrator backend. This page is ready for the account-provisioning workflow.",
+
+    close: "Close",
+
+    searchPlaceholder: "Search by name, email or mobile...",
+    roleFilter: "Filter by role",
+    statusFilter: "Filter by status",
+
+    allRoles: "All Roles",
+    allStatus: "All Status",
+
+    active: "Active",
+    disabled: "Disabled",
+
+    staffDirectory: "Staff Directory",
+    records: "records",
+    loading: "Loading staff...",
+
+    noStaff: "No staff records found",
+    noStaffMessage:
+      "Authorized staff profiles will appear here after they are provisioned.",
+
+    staffMember: "Staff Member",
+    role: "Role",
+    contact: "Contact",
+    status: "Status",
+    created: "Created",
+  },
+
   case: {
     // Existing case translations
     status: "Case Status",

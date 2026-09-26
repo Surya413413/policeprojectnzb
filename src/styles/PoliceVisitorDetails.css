@@ -1029,3 +1029,204 @@
     max-width: 100%;
   }
 }
+/* =========================================================
+   POLICE CASE STATUS STRIP
+   ========================================================= */
+
+.police-case-status-strip {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0;
+  margin: 24px 0;
+  background: var(--bg-card, #ffffff);
+  border: 1px solid var(--border-color, #e4e7ec);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px var(--shadow-color, rgba(15, 23, 42, 0.06));
+}
+
+.police-case-status-strip > div {
+  min-width: 0;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 7px;
+  border-right: 1px solid var(--border-color, #e4e7ec);
+}
+
+.police-case-status-strip > div:last-child {
+  border-right: none;
+}
+
+/* Label */
+
+.police-case-status-strip span {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary, #667085);
+}
+
+/* Value */
+
+.police-case-status-strip strong {
+  display: block;
+  min-width: 0;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--text-primary, #172033);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Hover */
+
+.police-case-status-strip > div {
+  transition: background-color 0.2s ease;
+}
+
+.police-case-status-strip > div:hover {
+  background: var(--bg-secondary, #f8fafc);
+}
+
+/* =========================================================
+   STATUS VALUE COLORS
+   ========================================================= */
+
+.police-case-status-strip > div:nth-child(1) strong {
+  color: var(--primary-color, #2563eb);
+}
+
+.police-case-status-strip > div:nth-child(2) strong {
+  color: #d97706;
+}
+
+.police-case-status-strip > div:nth-child(3) strong {
+  color: var(--text-primary, #172033);
+}
+
+.police-case-status-strip > div:nth-child(4) strong {
+  color: #059669;
+}
+
+.police-case-status-strip > div:nth-child(5) strong {
+  color: #7c3aed;
+}
+
+/* =========================================================
+   DARK MODE
+   ========================================================= */
+
+html[data-theme="dark"] .police-case-status-strip {
+  background: var(--bg-card, #1e293b);
+  border-color: var(--border-color, #334155);
+  box-shadow: 0 4px 16px var(--shadow-color, rgba(0, 0, 0, 0.35));
+}
+
+html[data-theme="dark"] .police-case-status-strip > div {
+  border-right-color: var(--border-color, #334155);
+}
+
+html[data-theme="dark"] .police-case-status-strip > div:hover {
+  background: var(--bg-secondary, #111827);
+}
+
+html[data-theme="dark"] .police-case-status-strip span {
+  color: var(--text-secondary, #cbd5e1);
+}
+
+html[data-theme="dark"] .police-case-status-strip strong {
+  color: var(--text-primary, #f8fafc);
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1000px) {
+  .police-case-status-strip {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .police-case-status-strip > div:nth-child(3) {
+    border-right: none;
+  }
+
+  .police-case-status-strip > div:nth-child(4),
+  .police-case-status-strip > div:nth-child(5) {
+    border-top: 1px solid var(--border-color, #e4e7ec);
+  }
+
+  .police-case-status-strip > div:nth-child(4) {
+    border-right: 1px solid var(--border-color, #e4e7ec);
+  }
+
+  .police-case-status-strip > div:nth-child(5) {
+    border-right: none;
+  }
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 650px) {
+  .police-case-status-strip {
+    grid-template-columns: repeat(2, 1fr);
+    margin: 18px 0;
+    border-radius: 12px;
+  }
+
+  .police-case-status-strip > div {
+    padding: 14px 15px;
+    border-right: 1px solid var(--border-color, #e4e7ec);
+    border-bottom: 1px solid var(--border-color, #e4e7ec);
+  }
+
+  .police-case-status-strip > div:nth-child(2n) {
+    border-right: none;
+  }
+
+  .police-case-status-strip > div:nth-child(4),
+  .police-case-status-strip > div:nth-child(5) {
+    border-top: none;
+  }
+
+  .police-case-status-strip > div:nth-child(5) {
+    border-bottom: none;
+  }
+
+  .police-case-status-strip span {
+    font-size: 9px;
+  }
+
+  .police-case-status-strip strong {
+    font-size: 13px;
+  }
+}
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 420px) {
+  .police-case-status-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .police-case-status-strip > div {
+    border-right: none;
+    border-bottom: 1px solid var(--border-color, #e4e7ec);
+  }
+
+  .police-case-status-strip > div:last-child {
+    border-bottom: none;
+  }
+}

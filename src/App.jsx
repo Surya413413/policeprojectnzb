@@ -9,7 +9,6 @@ import Login from "./pages/Login";
 // WATCHMAN / GATE
 // =========================
 import GateDashboard from "./pages/GateDashboard";
-
 import RegisterVisitor from "./pages/gate/RegisterVisitor";
 import VisitorSearch from "./pages/gate/VisitorSearch";
 import VisitorDetails from "./pages/gate/VisitorDetails";
@@ -28,12 +27,15 @@ import PoliceHistory from "./pages/police/PoliceHistory";
 import PoliceRegisterVisitor from "./pages/police/PoliceRegisterVisitor";
 import PoliceReports from "./pages/police/PoliceReports";
 
-// Commissioner imports
+// =========================
+// COMMISSIONER
+// =========================
 import CommissionerDashboard from "./pages/commissioner/CommissionerDashboard";
 import CommissionerVisitors from "./pages/commissioner/CommissionerVisitors";
 import CommissionerCases from "./pages/commissioner/CommissionerCases";
 import CommissionerCaseDetails from "./pages/commissioner/CommissionerCaseDetails";
 import CommissionerReports from "./pages/commissioner/CommissionerReports";
+import CommissionerStaff from "./pages/commissioner/CommissionerStaff";
 
 // =========================
 // ROUTE PROTECTION
@@ -47,20 +49,15 @@ function App() {
         {/* =================================================
             PUBLIC ROUTES
         ================================================= */}
-
         <Route path="/" element={<Navigate to="/login" replace />} />
-
         <Route path="/login" element={<Login />} />
 
         {/* =================================================
             WATCHMAN / GATE ROUTES
         ================================================= */}
-
         <Route element={<RoleRoute allowedRole="WATCHMAN" />}>
           <Route path="/gate" element={<GateDashboard />} />
-
           <Route path="/gate/register" element={<RegisterVisitor />} />
-
           <Route path="/gate/search" element={<VisitorSearch />} />
 
           <Route path="/gate/visitor/:visitorId" element={<VisitorDetails />} />
@@ -73,10 +70,11 @@ function App() {
         {/* =================================================
             POLICE ROUTES
         ================================================= */}
-
         <Route element={<RoleRoute allowedRole="POLICE" />}>
           <Route path="/police" element={<PoliceDashboard />} />
+
           <Route path="/police/visitors" element={<PoliceVisitors />} />
+
           <Route
             path="/police/visitors/:visitorId"
             element={<PoliceVisitorDetails />}
@@ -85,14 +83,16 @@ function App() {
           <Route path="/police/inside" element={<PoliceInside />} />
 
           <Route path="/police/petitions" element={<PolicePetitions />} />
-          <Route path="/police/history" element={<PoliceHistory />} />
-          <Route path="/police/register" element={<PoliceRegisterVisitor />} />
-          <Route path="/police/reports" element={<PoliceReports />} />
 
-          {/* More police pages will be added here */}
+          <Route path="/police/history" element={<PoliceHistory />} />
+
+          <Route path="/police/register" element={<PoliceRegisterVisitor />} />
+
+          <Route path="/police/reports" element={<PoliceReports />} />
         </Route>
+
         {/* =================================================
-            Commissioner ROUTES
+            COMMISSIONER ROUTES
         ================================================= */}
         <Route element={<RoleRoute allowedRole="COMMISSIONER" />}>
           <Route path="/commissioner" element={<CommissionerDashboard />} />
@@ -113,12 +113,12 @@ function App() {
             path="/commissioner/reports"
             element={<CommissionerReports />}
           />
+          <Route path="/commissioner/staff" element={<CommissionerStaff />} />
         </Route>
 
         {/* =================================================
             UNKNOWN ROUTES
         ================================================= */}
-
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </BrowserRouter>

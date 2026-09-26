@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
-
 import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import "../styles/Login.css";
-
 import { useNavigate } from "react-router-dom";
+import { FaShieldAlt, FaSignInAlt } from "react-icons/fa";
 
+import "../styles/Login.css";
 import { auth } from "../firebase/config";
 import { getCurrentUserRole } from "../services/authService";
 
@@ -20,6 +19,25 @@ function Login() {
   const [loading, setLoading] = useState(false);
   const [checkingAuth, setCheckingAuth] = useState(true);
   const [error, setError] = useState("");
+
+  const redirectByRole = (role) => {
+    if (role === "WATCHMAN") {
+      navigate("/gate", { replace: true });
+      return true;
+    }
+
+    if (role === "POLICE") {
+      navigate("/police", { replace: true });
+      return true;
+    }
+
+    if (role === "COMMISSIONER") {
+      navigate("/commissioner", { replace: true });
+      return true;
+    }
+
+    return false;
+  };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -40,25 +58,13 @@ function Login() {
           return;
         }
 
-        if (userRole.role === "WATCHMAN") {
-          navigate("/gate", { replace: true });
-          return;
+        if (!redirectByRole(userRole.role)) {
+          await signOut(auth);
+          setError("Invalid account role. Please contact the administrator.");
         }
-
-        if (userRole.role === "POLICE") {
-          navigate("/police", { replace: true });
-          return;
-        }
-
-        if (userRole.role === "COMMISSIONER") {
-          navigate("/commissioner", { replace: true });
-          return;
-        }
-
-        await signOut(auth);
-        setError("Invalid account role. Please contact the administrator.");
       } catch (error) {
         console.error("Authentication check error:", error);
+
         await signOut(auth);
         setError("Unable to verify your account.");
       } finally {
@@ -81,13 +87,8 @@ function Login() {
     try {
       setLoading(true);
 
-      const result = await signInWithEmailAndPassword(
-        auth,
-        email.trim(),
-        password,
-      );
+      await signInWithEmailAndPassword(auth, email.trim(), password);
 
-      const user = result.user;
       const userRole = await getCurrentUserRole();
 
       if (!userRole) {
@@ -98,23 +99,10 @@ function Login() {
         return;
       }
 
-      if (userRole.role === "WATCHMAN") {
-        navigate("/gate", { replace: true });
-        return;
+      if (!redirectByRole(userRole.role)) {
+        await signOut(auth);
+        setError("Invalid account role. Please contact the administrator.");
       }
-
-      if (userRole.role === "POLICE") {
-        navigate("/police", { replace: true });
-        return;
-      }
-
-      if (userRole.role === "COMMISSIONER") {
-        navigate("/commissioner", { replace: true });
-        return;
-      }
-
-      await signOut(auth);
-      setError("Invalid account role. Please contact the administrator.");
     } catch (error) {
       console.error("Login error:", error);
 
@@ -138,7 +126,10 @@ function Login() {
     return (
       <div className="login-page login-loading-page">
         <div className="login-loading">
-          <div className="login-loading-title">Checking account...</div>
+          <div className="login-loading-title">
+            <FaShieldAlt aria-hidden="true" />
+            Checking account...
+          </div>
           <div className="login-loading-subtitle">Please wait</div>
         </div>
       </div>
@@ -149,25 +140,26 @@ function Login() {
     <div className="login-page">
       <div className="login-container">
         <div className="login-brand">
-          <div className="login-logo">PS</div>
+          <div className="login-logo" aria-hidden="true">
+            <FaShieldAlt />
+          </div>
 
           <h1>POLICESETU AI</h1>
-
           <p>Secure Station Management Portal</p>
         </div>
 
         <div className="login-card">
           <div className="login-card-header">
             <h2>Sign In</h2>
-
             <p>Sign in using your authorized account</p>
           </div>
 
           <form onSubmit={handleLogin} className="login-form">
             <div className="login-field">
-              <label>Email Address</label>
+              <label htmlFor="login-email">Email Address</label>
 
               <input
+                id="login-email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -178,9 +170,10 @@ function Login() {
             </div>
 
             <div className="login-field">
-              <label>Password</label>
+              <label htmlFor="login-password">Password</label>
 
               <input
+                id="login-password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -193,6 +186,8 @@ function Login() {
             {error && <div className="login-error">{error}</div>}
 
             <button type="submit" disabled={loading} className="login-button">
+              <FaSignInAlt aria-hidden="true" />
+
               {loading ? "Signing in..." : "Sign In"}
             </button>
           </form>

@@ -182,6 +182,49 @@ const hi = {
     visitor: "आगंतुक",
   },
 
+  staff: {
+    commissioner: "कमिश्नर",
+    title: "स्टाफ प्रबंधन",
+    subtitle: "अधिकृत वॉचमैन और पुलिस स्टाफ खातों का प्रबंधन करें।",
+
+    backToDashboard: "डैशबोर्ड पर वापस जाएँ",
+    addStaff: "स्टाफ जोड़ें",
+
+    totalStaff: "कुल स्टाफ",
+    activeStaff: "सक्रिय स्टाफ",
+    watchmen: "वॉचमैन",
+    policeOfficers: "पुलिस अधिकारी",
+
+    addStaffTitle: "स्टाफ खाता निर्माण",
+    addStaffMessage:
+      "स्टाफ खाते सुरक्षित एडमिन बैकएंड के माध्यम से बनाए जाने चाहिए। यह पेज अकाउंट प्रोविजनिंग वर्कफ़्लो के लिए तैयार है।",
+
+    close: "बंद करें",
+
+    searchPlaceholder: "नाम, ईमेल या मोबाइल से खोजें...",
+    roleFilter: "भूमिका से फ़िल्टर",
+    statusFilter: "स्थिति से फ़िल्टर",
+
+    allRoles: "सभी भूमिकाएँ",
+    allStatus: "सभी स्थिति",
+
+    active: "सक्रिय",
+    disabled: "अक्षम",
+
+    staffDirectory: "स्टाफ निर्देशिका",
+    records: "रिकॉर्ड",
+    loading: "स्टाफ लोड हो रहा है...",
+
+    noStaff: "कोई स्टाफ रिकॉर्ड नहीं मिला",
+    noStaffMessage: "प्रोविजन किए गए अधिकृत स्टाफ प्रोफाइल यहाँ दिखाई देंगे।",
+
+    staffMember: "स्टाफ सदस्य",
+    role: "भूमिका",
+    contact: "संपर्क",
+    status: "स्थिति",
+    created: "बनाया गया",
+  },
+
   case: {
     // Existing case translations
     status: "मामले की स्थिति",

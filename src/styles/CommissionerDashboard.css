@@ -831,3 +831,121 @@ html[data-theme="dark"] {
     padding: 12px;
   }
 }
+
+/* =========================================================
+   COMMISSIONER HEADER - STAFF MANAGEMENT
+   ========================================================= */
+
+.commissioner-staff-button {
+  height: 40px;
+  padding: 0 12px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+
+  background: var(--bg-card);
+  color: var(--text-primary);
+
+  cursor: pointer;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+
+  box-shadow: 0 2px 6px var(--shadow-color);
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+/* Icon */
+
+.commissioner-staff-icon {
+  width: 15px;
+  height: 15px;
+
+  color: var(--primary-color);
+
+  flex-shrink: 0;
+}
+
+/* Text */
+
+.commissioner-staff-text {
+  white-space: nowrap;
+  line-height: 1;
+}
+
+/* Arrow */
+
+.commissioner-staff-arrow {
+  width: 11px;
+  height: 11px;
+
+  color: var(--text-secondary);
+
+  flex-shrink: 0;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+/* Hover */
+
+.commissioner-staff-button:hover {
+  background: var(--bg-secondary);
+
+  border-color: var(--primary-color);
+
+  color: var(--primary-color);
+
+  box-shadow: 0 4px 10px var(--shadow-color);
+
+  transform: translateY(-1px);
+}
+
+.commissioner-staff-button:hover .commissioner-staff-arrow {
+  color: var(--primary-color);
+  transform: translateX(2px);
+}
+
+/* Active */
+
+.commissioner-staff-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 5px var(--shadow-color);
+}
+
+/* Keyboard focus */
+
+.commissioner-staff-button:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Mobile */
+
+@media (max-width: 700px) {
+  .commissioner-staff-button {
+    height: 38px;
+    padding: 0 10px;
+  }
+
+  .commissioner-staff-text {
+    font-size: 11px;
+  }
+
+  .commissioner-staff-arrow {
+    display: none;
+  }
+}

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import {
   subscribeToAllVisits,
@@ -12,6 +12,7 @@ import "../../styles/PoliceVisitors.css";
 
 function PoliceVisitors() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [visitors, setVisitors] = useState([]);
   const [visits, setVisits] = useState([]);
@@ -19,6 +20,23 @@ function PoliceVisitors() {
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("ALL");
   const [caseFilter, setCaseFilter] = useState("ALL");
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const filter = params.get("caseFilter");
+    const allowed = [
+      "urgent",
+      "high",
+      "verification",
+      "evidence-pending",
+      "ai-pending",
+      "follow-up",
+      "active",
+      "closed",
+      "all-cases",
+    ];
+    setCaseFilter(allowed.includes(filter) ? filter : "ALL");
+  }, [location.search]);
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -110,16 +128,98 @@ function PoliceVisitors() {
       const latestVisit = visitorVisits[0];
       const status = activeVisit ? "INSIDE" : "EXITED";
 
+      const getEvidenceCount = (visit) => {
+        const voiceCount = Array.isArray(visit?.voiceEvidence)
+          ? visit.voiceEvidence.length
+          : visit?.voiceData
+            ? 1
+            : 0;
+        const documentCount = Array.isArray(visit?.documentEvidence)
+          ? visit.documentEvidence.length
+          : visit?.documentData
+            ? 1
+            : 0;
+        return voiceCount + documentCount;
+      };
+
+      const isCaseVisit = (visit) =>
+        Boolean(
+          visit?.caseStatus ||
+          visit?.caseAction ||
+          visit?.aiStatus ||
+          visit?.aiProblemSummary ||
+          visit?.voiceEvidence?.length ||
+          visit?.documentEvidence?.length ||
+          visit?.voiceData ||
+          visit?.documentData,
+        );
+
       const hasAI = visitorVisits.some(
-        (visit) => visit.aiStatus === "ANALYZED" || visit.aiProblemSummary,
+        (visit) =>
+          String(visit?.aiStatus || "").toUpperCase() === "ANALYZED" ||
+          Boolean(visit?.aiProblemSummary),
       );
 
-      const hasPendingAction = visitorVisits.some(
+      const hasPendingAction = visitorVisits.some((visit) => {
+        const s = String(visit?.caseAction?.status || visit?.caseStatus || "")
+          .trim()
+          .toLowerCase();
+        return isCaseVisit(visit) && s !== "closed";
+      });
+
+      const hasUrgentCase = visitorVisits.some(
         (visit) =>
-          visit.caseAction &&
-          visit.caseAction.status &&
-          !["Closed"].includes(visit.caseAction.status),
+          isCaseVisit(visit) &&
+          String(visit?.casePriority || visit?.caseAction?.priority || "")
+            .trim()
+            .toLowerCase() === "urgent",
       );
+      const hasHighCase = visitorVisits.some(
+        (visit) =>
+          isCaseVisit(visit) &&
+          String(visit?.casePriority || visit?.caseAction?.priority || "")
+            .trim()
+            .toLowerCase() === "high",
+      );
+      const hasVerificationCase = visitorVisits.some(
+        (visit) =>
+          isCaseVisit(visit) &&
+          String(visit?.caseStatus || visit?.caseAction?.status || "")
+            .trim()
+            .toLowerCase() === "under verification",
+      );
+      const hasEvidencePendingCase = visitorVisits.some(
+        (visit) => isCaseVisit(visit) && getEvidenceCount(visit) === 0,
+      );
+      const hasAIPendingCase = visitorVisits.some(
+        (visit) =>
+          isCaseVisit(visit) &&
+          getEvidenceCount(visit) > 0 &&
+          String(visit?.aiStatus || "").toUpperCase() !== "ANALYZED",
+      );
+      const hasFollowUpDue = visitorVisits.some((visit) => {
+        if (!isCaseVisit(visit)) return false;
+        const value =
+          visit?.caseAction?.nextActionDate || visit?.nextActionDate;
+        if (!value) return false;
+        const dueDate = new Date(`${value}T23:59:59`);
+        return !Number.isNaN(dueDate.getTime()) && dueDate <= new Date();
+      });
+      const hasActiveCase = visitorVisits.some((visit) => {
+        if (!isCaseVisit(visit)) return false;
+        const s = String(visit?.caseStatus || visit?.caseAction?.status || "")
+          .trim()
+          .toLowerCase();
+        return s !== "closed";
+      });
+      const hasClosedCase = visitorVisits.some((visit) => {
+        if (!isCaseVisit(visit)) return false;
+        const s = String(visit?.caseStatus || visit?.caseAction?.status || "")
+          .trim()
+          .toLowerCase();
+        return s === "closed";
+      });
+      const hasAnyCase = visitorVisits.some(isCaseVisit);
 
       const matchesSearch =
         !value ||
@@ -128,11 +228,44 @@ function PoliceVisitors() {
         visitor.visitorCode?.toLowerCase().includes(value);
 
       const matchesStatus = statusFilter === "ALL" || status === statusFilter;
-
-      const matchesCase =
-        caseFilter === "ALL" ||
-        (caseFilter === "AI_ANALYZED" && hasAI) ||
-        (caseFilter === "PENDING_ACTION" && hasPendingAction);
+      let matchesCase = true;
+      switch (caseFilter) {
+        case "urgent":
+          matchesCase = hasUrgentCase;
+          break;
+        case "high":
+          matchesCase = hasHighCase;
+          break;
+        case "verification":
+          matchesCase = hasVerificationCase;
+          break;
+        case "evidence-pending":
+          matchesCase = hasEvidencePendingCase;
+          break;
+        case "ai-pending":
+          matchesCase = hasAIPendingCase;
+          break;
+        case "follow-up":
+          matchesCase = hasFollowUpDue;
+          break;
+        case "active":
+          matchesCase = hasActiveCase;
+          break;
+        case "closed":
+          matchesCase = hasClosedCase;
+          break;
+        case "all-cases":
+          matchesCase = hasAnyCase;
+          break;
+        case "AI_ANALYZED":
+          matchesCase = hasAI;
+          break;
+        case "PENDING_ACTION":
+          matchesCase = hasPendingAction;
+          break;
+        default:
+          matchesCase = true;
+      }
 
       return matchesSearch && matchesStatus && matchesCase;
     });
@@ -288,28 +421,28 @@ function PoliceVisitors() {
 
       <div className="visitor-filter-bar">
         <div className="visitor-filter-group">
-          <span>Status</span>
-          <button
-            type="button"
-            className={statusFilter === "ALL" ? "active" : ""}
-            onClick={() => setStatusFilter("ALL")}
-          >
-            All
-          </button>
-          <button
-            type="button"
-            className={statusFilter === "INSIDE" ? "active" : ""}
-            onClick={() => setStatusFilter("INSIDE")}
-          >
-            Inside
-          </button>
-          <button
-            type="button"
-            className={statusFilter === "EXITED" ? "active" : ""}
-            onClick={() => setStatusFilter("EXITED")}
-          >
-            Exited
-          </button>
+          <span>Case</span>
+          {[
+            ["ALL", "All"],
+            ["all-cases", "All Cases"],
+            ["urgent", "Urgent"],
+            ["high", "High"],
+            ["verification", "Under Verification"],
+            ["evidence-pending", "Evidence Pending"],
+            ["ai-pending", "AI Pending"],
+            ["follow-up", "Follow-ups Due"],
+            ["active", "Active Cases"],
+            ["closed", "Closed Cases"],
+          ].map(([value, label]) => (
+            <button
+              key={value}
+              type="button"
+              className={caseFilter === value ? "active" : ""}
+              onClick={() => setCaseFilter(value)}
+            >
+              {label}
+            </button>
+          ))}
         </div>
 
         <div className="visitor-filter-group">

@@ -1048,3 +1048,84 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* =========================================
+   POLICE DASHBOARD - REGISTER BUTTON
+========================================= */
+
+.police-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.register-visitor-dashboard-button {
+  flex-shrink: 0;
+  border: 0;
+  border-radius: 10px;
+  padding: 11px 18px;
+  background: var(--primary-color, #2563eb);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+  box-shadow: 0 5px 14px rgba(37, 99, 235, 0.18);
+}
+
+.register-visitor-dashboard-button:hover {
+  background: var(--primary-hover, #1d4ed8);
+  transform: translateY(-1px);
+}
+
+/* =========================================
+   SMALL REPORT CARD
+========================================= */
+
+.police-report-card {
+  max-width: 420px;
+  width: 100%;
+  margin: 18px 0 0 auto;
+}
+
+.police-report-card .police-quick-icon {
+  flex-shrink: 0;
+}
+
+.police-report-card .police-quick-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.police-report-card .police-quick-content h3 {
+  margin-bottom: 3px;
+}
+
+.police-report-card .police-quick-content p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.police-report-card button {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+  .police-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .register-visitor-dashboard-button {
+    width: 100%;
+  }
+
+  .police-report-card {
+    max-width: none;
+    width: 100%;
+  }
+}

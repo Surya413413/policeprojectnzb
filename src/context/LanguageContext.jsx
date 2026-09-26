@@ -28,27 +28,28 @@ export const LanguageProvider = ({ children }) => {
     }
   };
 
-  const t = (key) => {
+  const getTranslation = (translationSet, key) => {
     const keys = key.split(".");
-
-    let value = translations[language];
-
-    for (const item of keys) {
-      value = value?.[item];
-    }
-
-    if (value !== undefined) {
-      return value;
-    }
-
-    // Fallback to English
-    value = translations.en;
+    let value = translationSet;
 
     for (const item of keys) {
       value = value?.[item];
     }
 
-    return value || key;
+    return value;
+  };
+
+  const t = (key) => {
+    const currentValue = getTranslation(translations[language], key);
+
+    if (currentValue !== undefined) {
+      return currentValue;
+    }
+
+    // Fallback to English if a translated key is missing.
+    const englishValue = getTranslation(translations.en, key);
+
+    return englishValue !== undefined ? englishValue : key;
   };
 
   return (

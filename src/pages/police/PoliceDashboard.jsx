@@ -411,6 +411,14 @@ function PoliceDashboard() {
 
             <p>Monitor visitor activity and station entry records.</p>
           </div>
+
+          <button
+            type="button"
+            className="register-visitor-dashboard-button"
+            onClick={() => navigate("/police/register")}
+          >
+            + Register Visitor
+          </button>
         </section>
 
         {/* ERROR */}
@@ -480,7 +488,7 @@ function PoliceDashboard() {
             <button
               type="button"
               className="view-all-button"
-              onClick={() => navigate("/police/visitors")}
+              onClick={() => navigate("/police/visitors?caseFilter=all-cases")}
             >
               View Cases →
             </button>
@@ -490,7 +498,7 @@ function PoliceDashboard() {
             <button
               type="button"
               className="case-intelligence-card urgent"
-              onClick={() => navigate("/police/visitors")}
+              onClick={() => navigate("/police/visitors?caseFilter=urgent")}
             >
               <span className="case-intelligence-icon">🔴</span>
               <span className="case-intelligence-content">
@@ -502,7 +510,7 @@ function PoliceDashboard() {
             <button
               type="button"
               className="case-intelligence-card high"
-              onClick={() => navigate("/police/visitors")}
+              onClick={() => navigate("/police/visitors?caseFilter=high")}
             >
               <span className="case-intelligence-icon">🟠</span>
               <span className="case-intelligence-content">
@@ -514,7 +522,9 @@ function PoliceDashboard() {
             <button
               type="button"
               className="case-intelligence-card verification"
-              onClick={() => navigate("/police/visitors")}
+              onClick={() =>
+                navigate("/police/visitors?caseFilter=verification")
+              }
             >
               <span className="case-intelligence-icon">🟡</span>
               <span className="case-intelligence-content">
@@ -526,7 +536,9 @@ function PoliceDashboard() {
             <button
               type="button"
               className="case-intelligence-card evidence"
-              onClick={() => navigate("/police/visitors")}
+              onClick={() =>
+                navigate("/police/visitors?caseFilter=evidence-pending")
+              }
             >
               <span className="case-intelligence-icon">📄</span>
               <span className="case-intelligence-content">
@@ -538,7 +550,7 @@ function PoliceDashboard() {
             <button
               type="button"
               className="case-intelligence-card ai"
-              onClick={() => navigate("/police/visitors")}
+              onClick={() => navigate("/police/visitors?caseFilter=ai-pending")}
             >
               <span className="case-intelligence-icon">🤖</span>
               <span className="case-intelligence-content">
@@ -550,7 +562,7 @@ function PoliceDashboard() {
             <button
               type="button"
               className="case-intelligence-card followup"
-              onClick={() => navigate("/police/visitors")}
+              onClick={() => navigate("/police/visitors?caseFilter=follow-up")}
             >
               <span className="case-intelligence-icon">📅</span>
               <span className="case-intelligence-content">
@@ -562,7 +574,7 @@ function PoliceDashboard() {
             <button
               type="button"
               className="case-intelligence-card active"
-              onClick={() => navigate("/police/visitors")}
+              onClick={() => navigate("/police/visitors?caseFilter=active")}
             >
               <span className="case-intelligence-icon">👮</span>
               <span className="case-intelligence-content">
@@ -574,7 +586,7 @@ function PoliceDashboard() {
             <button
               type="button"
               className="case-intelligence-card closed"
-              onClick={() => navigate("/police/visitors")}
+              onClick={() => navigate("/police/visitors?caseFilter=closed")}
             >
               <span className="case-intelligence-icon">✅</span>
               <span className="case-intelligence-content">
@@ -657,7 +669,7 @@ function PoliceDashboard() {
 
         {/* Reports section is added in the quick actions section of the police dashboard. */}
 
-        <div className="police-quick-card">
+        <div className="police-quick-card police-report-card">
           <div className="police-quick-icon">📊</div>
 
           <div className="police-quick-content">

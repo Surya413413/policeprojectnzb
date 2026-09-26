@@ -6,6 +6,7 @@ import {
   FaFolderOpen,
   FaArrowRight,
   FaCircle,
+  FaUserShield,
 } from "react-icons/fa";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { collection, onSnapshot, query } from "firebase/firestore";
@@ -385,6 +386,17 @@ function CommissionerDashboard() {
               {commissioner.email || t("commissioner.administrativeAccess")}
             </span>
           </div>
+          <button
+            type="button"
+            className="commissioner-staff-button"
+            onClick={() => navigate("/commissioner/staff")}
+          >
+            <FaUserShield className="commissioner-staff-icon" />
+
+            <span className="commissioner-staff-text">{t("staff.title")}</span>
+
+            <FaArrowRight className="commissioner-staff-arrow" />
+          </button>
 
           <AppSettings />
 
