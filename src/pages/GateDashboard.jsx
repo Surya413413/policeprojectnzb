@@ -11,6 +11,8 @@ import {
 } from "../services/gateService";
 
 import "../styles/GateDashboard.css";
+import "../styles/AppSettings.css";
+import AppSettings from "../components/AppSettings";
 
 function GateDashboard() {
   const navigate = useNavigate();
@@ -557,8 +559,10 @@ function GateDashboard() {
         </div>
 
         <div className="gate-header-right">
-          <div className="watchman-info">
-            <span className="watchman-name">Watchman</span>
+  <AppSettings />
+
+  <div className="watchman-info">
+  <span className="watchman-name">Watchman</span>
 
             <span className="watchman-role">Gate Access</span>
           </div>

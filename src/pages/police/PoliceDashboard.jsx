@@ -9,6 +9,8 @@ import { auth, db } from "../../firebase/config";
 import { getCurrentUserRole } from "../../services/authService";
 
 import "../../styles/PoliceDashboard.css";
+import "../../styles/AppSettings.css";
+import AppSettings from "../../components/AppSettings";
 
 import {
   subscribeToPoliceDashboardStats,
@@ -373,8 +375,10 @@ function PoliceDashboard() {
         </div>
 
         <div className="police-header-right">
-          <div className="officer-info">
-            <span className="officer-name">
+  <AppSettings />
+
+  <div className="officer-info">
+  <span className="officer-name">
               {officer.name || "Police Officer"}
             </span>
 
