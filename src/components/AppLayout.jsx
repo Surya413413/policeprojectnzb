@@ -494,7 +494,7 @@ const AppLayout = ({ role, children }) => {
         {/* COMPANY ATTRIBUTION */}
         <div className="sidebar-company">
           <img
-            src="/public/nnaisolutioncomapanylogo.png"
+            src="/nnaisolutioncomapanylogo.png"
             alt="NN AI Solutions"
             className="sidebar-company-logo"
           />

@@ -380,7 +380,7 @@ function Login() {
           <span className="login-footer-powered">Powered by</span>
 
           <img
-            src="/public/nnaisolutioncomapanylogo.png"
+            src="/nnaisolutioncomapanylogo.png"
             alt="NN AI Solutions"
             className="login-footer-company-logo"
           />
