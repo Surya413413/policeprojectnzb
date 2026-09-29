@@ -1,4 +1,20 @@
 import React, { useEffect, useRef, useState } from "react";
+import {
+  FaBrain,
+  FaCamera,
+  FaCheckCircle,
+  FaFileAlt,
+  FaGavel,
+  FaMicrophone,
+  FaPaperclip,
+  FaSave,
+  FaSearch,
+  FaStop,
+  FaTimes,
+  FaUpload,
+  FaUserShield,
+  FaExclamationTriangle,
+} from "react-icons/fa";
 
 import { updateVisit } from "../../services/visitorService";
 import { analyzePoliceCase } from "../../services/aiCaseService";
@@ -764,15 +780,15 @@ const PoliceCaseEvidence = ({ visit, onUpdated }) => {
       {/* ALERTS */}
       {error && (
         <div className="case-evidence-error">
-          <span>!</span>
-          {error}
+          <FaExclamationTriangle aria-hidden="true" />
+          <span>{error}</span>
         </div>
       )}
 
       {success && (
         <div className="case-evidence-success">
-          <span>✓</span>
-          {success}
+          <FaCheckCircle aria-hidden="true" />
+          <span>{success}</span>
         </div>
       )}
 
@@ -782,7 +798,9 @@ const PoliceCaseEvidence = ({ visit, onUpdated }) => {
       <div className="evidence-box">
         <div className="evidence-box-header">
           <div className="evidence-heading-left">
-            <span className="evidence-icon">🎙</span>
+            <span className="evidence-icon">
+              <FaMicrophone aria-hidden="true" />
+            </span>
 
             <div>
               <h3>Voice Statements</h3>
@@ -798,7 +816,8 @@ const PoliceCaseEvidence = ({ visit, onUpdated }) => {
               className="start-record-button"
               onClick={startRecording}
             >
-              ● Add Recording
+              <FaMicrophone aria-hidden="true" />
+              <span>Add Recording</span>
             </button>
           )}
         </div>
@@ -819,14 +838,15 @@ const PoliceCaseEvidence = ({ visit, onUpdated }) => {
               className="stop-record-button"
               onClick={stopRecording}
             >
-              ■ Stop Recording
+              <FaStop aria-hidden="true" />
+              <span>Stop Recording</span>
             </button>
           </div>
         )}
 
         {voiceEvidence.length === 0 && !recording && (
           <div className="document-upload-area">
-            <span>🎙</span>
+            <FaMicrophone className="empty-state-icon" aria-hidden="true" />
             <strong>No voice statements added</strong>
             <small>Click Add Recording to record a statement.</small>
           </div>
@@ -843,8 +863,10 @@ const PoliceCaseEvidence = ({ visit, onUpdated }) => {
                 type="button"
                 className="remove-evidence-button"
                 onClick={() => removeVoice(item.id)}
+                title="Remove voice statement"
               >
-                Remove
+                <FaTimes aria-hidden="true" />
+                <span>Remove</span>
               </button>
             </div>
 
@@ -859,7 +881,9 @@ const PoliceCaseEvidence = ({ visit, onUpdated }) => {
       <div className="evidence-box">
         <div className="evidence-box-header">
           <div className="evidence-heading-left">
-            <span className="evidence-icon">📄</span>
+            <span className="evidence-icon">
+              <FaFileAlt aria-hidden="true" />
+            </span>
 
             <div>
               <h3>Supporting Documents</h3>
@@ -876,7 +900,8 @@ const PoliceCaseEvidence = ({ visit, onUpdated }) => {
               className="upload-document-button"
               onClick={() => documentInputRef.current?.click()}
             >
-              + Upload Documents
+              <FaUpload aria-hidden="true" />
+              <span>Upload Documents</span>
             </button>
 
             <button
@@ -885,7 +910,8 @@ const PoliceCaseEvidence = ({ visit, onUpdated }) => {
               onClick={() => scanInputRef.current?.click()}
               disabled={scanning}
             >
-              {scanning ? "Scanning..." : "📷 Scan Document"}
+              <FaCamera aria-hidden="true" />
+              <span>{scanning ? "Scanning..." : "Scan Document"}</span>
             </button>
           </div>
         </div>
@@ -912,7 +938,7 @@ const PoliceCaseEvidence = ({ visit, onUpdated }) => {
 
         {documentEvidence.length === 0 && (
           <div className="document-upload-area">
-            <span>📎</span>
+            <FaPaperclip className="empty-state-icon" aria-hidden="true" />
             <strong>Upload or Scan Documents</strong>
             <small>PDF, JPG and PNG • Up to 600 KB per file</small>
           </div>
@@ -947,8 +973,10 @@ const PoliceCaseEvidence = ({ visit, onUpdated }) => {
                 type="button"
                 className="remove-document-button"
                 onClick={() => removeDocument(item.id)}
+                title="Remove document"
               >
-                Remove
+                <FaTimes aria-hidden="true" />
+                <span>Remove</span>
               </button>
             </div>
           </div>
@@ -971,7 +999,8 @@ const PoliceCaseEvidence = ({ visit, onUpdated }) => {
           onClick={handleSaveEvidence}
           disabled={saving || recording || !hasEvidence}
         >
-          {saving ? "Saving..." : "Save All Evidence"}
+          <FaSave aria-hidden="true" />
+          <span>{saving ? "Saving..." : "Save All Evidence"}</span>
         </button>
       </div>
 
@@ -981,7 +1010,9 @@ const PoliceCaseEvidence = ({ visit, onUpdated }) => {
       <div className="ai-analysis-card">
         <div className="ai-analysis-header">
           <div className="ai-analysis-title">
-            <div className="ai-coming-icon">✦</div>
+            <div className="ai-coming-icon">
+              <FaBrain aria-hidden="true" />
+            </div>
 
             <div>
               <span>POLICESETU AI</span>
@@ -1004,7 +1035,10 @@ const PoliceCaseEvidence = ({ visit, onUpdated }) => {
             disabled={analyzing || saving || !hasEvidence}
             onClick={handleAnalyzeWithAI}
           >
-            {analyzing ? "Analyzing Evidence..." : "✦ Analyze All Evidence"}
+            <FaBrain aria-hidden="true" />
+            <span>
+              {analyzing ? "Analyzing Evidence..." : "Analyze All Evidence"}
+            </span>
           </button>
 
           {!hasEvidence && <span>Add voice or document evidence first.</span>}
@@ -1030,21 +1064,27 @@ const PoliceCaseEvidence = ({ visit, onUpdated }) => {
             )}
 
             <div className="ai-result-block">
-              <span>🎙 VOICE TRANSCRIPT</span>
+              <span>
+                <FaMicrophone aria-hidden="true" /> VOICE TRANSCRIPT
+              </span>
               <div className="ai-result-content">
                 {analysis.transcript || "No voice transcript available."}
               </div>
             </div>
 
             <div className="ai-result-block">
-              <span>📄 DOCUMENT TEXT</span>
+              <span>
+                <FaFileAlt aria-hidden="true" /> DOCUMENT TEXT
+              </span>
               <div className="ai-result-content">
                 {analysis.documentText || "No document text available."}
               </div>
             </div>
 
             <div className="ai-result-block ai-important-block">
-              <span>⚠ REPORTED PROBLEM</span>
+              <span>
+                <FaExclamationTriangle aria-hidden="true" /> REPORTED PROBLEM
+              </span>
               <div className="ai-result-content">
                 {analysis.problemSummary ||
                   "No clear problem was identified from the submitted evidence."}
@@ -1052,14 +1092,19 @@ const PoliceCaseEvidence = ({ visit, onUpdated }) => {
             </div>
 
             <div className="ai-result-block">
-              <span>🔎 EVIDENCE SUMMARY</span>
+              <span>
+                <FaSearch aria-hidden="true" /> EVIDENCE SUMMARY
+              </span>
               <div className="ai-result-content">
                 {analysis.evidenceSummary || "No evidence summary available."}
               </div>
             </div>
 
             <div className="ai-result-block">
-              <span>⚖ POTENTIALLY RELEVANT LEGAL PROVISIONS</span>
+              <span>
+                <FaGavel aria-hidden="true" /> POTENTIALLY RELEVANT LEGAL
+                PROVISIONS
+              </span>
               <div className="ai-result-content">
                 {analysis.legalReferences ||
                   "No potentially relevant legal provisions were identified."}
@@ -1067,7 +1112,9 @@ const PoliceCaseEvidence = ({ visit, onUpdated }) => {
             </div>
 
             <div className="ai-result-block">
-              <span>👮 SUGGESTED POLICE ACTIONS</span>
+              <span>
+                <FaUserShield aria-hidden="true" /> SUGGESTED POLICE ACTIONS
+              </span>
               <div className="ai-result-content">
                 {analysis.suggestedActions || "No suggested actions available."}
               </div>

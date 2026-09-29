@@ -1,5 +1,19 @@
 import { useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import {
+  FaArrowLeft,
+  FaBrain,
+  FaCheck,
+  FaEdit,
+  FaEye,
+  FaFileAlt,
+  FaMicrophone,
+  FaPlus,
+  FaSearch,
+  FaTrashAlt,
+  FaTimes,
+  FaUsers,
+} from "react-icons/fa";
 
 import {
   subscribeToAllVisits,
@@ -374,8 +388,13 @@ function PoliceVisitors() {
 
       <div className="police-visitors-header">
         <div>
-          <button className="back-button" onClick={() => navigate("/police")}>
-            ← Dashboard
+          <button
+            type="button"
+            className="back-button"
+            onClick={() => navigate("/police")}
+          >
+            <FaArrowLeft />
+            <span>Dashboard</span>
           </button>
 
           <h1>All Visitors</h1>
@@ -412,7 +431,8 @@ function PoliceVisitors() {
 
         {search && (
           <button type="button" onClick={handleClearSearch}>
-            Clear
+            <FaTimes />
+            <span>Clear</span>
           </button>
         )}
       </div>
@@ -617,10 +637,19 @@ function PoliceVisitors() {
 
                       <td>
                         <div className="visitor-evidence-summary">
-                          <span>🎙 {voiceCount}</span>
-                          <span>📄 {documentCount}</span>
+                          <span title="Voice evidence">
+                            <FaMicrophone />
+                            {voiceCount}
+                          </span>
+                          <span title="Document evidence">
+                            <FaFileAlt />
+                            {documentCount}
+                          </span>
                           {latestCaseVisit?.aiStatus === "ANALYZED" && (
-                            <span className="ai-mini-badge">AI</span>
+                            <span className="ai-mini-badge">
+                              <FaBrain />
+                              <span>AI</span>
+                            </span>
                           )}
                         </div>
                       </td>
@@ -636,7 +665,8 @@ function PoliceVisitors() {
                             className="view-visitor-button"
                             onClick={() => handleViewVisitor(visitor.id)}
                           >
-                            View
+                            <FaEye />
+                            <span>View</span>
                           </button>
 
                           {/* EDIT */}
@@ -647,7 +677,8 @@ function PoliceVisitors() {
                             onClick={() => handleEditVisitor(visitor.id)}
                             disabled={isDeleting}
                           >
-                            Edit
+                            <FaEdit />
+                            <span>Edit</span>
                           </button>
 
                           {/* DELETE */}
@@ -658,7 +689,17 @@ function PoliceVisitors() {
                             onClick={() => handleDeleteVisitor(visitor)}
                             disabled={isDeleting}
                           >
-                            {isDeleting ? "Deleting..." : "Delete"}
+                            {isDeleting ? (
+                              <>
+                                <FaTrashAlt />
+                                <span>Deleting...</span>
+                              </>
+                            ) : (
+                              <>
+                                <FaTrashAlt />
+                                <span>Delete</span>
+                              </>
+                            )}
                           </button>
                         </div>
                       </td>

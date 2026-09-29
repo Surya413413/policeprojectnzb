@@ -1,8 +1,21 @@
 import { useEffect, useMemo, useState } from "react";
-import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
-import { auth } from "../firebase/config";
+import {
+  FaAddressBook,
+  FaBookOpen,
+  FaCheckCircle,
+  FaClock,
+  FaEye,
+  FaExclamationTriangle,
+  FaHistory,
+  FaPlus,
+  FaSearch,
+  FaSignOutAlt,
+  FaTimesCircle,
+  FaUserFriends,
+  FaUserPlus,
+} from "react-icons/fa";
 
 import {
   subscribeToVisitsByDate,
@@ -277,22 +290,6 @@ function GateDashboard() {
   };
 
   // =========================================================
-  // LOGOUT
-  // =========================================================
-
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-
-      navigate("/login", {
-        replace: true,
-      });
-    } catch (error) {
-      console.error("Logout failed:", error);
-    }
-  };
-
-  // =========================================================
   // FILTER BUTTONS
   // =========================================================
 
@@ -306,6 +303,7 @@ function GateDashboard() {
           }
           onClick={() => setFilter("ALL")}
         >
+          <FaAddressBook />
           All
         </button>
 
@@ -318,6 +316,7 @@ function GateDashboard() {
           }
           onClick={() => setFilter("INSIDE")}
         >
+          <FaCheckCircle />
           Inside
         </button>
 
@@ -330,6 +329,7 @@ function GateDashboard() {
           }
           onClick={() => setFilter("EXITED")}
         >
+          <FaSignOutAlt />
           Exited
         </button>
 
@@ -342,6 +342,7 @@ function GateDashboard() {
           }
           onClick={() => setFilter("PETITION")}
         >
+          <FaBookOpen />
           Petition / Complaint
         </button>
 
@@ -354,6 +355,7 @@ function GateDashboard() {
           }
           onClick={() => setFilter("MEETING")}
         >
+          <FaUserPlus />
           Meeting
         </button>
 
@@ -364,6 +366,7 @@ function GateDashboard() {
           }
           onClick={() => setFilter("OTHER")}
         >
+          <FaTimesCircle />
           Other
         </button>
       </div>
@@ -378,7 +381,7 @@ function GateDashboard() {
     if (data.length === 0) {
       return (
         <div className="empty-state">
-          <div className="empty-icon">👥</div>
+          <div className="empty-icon"><FaUserFriends /></div>
 
           <h4>{emptyTitle}</h4>
 
@@ -389,6 +392,7 @@ function GateDashboard() {
             onClick={() => navigate("/gate/register")}
             className="empty-register-button"
           >
+            <FaUserPlus />
             Register Visitor
           </button>
         </div>
@@ -507,6 +511,7 @@ function GateDashboard() {
                           navigate(`/gate/visitor/${visit.visitorId}`)
                         }
                       >
+                        <FaEye />
                         View
                       </button>
 
@@ -517,9 +522,15 @@ function GateDashboard() {
                           onClick={() => handleCheckout(visit)}
                           disabled={checkoutId === visit.id}
                         >
-                          {checkoutId === visit.id
-                            ? "Checking..."
-                            : "Check Out"}
+                          {checkoutId === visit.id ? (
+                              <>
+                                <FaClock /> Checking...
+                              </>
+                            ) : (
+                              <>
+                                <FaSignOutAlt /> Check Out
+                              </>
+                            )}
                         </button>
                       ) : (
                         <span className="completed-action">Completed</span>
@@ -541,38 +552,6 @@ function GateDashboard() {
 
   return (
     <div className="gate-dashboard">
-      {/* =====================================================
-          HEADER
-      ===================================================== */}
-
-      <header className="gate-header">
-        <div className="gate-header-left">
-          <div className="gate-logo">PS</div>
-
-          <div className="gate-brand">
-            <h1>POLICESETU AI</h1>
-
-            <p>Gate Management System</p>
-          </div>
-        </div>
-
-        <div className="gate-header-right">
-          <div className="watchman-info">
-            <span className="watchman-name">Watchman</span>
-
-            <span className="watchman-role">Gate Access</span>
-          </div>
-
-          <button
-            type="button"
-            className="logout-button"
-            onClick={handleLogout}
-          >
-            Logout
-          </button>
-        </div>
-      </header>
-
       {/* =====================================================
           MAIN
       ===================================================== */}
@@ -605,7 +584,7 @@ function GateDashboard() {
               className="register-button"
               onClick={() => navigate("/gate/register")}
             >
-              <span className="register-icon">+</span>
+              <FaPlus className="register-icon" />
               Register New Visitor
             </button>
 
@@ -623,7 +602,12 @@ function GateDashboard() {
             ERROR
         =================================================== */}
 
-        {error && <div className="dashboard-error">{error}</div>}
+        {error && (
+          <div className="dashboard-error">
+            <FaExclamationTriangle />
+            <span>{error}</span>
+          </div>
+        )}
 
         {/* ===================================================
             STATISTICS
@@ -636,7 +620,7 @@ function GateDashboard() {
             <div className="stat-card-top">
               <span className="stat-title">Today's Visitors</span>
 
-              <div className="stat-icon blue">👥</div>
+              <div className="stat-icon blue"><FaUserFriends /></div>
             </div>
 
             <div className="stat-number">
@@ -652,7 +636,7 @@ function GateDashboard() {
             <div className="stat-card-top">
               <span className="stat-title">Currently Inside</span>
 
-              <div className="stat-icon green">✓</div>
+              <div className="stat-icon green"><FaCheckCircle /></div>
             </div>
 
             <div className="stat-number">
@@ -668,7 +652,7 @@ function GateDashboard() {
             <div className="stat-card-top">
               <span className="stat-title">Exited Today</span>
 
-              <div className="stat-icon orange">↗</div>
+              <div className="stat-icon orange"><FaSignOutAlt /></div>
             </div>
 
             <div className="stat-number">
@@ -684,7 +668,7 @@ function GateDashboard() {
             <div className="stat-card-top">
               <span className="stat-title">Yesterday's Visitors</span>
 
-              <div className="stat-icon purple">◷</div>
+              <div className="stat-icon purple"><FaHistory /></div>
             </div>
 
             <div className="stat-number">

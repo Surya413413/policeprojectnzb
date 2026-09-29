@@ -1,46 +1,48 @@
 import { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import {
-  subscribeToVisitsByDate,
+  subscribeToAllVisits,
   subscribeToVisitors,
 } from "../../services/gateService";
 
-import "../../styles/PolicePetitions.css";
+import { deleteVisitor } from "../../services/visitorService";
 
-function PolicePetitions() {
+import "../../styles/PoliceVisitors.css";
+
+function PoliceVisitors() {
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const [visits, setVisits] = useState([]);
   const [visitors, setVisitors] = useState([]);
+  const [visits, setVisits] = useState([]);
 
   const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState("ALL");
+  const [caseFilter, setCaseFilter] = useState("ALL");
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const filter = params.get("caseFilter");
+    const allowed = [
+      "urgent",
+      "high",
+      "verification",
+      "evidence-pending",
+      "ai-pending",
+      "follow-up",
+      "active",
+      "closed",
+      "all-cases",
+    ];
+    setCaseFilter(allowed.includes(filter) ? filter : "ALL");
+  }, [location.search]);
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
-  // ==========================================
-  // LOAD TODAY'S VISITS
-  // ==========================================
-
-  useEffect(() => {
-    const unsubscribe = subscribeToVisitsByDate(
-      new Date(),
-      (data) => {
-        setVisits(data);
-        setLoading(false);
-      },
-      (error) => {
-        console.error("Police petition visits error:", error);
-
-        setError("Unable to load petition visitors.");
-
-        setLoading(false);
-      },
-    );
-
-    return () => unsubscribe();
-  }, []);
+  const [deletingId, setDeletingId] = useState("");
 
   // ==========================================
   // LOAD VISITORS
@@ -50,11 +52,14 @@ function PolicePetitions() {
     const unsubscribe = subscribeToVisitors(
       (data) => {
         setVisitors(data);
+        setLoading(false);
       },
       (error) => {
-        console.error("Police visitor information error:", error);
+        console.error("Police visitors error:", error);
 
-        setError("Unable to load visitor information.");
+        setError("Unable to load visitors.");
+
+        setLoading(false);
       },
     );
 
@@ -62,66 +67,212 @@ function PolicePetitions() {
   }, []);
 
   // ==========================================
-  // FILTER PETITION / COMPLAINT VISITS
+  // LOAD VISITS
   // ==========================================
 
-  const petitionVisits = useMemo(() => {
-    return visits.filter((visit) => visit.purpose === "Petition / Complaint");
-  }, [visits]);
+  useEffect(() => {
+    const unsubscribe = subscribeToAllVisits(
+      (data) => {
+        setVisits(data);
+      },
+      (error) => {
+        console.error("Police visits error:", error);
+
+        setError("Unable to load visitor visits.");
+      },
+    );
+
+    return () => unsubscribe();
+  }, []);
 
   // ==========================================
-  // VISITOR LOOKUP
+  // VISITOR INFORMATION
   // ==========================================
 
-  const getVisitor = (visitorId) => {
-    return visitors.find((visitor) => visitor.id === visitorId);
+  const getVisitorVisits = (visitorId) => {
+    return visits.filter((visit) => visit.visitorId === visitorId);
+  };
+
+  const getLatestVisit = (visitorId) => {
+    const visitorVisits = getVisitorVisits(visitorId);
+
+    if (!visitorVisits.length) {
+      return null;
+    }
+
+    return visitorVisits[0];
+  };
+
+  const getCurrentStatus = (visitorId) => {
+    const visitorVisits = getVisitorVisits(visitorId);
+
+    const activeVisit = visitorVisits.find(
+      (visit) => visit.status === "INSIDE",
+    );
+
+    return activeVisit ? "INSIDE" : "EXITED";
   };
 
   // ==========================================
   // SEARCH
   // ==========================================
 
-  const filteredVisits = useMemo(() => {
+  const filteredVisitors = useMemo(() => {
     const value = search.trim().toLowerCase();
 
-    if (!value) {
-      return petitionVisits;
-    }
-
-    return petitionVisits.filter((visit) => {
-      const visitor = getVisitor(visit.visitorId);
-
-      return (
-        visitor?.fullName?.toLowerCase().includes(value) ||
-        visitor?.mobileNumber?.toLowerCase().includes(value) ||
-        visitor?.visitorCode?.toLowerCase().includes(value) ||
-        visit.visitorCode?.toLowerCase().includes(value) ||
-        visit.visitCode?.toLowerCase().includes(value)
+    return visitors.filter((visitor) => {
+      const visitorVisits = getVisitorVisits(visitor.id);
+      const activeVisit = visitorVisits.find(
+        (visit) => visit.status === "INSIDE",
       );
-    });
-  }, [petitionVisits, visitors, search]);
+      const latestVisit = visitorVisits[0];
+      const status = activeVisit ? "INSIDE" : "EXITED";
 
-  // ==========================================
-  // FORMAT TIME
-  // ==========================================
+      const getEvidenceCount = (visit) => {
+        const voiceCount = Array.isArray(visit?.voiceEvidence)
+          ? visit.voiceEvidence.length
+          : visit?.voiceData
+            ? 1
+            : 0;
+        const documentCount = Array.isArray(visit?.documentEvidence)
+          ? visit.documentEvidence.length
+          : visit?.documentData
+            ? 1
+            : 0;
+        return voiceCount + documentCount;
+      };
 
-  const formatTime = (timestamp) => {
-    if (!timestamp) {
-      return "--";
-    }
+      const isCaseVisit = (visit) =>
+        Boolean(
+          visit?.caseStatus ||
+          visit?.caseAction ||
+          visit?.aiStatus ||
+          visit?.aiProblemSummary ||
+          visit?.voiceEvidence?.length ||
+          visit?.documentEvidence?.length ||
+          visit?.voiceData ||
+          visit?.documentData,
+        );
 
-    try {
-      return timestamp.toDate().toLocaleTimeString("en-IN", {
-        hour: "2-digit",
-        minute: "2-digit",
+      const hasAI = visitorVisits.some(
+        (visit) =>
+          String(visit?.aiStatus || "").toUpperCase() === "ANALYZED" ||
+          Boolean(visit?.aiProblemSummary),
+      );
+
+      const hasPendingAction = visitorVisits.some((visit) => {
+        const s = String(visit?.caseAction?.status || visit?.caseStatus || "")
+          .trim()
+          .toLowerCase();
+        return isCaseVisit(visit) && s !== "closed";
       });
-    } catch {
-      return "--";
-    }
-  };
+
+      const hasUrgentCase = visitorVisits.some(
+        (visit) =>
+          isCaseVisit(visit) &&
+          String(visit?.casePriority || visit?.caseAction?.priority || "")
+            .trim()
+            .toLowerCase() === "urgent",
+      );
+      const hasHighCase = visitorVisits.some(
+        (visit) =>
+          isCaseVisit(visit) &&
+          String(visit?.casePriority || visit?.caseAction?.priority || "")
+            .trim()
+            .toLowerCase() === "high",
+      );
+      const hasVerificationCase = visitorVisits.some(
+        (visit) =>
+          isCaseVisit(visit) &&
+          String(visit?.caseStatus || visit?.caseAction?.status || "")
+            .trim()
+            .toLowerCase() === "under verification",
+      );
+      const hasEvidencePendingCase = visitorVisits.some(
+        (visit) => isCaseVisit(visit) && getEvidenceCount(visit) === 0,
+      );
+      const hasAIPendingCase = visitorVisits.some(
+        (visit) =>
+          isCaseVisit(visit) &&
+          getEvidenceCount(visit) > 0 &&
+          String(visit?.aiStatus || "").toUpperCase() !== "ANALYZED",
+      );
+      const hasFollowUpDue = visitorVisits.some((visit) => {
+        if (!isCaseVisit(visit)) return false;
+        const value =
+          visit?.caseAction?.nextActionDate || visit?.nextActionDate;
+        if (!value) return false;
+        const dueDate = new Date(`${value}T23:59:59`);
+        return !Number.isNaN(dueDate.getTime()) && dueDate <= new Date();
+      });
+      const hasActiveCase = visitorVisits.some((visit) => {
+        if (!isCaseVisit(visit)) return false;
+        const s = String(visit?.caseStatus || visit?.caseAction?.status || "")
+          .trim()
+          .toLowerCase();
+        return s !== "closed";
+      });
+      const hasClosedCase = visitorVisits.some((visit) => {
+        if (!isCaseVisit(visit)) return false;
+        const s = String(visit?.caseStatus || visit?.caseAction?.status || "")
+          .trim()
+          .toLowerCase();
+        return s === "closed";
+      });
+      const hasAnyCase = visitorVisits.some(isCaseVisit);
+
+      const matchesSearch =
+        !value ||
+        visitor.fullName?.toLowerCase().includes(value) ||
+        visitor.mobileNumber?.toLowerCase().includes(value) ||
+        visitor.visitorCode?.toLowerCase().includes(value);
+
+      const matchesStatus = statusFilter === "ALL" || status === statusFilter;
+      let matchesCase = true;
+      switch (caseFilter) {
+        case "urgent":
+          matchesCase = hasUrgentCase;
+          break;
+        case "high":
+          matchesCase = hasHighCase;
+          break;
+        case "verification":
+          matchesCase = hasVerificationCase;
+          break;
+        case "evidence-pending":
+          matchesCase = hasEvidencePendingCase;
+          break;
+        case "ai-pending":
+          matchesCase = hasAIPendingCase;
+          break;
+        case "follow-up":
+          matchesCase = hasFollowUpDue;
+          break;
+        case "active":
+          matchesCase = hasActiveCase;
+          break;
+        case "closed":
+          matchesCase = hasClosedCase;
+          break;
+        case "all-cases":
+          matchesCase = hasAnyCase;
+          break;
+        case "AI_ANALYZED":
+          matchesCase = hasAI;
+          break;
+        case "PENDING_ACTION":
+          matchesCase = hasPendingAction;
+          break;
+        default:
+          matchesCase = true;
+      }
+
+      return matchesSearch && matchesStatus && matchesCase;
+    });
+  }, [visitors, visits, search, statusFilter, caseFilter]);
 
   // ==========================================
-  // FORMAT DATE
+  // DATE FORMAT
   // ==========================================
 
   const formatDate = (timestamp) => {
@@ -140,181 +291,396 @@ function PolicePetitions() {
     }
   };
 
+  // ==========================================
+  // VISITOR COUNT
+  // ==========================================
+
+  const getVisitCount = (visitorId) => {
+    return getVisitorVisits(visitorId).length;
+  };
+
+  // ==========================================
+  // EDIT VISITOR
+  // ==========================================
+
+  const handleEditVisitor = (visitorId) => {
+    setError("");
+    setSuccess("");
+
+    navigate(`/police/visitors/${visitorId}?edit=true`);
+  };
+
+  // ==========================================
+  // VIEW VISITOR
+  // ==========================================
+
+  const handleViewVisitor = (visitorId) => {
+    setError("");
+    setSuccess("");
+
+    navigate(`/police/visitors/${visitorId}`);
+  };
+
+  // ==========================================
+  // DELETE VISITOR
+  // ==========================================
+
+  const handleDeleteVisitor = async (visitor) => {
+    const visitorName = visitor.fullName || "this visitor";
+
+    const confirmed = window.confirm(
+      `Delete ${visitorName}?\n\n` +
+        "This will permanently delete the visitor and all associated visit records.\n\n" +
+        "This action cannot be undone.",
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    try {
+      setDeletingId(visitor.id);
+
+      setError("");
+      setSuccess("");
+
+      await deleteVisitor(visitor.id);
+
+      setSuccess(`${visitorName} was deleted successfully.`);
+    } catch (error) {
+      console.error("Delete visitor error:", error);
+
+      setError(error?.message || "Unable to delete visitor. Please try again.");
+    } finally {
+      setDeletingId("");
+    }
+  };
+
+  // ==========================================
+  // CLEAR SEARCH
+  // ==========================================
+
+  const handleClearSearch = () => {
+    setSearch("");
+  };
+
+  // ==========================================
+  // RENDER
+  // ==========================================
+
   return (
-    <div className="police-petitions-page">
+    <div className="police-visitors-page">
       {/* HEADER */}
 
-      <header className="police-petitions-header">
+      <div className="police-visitors-header">
         <div>
-          <button
-            type="button"
-            className="petitions-back-button"
-            onClick={() => navigate("/police")}
-          >
+          <button className="back-button" onClick={() => navigate("/police")}>
             ← Dashboard
           </button>
 
-          <h1>Petitions / Complaints</h1>
+          <h1>All Visitors</h1>
 
-          <p>Today's visitors who came for petitions or complaints</p>
+          <p>View, search and manage registered visitors</p>
         </div>
 
-        <div className="petitions-count-card">
-          <span>Today's Petitions</span>
+        <div className="visitor-header-actions">
+          <button
+            type="button"
+            className="police-register-button"
+            onClick={() => navigate("/police/register")}
+          >
+            + Register Visitor
+          </button>
 
-          <strong>{loading ? "—" : petitionVisits.length}</strong>
+          <div className="visitor-total">
+            <span>Total Visitors</span>
+
+            <strong>{visitors.length}</strong>
+          </div>
         </div>
-      </header>
-
-      {/* ERROR */}
-
-      {error && <div className="petitions-error">{error}</div>}
+      </div>
 
       {/* SEARCH */}
 
-      <div className="petitions-search-box">
+      <div className="visitor-search-box">
         <input
           type="text"
+          placeholder="Search by name, mobile number or visitor code..."
           value={search}
           onChange={(event) => setSearch(event.target.value)}
-          placeholder="Search by visitor name, mobile number, visitor ID or visit ID..."
         />
 
         {search && (
-          <button type="button" onClick={() => setSearch("")}>
+          <button type="button" onClick={handleClearSearch}>
             Clear
           </button>
         )}
       </div>
 
-      {/* CONTENT */}
+      {/* FILTERS */}
+
+      <div className="visitor-filter-bar">
+        <div className="visitor-filter-group">
+          <span>Case</span>
+          {[
+            ["ALL", "All"],
+            ["all-cases", "All Cases"],
+            ["urgent", "Urgent"],
+            ["high", "High"],
+            ["verification", "Under Verification"],
+            ["evidence-pending", "Evidence Pending"],
+            ["ai-pending", "AI Pending"],
+            ["follow-up", "Follow-ups Due"],
+            ["active", "Active Cases"],
+            ["closed", "Closed Cases"],
+          ].map(([value, label]) => (
+            <button
+              key={value}
+              type="button"
+              className={caseFilter === value ? "active" : ""}
+              onClick={() => setCaseFilter(value)}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+
+        <div className="visitor-filter-group">
+          <span>Case</span>
+          <button
+            type="button"
+            className={caseFilter === "ALL" ? "active" : ""}
+            onClick={() => setCaseFilter("ALL")}
+          >
+            All
+          </button>
+          <button
+            type="button"
+            className={caseFilter === "PENDING_ACTION" ? "active" : ""}
+            onClick={() => setCaseFilter("PENDING_ACTION")}
+          >
+            Pending Action
+          </button>
+          <button
+            type="button"
+            className={caseFilter === "AI_ANALYZED" ? "active" : ""}
+            onClick={() => setCaseFilter("AI_ANALYZED")}
+          >
+            AI Analyzed
+          </button>
+        </div>
+      </div>
+
+      {/* SUCCESS */}
+
+      {success && <div className="police-success">{success}</div>}
+
+      {/* ERROR */}
+
+      {error && <div className="police-error">{error}</div>}
+
+      {/* LOADING */}
 
       {loading ? (
-        <div className="petitions-empty">
-          <div className="petitions-spinner"></div>
-
-          <p>Loading petition visitors...</p>
-        </div>
-      ) : filteredVisits.length === 0 ? (
-        <div className="petitions-empty">
-          <div className="petitions-empty-icon">📄</div>
-
-          <h2>No Petitions Today</h2>
-
-          <p>No petition or complaint visitors have been registered today.</p>
-        </div>
+        <div className="police-loading">Loading visitors...</div>
       ) : (
-        <div className="petitions-table-wrapper">
-          <table className="petitions-table">
+        <div className="visitors-table-wrapper">
+          <table className="police-visitors-table">
             <thead>
               <tr>
                 <th>Visitor</th>
-                <th>Visitor ID</th>
-                <th>Visit ID</th>
-                <th>Entry Date</th>
-                <th>Entry Time</th>
+                <th>Visitor Code</th>
+                <th>Mobile</th>
+                <th>Total Visits</th>
+                <th>Last Visit</th>
                 <th>Status</th>
+                <th>Case</th>
+                <th>Evidence</th>
                 <th>Action</th>
               </tr>
             </thead>
 
             <tbody>
-              {filteredVisits.map((visit) => {
-                const visitor = getVisitor(visit.visitorId);
+              {filteredVisitors.length === 0 ? (
+                <tr>
+                  <td colSpan="9" className="empty-visitors">
+                    {search
+                      ? "No visitors match your search."
+                      : "No visitors found."}
+                  </td>
+                </tr>
+              ) : (
+                filteredVisitors.map((visitor) => {
+                  const latestVisit = getLatestVisit(visitor.id);
 
-                return (
-                  <tr key={visit.id}>
-                    {/* VISITOR */}
+                  const status = getCurrentStatus(visitor.id);
+                  const latestCaseVisit = latestVisit;
+                  const caseStatus =
+                    latestCaseVisit?.caseAction?.status ||
+                    (latestCaseVisit?.aiStatus === "ANALYZED"
+                      ? "AI Analyzed"
+                      : "No Action");
 
-                    <td>
-                      <div className="petition-visitor">
-                        {visitor?.photoData ? (
-                          <img
-                            src={visitor.photoData}
-                            alt={visitor.fullName || "Visitor"}
-                            className="petition-photo"
-                          />
-                        ) : (
-                          <div className="petition-avatar">
-                            {visitor?.fullName?.charAt(0)?.toUpperCase() || "V"}
+                  const voiceCount = Array.isArray(
+                    latestCaseVisit?.voiceEvidence,
+                  )
+                    ? latestCaseVisit.voiceEvidence.length
+                    : latestCaseVisit?.voiceData
+                      ? 1
+                      : 0;
+
+                  const documentCount = Array.isArray(
+                    latestCaseVisit?.documentEvidence,
+                  )
+                    ? latestCaseVisit.documentEvidence.length
+                    : latestCaseVisit?.documentData
+                      ? 1
+                      : 0;
+
+                  const isDeleting = deletingId === visitor.id;
+
+                  return (
+                    <tr key={visitor.id}>
+                      {/* VISITOR */}
+
+                      <td>
+                        <div className="police-visitor-info">
+                          {visitor.photoData ? (
+                            <img
+                              src={visitor.photoData}
+                              alt={visitor.fullName || "Visitor"}
+                              className="police-visitor-photo"
+                            />
+                          ) : (
+                            <div className="police-visitor-placeholder">
+                              {visitor.fullName?.charAt(0).toUpperCase() || "V"}
+                            </div>
+                          )}
+
+                          <div>
+                            <strong>{visitor.fullName}</strong>
+
+                            <span>Registered</span>
                           </div>
-                        )}
-
-                        <div>
-                          <strong>{visitor?.fullName || "--"}</strong>
-
-                          <span>{visitor?.mobileNumber || "No mobile"}</span>
                         </div>
-                      </div>
-                    </td>
+                      </td>
 
-                    {/* VISITOR ID */}
+                      {/* CODE */}
 
-                    <td>
-                      <span className="petition-code">
-                        {visit.visitorCode || visitor?.visitorCode || "--"}
-                      </span>
-                    </td>
+                      <td>
+                        <span className="visitor-code">
+                          {visitor.visitorCode || "--"}
+                        </span>
+                      </td>
 
-                    {/* VISIT ID */}
+                      {/* MOBILE */}
 
-                    <td>
-                      <span className="petition-code">
-                        {visit.visitCode || "--"}
-                      </span>
-                    </td>
+                      <td>{visitor.mobileNumber || "--"}</td>
 
-                    {/* DATE */}
+                      {/* VISITS */}
 
-                    <td>{formatDate(visit.entryTime)}</td>
+                      <td>{getVisitCount(visitor.id)}</td>
 
-                    {/* TIME */}
+                      {/* LAST VISIT */}
 
-                    <td>{formatTime(visit.entryTime)}</td>
+                      <td>{formatDate(latestVisit?.entryTime)}</td>
 
-                    {/* STATUS */}
+                      {/* STATUS */}
 
-                    <td>
-                      <span
-                        className={`petition-status ${
-                          visit.status === "INSIDE" ? "inside" : "exited"
-                        }`}
-                      >
-                        <span className="petition-status-dot"></span>
+                      <td>
+                        <span
+                          className={`visitor-status ${
+                            status === "INSIDE" ? "inside" : "exited"
+                          }`}
+                        >
+                          {status}
+                        </span>
+                      </td>
 
-                        {visit.status || "UNKNOWN"}
-                      </span>
-                    </td>
+                      {/* CASE */}
 
-                    {/* ACTION */}
+                      <td>
+                        <span
+                          className={`visitor-case-status ${
+                            caseStatus === "Closed"
+                              ? "closed"
+                              : caseStatus === "No Action"
+                                ? "none"
+                                : "active"
+                          }`}
+                        >
+                          {caseStatus}
+                        </span>
+                      </td>
 
-                    <td>
-                      <button
-                        type="button"
-                        className="petition-view-button"
-                        onClick={() =>
-                          navigate(`/police/visitors/${visit.visitorId}`)
-                        }
-                      >
-                        View
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
+                      {/* EVIDENCE */}
+
+                      <td>
+                        <div className="visitor-evidence-summary">
+                          <span>🎙 {voiceCount}</span>
+                          <span>📄 {documentCount}</span>
+                          {latestCaseVisit?.aiStatus === "ANALYZED" && (
+                            <span className="ai-mini-badge">AI</span>
+                          )}
+                        </div>
+                      </td>
+
+                      {/* ACTION */}
+
+                      <td>
+                        <div className="visitor-action-buttons">
+                          {/* VIEW */}
+
+                          <button
+                            type="button"
+                            className="view-visitor-button"
+                            onClick={() => handleViewVisitor(visitor.id)}
+                          >
+                            View
+                          </button>
+
+                          {/* EDIT */}
+
+                          <button
+                            type="button"
+                            className="edit-visitor-button"
+                            onClick={() => handleEditVisitor(visitor.id)}
+                            disabled={isDeleting}
+                          >
+                            Edit
+                          </button>
+
+                          {/* DELETE */}
+
+                          <button
+                            type="button"
+                            className="delete-visitor-button"
+                            onClick={() => handleDeleteVisitor(visitor)}
+                            disabled={isDeleting}
+                          >
+                            {isDeleting ? "Deleting..." : "Delete"}
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })
+              )}
             </tbody>
           </table>
         </div>
       )}
 
-      {!loading && filteredVisits.length > 0 && (
-        <div className="petitions-result-count">
-          Showing <strong>{filteredVisits.length}</strong> petition visitor
-          {filteredVisits.length !== 1 ? "s" : ""} today
+      {/* RESULT COUNT */}
+
+      {!loading && (
+        <div className="visitor-result-count">
+          Showing <strong>{filteredVisitors.length}</strong> of{" "}
+          <strong>{visitors.length}</strong> visitors
         </div>
       )}
     </div>
   );
 }
 
-export default PolicePetitions;
+export default PoliceVisitors;

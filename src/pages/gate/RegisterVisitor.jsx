@@ -1,6 +1,19 @@
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import {
+  FaArrowLeft,
+  FaCamera,
+  FaCheck,
+  FaCheckCircle,
+  FaExclamationTriangle,
+  FaImage,
+  FaRedoAlt,
+  FaTimes,
+  FaTrashAlt,
+  FaUserPlus,
+  FaSearch,
+} from "react-icons/fa";
 
 import { auth } from "../../firebase/config";
 
@@ -498,7 +511,9 @@ function RegisterVisitor() {
     return (
       <div className="register-page">
         <div className="success-card">
-          <div className="success-icon">✓</div>
+          <div className="success-icon">
+            <FaCheckCircle />
+          </div>
 
           <span className="success-label">REGISTRATION SUCCESSFUL</span>
 
@@ -528,7 +543,7 @@ function RegisterVisitor() {
               type="button"
               onClick={() => navigate(`/gate/pass/${successData.visitId}`)}
             >
-              View Gate Pass
+              <FaCheck /> View Gate Pass
             </button>
 
             <button
@@ -536,7 +551,7 @@ function RegisterVisitor() {
               className="secondary-button"
               onClick={() => navigate("/gate")}
             >
-              Back to Dashboard
+              <FaArrowLeft /> Back to Dashboard
             </button>
 
             <button
@@ -544,7 +559,7 @@ function RegisterVisitor() {
               className="primary-button"
               onClick={handleRegisterAnother}
             >
-              Register Another Visitor
+              <FaUserPlus /> Register Another Visitor
             </button>
           </div>
         </div>
@@ -575,7 +590,7 @@ function RegisterVisitor() {
             className="back-button"
             onClick={() => navigate("/gate")}
           >
-            ← Back to Dashboard
+            <FaArrowLeft /> Back to Dashboard
           </button>
         </div>
 
@@ -583,8 +598,8 @@ function RegisterVisitor() {
 
         {error && (
           <div className="register-error">
-            <span>!</span>
-            {error}
+            <FaExclamationTriangle className="error-icon" />
+            <span>{error}</span>
           </div>
         )}
 
@@ -754,7 +769,9 @@ function RegisterVisitor() {
                       className="photo-option camera-option"
                       onClick={openCamera}
                     >
-                      <div className="photo-option-icon">📷</div>
+                      <div className="photo-option-icon">
+                        <FaCamera />
+                      </div>
 
                       <strong>Capture from Camera</strong>
 
@@ -764,7 +781,9 @@ function RegisterVisitor() {
                     {/* DEVICE */}
 
                     <label className="photo-option device-option">
-                      <div className="photo-option-icon">🖼️</div>
+                      <div className="photo-option-icon">
+                        <FaImage />
+                      </div>
 
                       <strong>Choose from Device</strong>
 
@@ -799,11 +818,11 @@ function RegisterVisitor() {
                         className="retake-photo-button"
                         onClick={openCamera}
                       >
-                        📷 Retake
+                        <FaRedoAlt /> Retake
                       </button>
 
                       <label className="change-photo-button">
-                        🖼️ Change Photo
+                        <FaImage /> Change Photo
                         <input
                           type="file"
                           accept="image/*"
@@ -816,7 +835,7 @@ function RegisterVisitor() {
                         className="remove-photo"
                         onClick={removePhoto}
                       >
-                        Remove
+                        <FaTrashAlt /> Remove
                       </button>
                     </div>
                   </div>
@@ -840,15 +859,14 @@ function RegisterVisitor() {
                         className="camera-close"
                         onClick={closeCamera}
                       >
-                        ×
+                        <FaTimes />
                       </button>
                     </div>
 
                     {cameraError ? (
                       <div className="camera-error">
-                        <span>!</span>
-
-                        {cameraError}
+                        <FaExclamationTriangle className="camera-error-icon" />
+                        <span>{cameraError}</span>
                       </div>
                     ) : (
                       <div className="camera-preview">
@@ -882,7 +900,9 @@ function RegisterVisitor() {
                           className="capture-button"
                           onClick={capturePhoto}
                         >
-                          <span className="capture-circle">📷</span>
+                          <span className="capture-circle">
+                            <FaCamera />
+                          </span>
                           Capture Photo
                         </button>
                       )}

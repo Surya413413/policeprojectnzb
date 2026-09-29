@@ -1135,3 +1135,337 @@
     width: 100%;
   }
 }
+
+/* =========================================================
+   POLICESETU GATE DASHBOARD - SHARED LAYOUT
+   Icons, dark mode and responsive enhancements
+   ========================================================= */
+
+.gate-dashboard {
+  min-height: 100%;
+  background: transparent;
+  color: var(--text-primary, #172033);
+}
+
+.gate-main {
+  width: 100%;
+  max-width: 1380px;
+  box-sizing: border-box;
+  padding: 28px 0 50px;
+}
+
+.dashboard-heading-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.dashboard-heading-actions button,
+.filter-button,
+.view-button,
+.checkout-button,
+.empty-register-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+
+.dashboard-error {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.stat-icon svg,
+.register-button svg,
+.search-visitor-button svg,
+.movement-register-button svg,
+.filter-button svg,
+.view-button svg,
+.checkout-button svg,
+.empty-register-button svg {
+  flex: 0 0 auto;
+}
+
+.checkout-button {
+  border: 1px solid #fecaca;
+  background: #fff5f5;
+  color: #dc2626;
+  padding: 7px 10px;
+  border-radius: 7px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.checkout-button:hover:not(:disabled) {
+  background: #fee2e2;
+  border-color: #fca5a5;
+}
+
+.checkout-button:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.completed-action {
+  color: #16a34a;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+html[data-theme="dark"] .gate-dashboard {
+  color: var(--text-primary, #f8fafc);
+}
+
+html[data-theme="dark"] .gate-main {
+  color: #f8fafc;
+}
+
+html[data-theme="dark"] .dashboard-label,
+html[data-theme="dark"] .section-date-label {
+  color: #60a5fa;
+}
+
+html[data-theme="dark"] .dashboard-heading h2,
+html[data-theme="dark"] .recent-header h3,
+html[data-theme="dark"] .complete-register-card h3,
+html[data-theme="dark"] .stat-number,
+html[data-theme="dark"] .visitor-details strong {
+  color: #f8fafc;
+}
+
+html[data-theme="dark"] .dashboard-heading p,
+html[data-theme="dark"] .recent-header p,
+html[data-theme="dark"] .stat-description,
+html[data-theme="dark"] .record-count,
+html[data-theme="dark"] .visitor-details span,
+html[data-theme="dark"] .purpose-text,
+html[data-theme="dark"] .entry-time,
+html[data-theme="dark"] .exit-time {
+  color: #94a3b8;
+}
+
+html[data-theme="dark"] .stat-card,
+html[data-theme="dark"] .recent-section,
+html[data-theme="dark"] .complete-register-card {
+  background: #1e293b;
+  border-color: #334155;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+html[data-theme="dark"] .visitor-table th {
+  background: #172033;
+  color: #94a3b8;
+}
+
+html[data-theme="dark"] .visitor-table td {
+  border-top-color: #334155;
+}
+
+html[data-theme="dark"] .visitor-table tbody tr:hover {
+  background: #243247;
+}
+
+html[data-theme="dark"] .visitor-filters {
+  background: #172033;
+  border-bottom-color: #334155;
+}
+
+html[data-theme="dark"] .filter-button,
+html[data-theme="dark"] .view-button,
+html[data-theme="dark"] .search-visitor-button,
+html[data-theme="dark"] .empty-register-button {
+  background: #1e293b;
+  border-color: #475569;
+  color: #cbd5e1;
+}
+
+html[data-theme="dark"] .filter-button:hover,
+html[data-theme="dark"] .view-button:hover,
+html[data-theme="dark"] .search-visitor-button:hover,
+html[data-theme="dark"] .empty-register-button:hover {
+  background: #26364d;
+  border-color: #60a5fa;
+  color: #93c5fd;
+}
+
+html[data-theme="dark"] .filter-button.active {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #ffffff;
+}
+
+html[data-theme="dark"] .checkout-button {
+  background: #3b1d23;
+  border-color: #7f1d1d;
+  color: #fca5a5;
+}
+
+html[data-theme="dark"] .checkout-button:hover:not(:disabled) {
+  background: #4c2028;
+}
+
+html[data-theme="dark"] .completed-action {
+  color: #4ade80;
+}
+
+html[data-theme="dark"] .empty-state {
+  color: #cbd5e1;
+}
+
+html[data-theme="dark"] .empty-icon {
+  background: #172b4d;
+  color: #60a5fa;
+}
+
+html[data-theme="dark"] .loading-spinner {
+  border-color: #334155;
+  border-top-color: #60a5fa;
+}
+
+html[data-theme="dark"] .dashboard-error {
+  background: #3b1d23;
+  border-color: #7f1d1d;
+  color: #fda4af;
+}
+
+html[data-theme="dark"] .status-badge.inside {
+  background: #123524;
+  color: #86efac;
+}
+
+html[data-theme="dark"] .status-badge.exited {
+  background: #334155;
+  color: #cbd5e1;
+}
+
+html[data-theme="dark"] .visitor-id,
+html[data-theme="dark"] .visitor-name-link {
+  color: #60a5fa;
+}
+
+html[data-theme="dark"] .visitor-avatar {
+  background: #172b4d;
+  color: #93c5fd;
+}
+
+html[data-theme="dark"] .stat-icon.blue {
+  background: #172b4d;
+  color: #60a5fa;
+}
+
+html[data-theme="dark"] .stat-icon.green {
+  background: #123524;
+  color: #4ade80;
+}
+
+html[data-theme="dark"] .stat-icon.orange {
+  background: #3b2817;
+  color: #fb923c;
+}
+
+html[data-theme="dark"] .stat-icon.purple {
+  background: #2b2146;
+  color: #c4b5fd;
+}
+
+html[data-theme="dark"] .movement-filters,
+html[data-theme="dark"] .movement-search input,
+html[data-theme="dark"] .movement-filters select {
+  background: #1e293b;
+  border-color: #475569;
+  color: #e2e8f0;
+}
+
+@media (max-width: 900px) {
+  .gate-main {
+    padding-top: 20px;
+  }
+
+  .dashboard-heading-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 700px) {
+  .gate-main {
+    width: 100%;
+    padding: 18px 0 35px;
+  }
+
+  .dashboard-heading {
+    margin-bottom: 22px;
+  }
+
+  .dashboard-heading-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .dashboard-heading-actions button {
+    width: 100%;
+  }
+
+  .recent-header {
+    padding: 16px;
+  }
+
+  .visitor-filters {
+    padding: 12px 14px;
+  }
+
+  .filter-button {
+    flex: 1 1 auto;
+    min-height: 38px;
+  }
+
+  .visitor-table th,
+  .visitor-table td {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .visitor-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .visitor-actions button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-heading h2 {
+    font-size: 24px;
+  }
+
+  .stat-card {
+    padding: 18px;
+  }
+
+  .filter-button {
+    font-size: 11px;
+    padding: 8px 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-spinner {
+    animation: none;
+  }
+
+  .register-button,
+  .movement-register-button,
+  .filter-button,
+  .view-button,
+  .checkout-button {
+    transition: none;
+  }
+}

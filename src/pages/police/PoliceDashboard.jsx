@@ -1,13 +1,30 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-import { onAuthStateChanged, signOut } from "firebase/auth";
 import { collection, onSnapshot } from "firebase/firestore";
 
-import { auth, db } from "../../firebase/config";
+import {
+  FaBook,
+  FaCalendarAlt,
+  FaCheckCircle,
+  FaChevronRight,
+  FaCircle,
+  FaClock,
+  FaDoorOpen,
+  FaExclamationTriangle,
+  FaFileAlt,
+  FaFileUpload,
+  FaFolderOpen,
+  FaPlus,
+  FaShieldAlt,
+  FaUserFriends,
+  FaUserPlus,
+  FaUserShield,
+  FaUsers,
+  FaHourglassHalf,
+  FaRobot,
+} from "react-icons/fa";
 
-import { getCurrentUserRole } from "../../services/authService";
-
+import { db } from "../../firebase/config";
 import "../../styles/PoliceDashboard.css";
 
 import {
@@ -16,23 +33,76 @@ import {
   subscribeToVisitors,
 } from "../../services/gateService";
 
+/* =========================================================
+   SMALL PRESENTATIONAL HELPERS (UI ONLY)
+   ========================================================= */
+
+const prefersReducedMotion = () =>
+  typeof window !== "undefined" &&
+  window.matchMedia &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/**
+ * AnimatedCounter
+ * UI-only. Displays the real value it receives; the animation simply
+ * count-ups toward it. Respects prefers-reduced-motion.
+ */
+function AnimatedCounter({ value, loading = false, duration = 700 }) {
+  const target = Number(value) || 0;
+  const [display, setDisplay] = useState(0);
+  const previousRef = useRef(0);
+
+  useEffect(() => {
+    if (loading) return;
+
+    if (prefersReducedMotion()) {
+      setDisplay(target);
+      previousRef.current = target;
+      return;
+    }
+
+    const from = previousRef.current;
+    const to = target;
+
+    if (from === to) {
+      setDisplay(to);
+      return;
+    }
+
+    const start = performance.now();
+    let rafId;
+
+    const tick = (now) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setDisplay(Math.round(from + (to - from) * eased));
+      if (progress < 1) {
+        rafId = requestAnimationFrame(tick);
+      } else {
+        previousRef.current = to;
+      }
+    };
+
+    rafId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafId);
+  }, [target, duration, loading]);
+
+  if (loading) {
+    return <strong className="pd-counter-loading">—</strong>;
+  }
+
+  return <strong>{display}</strong>;
+}
+
+/* =========================================================
+   COMPONENT
+   ========================================================= */
+
 function PoliceDashboard() {
   const navigate = useNavigate();
-
-  // ==========================================
-  // OFFICER INFORMATION
-  // ==========================================
-
-  const [officer, setOfficer] = useState({
-    name: "",
-    email: "",
-  });
-
-  const [loggingOut, setLoggingOut] = useState(false);
-
-  // ==========================================
-  // DASHBOARD STATISTICS
-  // ==========================================
+  /* ==========================================
+     DASHBOARD STATISTICS
+     ========================================== */
 
   const [stats, setStats] = useState({
     total: 0,
@@ -43,101 +113,30 @@ function PoliceDashboard() {
     otherVisitors: 0,
   });
 
-  // ==========================================
-  // VISITOR ACTIVITY
-  // ==========================================
+  /* ==========================================
+     VISITOR ACTIVITY
+     ========================================== */
 
   const [todayVisits, setTodayVisits] = useState([]);
-
   const [allVisits, setAllVisits] = useState([]);
-
   const [visitors, setVisitors] = useState([]);
 
-  // ==========================================
-  // LOADING STATES
-  // ==========================================
+  /* ==========================================
+     LOADING STATES
+     ========================================== */
 
   const [loadingActivity, setLoadingActivity] = useState(true);
-
   const [loadingStats, setLoadingStats] = useState(true);
 
-  // ==========================================
-  // ERROR
-  // ==========================================
+  /* ==========================================
+     ERROR
+     ========================================== */
 
   const [error, setError] = useState("");
 
-  // ==========================================
-  // CHECK AUTHENTICATED OFFICER
-  // ==========================================
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (!user) {
-        navigate("/login", {
-          replace: true,
-        });
-
-        return;
-      }
-
-      try {
-        const userRole = await getCurrentUserRole();
-
-        // Make sure this account is actually
-        // a Police account.
-        if (userRole?.role !== "POLICE") {
-          navigate("/login", {
-            replace: true,
-          });
-
-          return;
-        }
-
-        setOfficer({
-          name: userRole?.name || user.displayName || "Police Officer",
-
-          email: userRole?.email || user.email || "",
-        });
-      } catch (error) {
-        console.error("Officer profile error:", error);
-
-        setOfficer({
-          name: user.displayName || "Police Officer",
-
-          email: user.email || "",
-        });
-      }
-    });
-
-    return () => unsubscribe();
-  }, [navigate]);
-
-  // ==========================================
-  // LOGOUT
-  // ==========================================
-
-  const handleLogout = async () => {
-    try {
-      setLoggingOut(true);
-
-      await signOut(auth);
-
-      navigate("/login", {
-        replace: true,
-      });
-    } catch (error) {
-      console.error("Police logout error:", error);
-
-      setLoggingOut(false);
-
-      setError("Unable to logout. Please try again.");
-    }
-  };
-
-  // ==========================================
-  // LOAD TODAY'S VISITS
-  // ==========================================
+  /* ==========================================
+     LOAD TODAY'S VISITS
+     ========================================== */
 
   useEffect(() => {
     const unsubscribe = subscribeToVisitsByDate(
@@ -148,9 +147,7 @@ function PoliceDashboard() {
       },
       (error) => {
         console.error("Police activity error:", error);
-
         setError("Unable to load recent visitor activity.");
-
         setLoadingActivity(false);
       },
     );
@@ -158,9 +155,9 @@ function PoliceDashboard() {
     return () => unsubscribe();
   }, []);
 
-  // ==========================================
-  // LOAD VISITORS
-  // ==========================================
+  /* ==========================================
+     LOAD VISITORS
+     ========================================== */
 
   useEffect(() => {
     const unsubscribe = subscribeToVisitors(
@@ -169,7 +166,6 @@ function PoliceDashboard() {
       },
       (error) => {
         console.error("Police visitor information error:", error);
-
         setError("Unable to load visitor information.");
       },
     );
@@ -177,14 +173,9 @@ function PoliceDashboard() {
     return () => unsubscribe();
   }, []);
 
-  // ==========================================
-  // LOAD ALL VISITS FOR CASE INTELLIGENCE
-  // ==========================================
-
-  // ==========================================
-  // REAL-TIME CASE INTELLIGENCE
-  // DIRECT FIRESTORE LISTENER
-  // ==========================================
+  /* ==========================================
+     REAL-TIME CASE INTELLIGENCE (UNCHANGED)
+     ========================================== */
 
   useEffect(() => {
     const visitsRef = collection(db, "visits");
@@ -203,7 +194,6 @@ function PoliceDashboard() {
       },
       (error) => {
         console.error("Police dashboard case listener error:", error);
-
         setError("Unable to load live case intelligence.");
       },
     );
@@ -213,9 +203,9 @@ function PoliceDashboard() {
     };
   }, []);
 
-  // ==========================================
-  // CASE INTELLIGENCE
-  // ==========================================
+  /* ==========================================
+     CASE INTELLIGENCE (UNCHANGED LOGIC)
+     ========================================== */
 
   const getEvidenceCount = (visit) => {
     const voiceCount = Array.isArray(visit?.voiceEvidence)
@@ -250,7 +240,6 @@ function PoliceDashboard() {
     const status = String(visit.caseStatus || visit.caseAction?.status || "")
       .trim()
       .toLowerCase();
-
     return status !== "closed";
   }).length;
 
@@ -281,10 +270,8 @@ function PoliceDashboard() {
     if (!visit?.caseAction?.nextActionDate && !visit?.nextActionDate) {
       return false;
     }
-
     const value = visit.caseAction?.nextActionDate || visit.nextActionDate;
     const dueDate = new Date(`${value}T23:59:59`);
-
     return !Number.isNaN(dueDate.getTime()) && dueDate <= new Date();
   }).length;
 
@@ -292,27 +279,23 @@ function PoliceDashboard() {
     const status = String(visit.caseStatus || visit.caseAction?.status || "")
       .trim()
       .toLowerCase();
-
     return status === "closed";
   }).length;
 
-  // ==========================================
-  // FIND VISITOR
-  // ==========================================
+  /* ==========================================
+     FIND VISITOR
+     ========================================== */
 
   const getVisitor = (visitorId) => {
     return visitors.find((visitor) => visitor.id === visitorId);
   };
 
-  // ==========================================
-  // FORMAT TIME
-  // ==========================================
+  /* ==========================================
+     FORMAT TIME
+     ========================================== */
 
   const formatTime = (timestamp) => {
-    if (!timestamp) {
-      return "--";
-    }
-
+    if (!timestamp) return "--";
     try {
       return timestamp.toDate().toLocaleTimeString("en-IN", {
         hour: "2-digit",
@@ -323,15 +306,15 @@ function PoliceDashboard() {
     }
   };
 
-  // ==========================================
-  // RECENT VISITS
-  // ==========================================
+  /* ==========================================
+   RECENT VISITOR ACTIVITY
+   ========================================== */
 
   const recentVisits = todayVisits.slice(0, 8);
 
-  // ==========================================
-  // LOAD DASHBOARD STATISTICS
-  // ==========================================
+  /* ==========================================
+     LOAD DASHBOARD STATISTICS
+     ========================================== */
 
   useEffect(() => {
     const unsubscribe = subscribeToPoliceDashboardStats(
@@ -341,9 +324,7 @@ function PoliceDashboard() {
       },
       (error) => {
         console.error("Police dashboard stats error:", error);
-
         setError("Unable to load dashboard statistics.");
-
         setLoadingStats(false);
       },
     );
@@ -351,174 +332,149 @@ function PoliceDashboard() {
     return () => unsubscribe();
   }, []);
 
-  // ==========================================
-  // UI
-  // ==========================================
+  /* ==========================================
+     RENDER
+     ========================================== */
 
   return (
     <div className="police-dashboard">
-      {/* ======================================
-          HEADER
-      ======================================= */}
-
-      <header className="police-header">
-        <div className="police-header-left">
-          <div className="police-logo">PS</div>
-
-          <div className="police-brand">
-            <h1>POLICESETU AI</h1>
-
-            <p>Police Officer Portal</p>
-          </div>
-        </div>
-
-        <div className="police-header-right">
-          <div className="officer-info">
-            <span className="officer-name">
-              {officer.name || "Police Officer"}
-            </span>
-
-            <span className="officer-role">
-              {officer.email || "Station Access"}
-            </span>
-          </div>
-
-          <button
-            type="button"
-            className="police-logout-button"
-            onClick={handleLogout}
-            disabled={loggingOut}
-          >
-            {loggingOut ? "Logging out..." : "Logout"}
-          </button>
-        </div>
-      </header>
-
-      {/* ======================================
-          MAIN
-      ======================================= */}
-
       <main className="police-main">
-        {/* ====================================
-            HEADING
-        ===================================== */}
-
-        <section className="police-heading">
-          <div>
-            <span className="police-label">POLICE PORTAL</span>
-
-            <h2>Officer Dashboard</h2>
-
-            <p>Monitor visitor activity and station entry records.</p>
+        <section className="police-hero pd-reveal pd-reveal-1">
+          <div className="hero-content">
+            <span className="hero-kicker">
+              <FaShieldAlt /> POLICE STATION COMMAND CENTER
+            </span>
+            <h1>Officer Dashboard</h1>
+            <p>
+              Monitor visitor activity, station entry records, case workload and
+              operational status in real time.
+            </p>
+            <div className="hero-meta">
+              <span>
+                <FaCircle className="status-pulse-green" /> Station Operations
+                Active
+              </span>
+              <span>
+                <FaCalendarAlt /> Live records
+              </span>
+            </div>
           </div>
+          <div className="hero-emblem">
+            <FaShieldAlt />
+          </div>
+        </section>
 
+        {error && <div className="police-dashboard-error">{error}</div>}
+
+        <section className="police-heading-row pd-reveal pd-reveal-2">
+          <div>
+            <span className="police-label">TODAY AT THE STATION</span>
+            <h2>Operational Overview</h2>
+            <p>Live visitor and station activity.</p>
+          </div>
           <button
             type="button"
             className="register-visitor-dashboard-button"
             onClick={() => navigate("/police/register")}
           >
-            + Register Visitor
+            <FaPlus /> Register Visitor
           </button>
         </section>
 
-        {/* ERROR */}
-
-        {error && <div className="police-dashboard-error">{error}</div>}
-
-        {/* ====================================
-            STATISTICS
-        ===================================== */}
-
-        <section className="police-stats-grid">
-          {/* TODAY'S VISITORS */}
-
-          <div className="police-stat-card">
-            <span>Today's Visitors</span>
-
-            <strong>{loadingStats ? "—" : stats.total}</strong>
-
-            <small>Total visits today</small>
+        <section className="police-stats-grid pd-reveal pd-reveal-3">
+          <div className="police-stat-card stat-blue">
+            <div className="stat-icon">
+              <FaUsers />
+            </div>
+            <div>
+              <span>Today's Visitors</span>
+              <AnimatedCounter value={stats.total} loading={loadingStats} />
+              <small>Total visits today</small>
+            </div>
           </div>
-
-          {/* CURRENTLY INSIDE */}
-
-          <div className="police-stat-card">
-            <span>Currently Inside</span>
-
-            <strong>{loadingStats ? "—" : stats.currentlyInside}</strong>
-
-            <small>Visitors inside station</small>
+          <div className="police-stat-card stat-green">
+            <div className="stat-icon">
+              <FaDoorOpen />
+            </div>
+            <div>
+              <span>Currently Inside</span>
+              <AnimatedCounter
+                value={stats.currentlyInside}
+                loading={loadingStats}
+              />
+              <small>Visitors inside station</small>
+            </div>
           </div>
-
-          {/* EXITED */}
-
-          <div className="police-stat-card">
-            <span>Exited Today</span>
-
-            <strong>{loadingStats ? "—" : stats.exitedToday}</strong>
-
-            <small>Visitors who left</small>
+          <div className="police-stat-card stat-red">
+            <div className="stat-icon">
+              <FaDoorOpen />
+            </div>
+            <div>
+              <span>Exited Today</span>
+              <AnimatedCounter
+                value={stats.exitedToday}
+                loading={loadingStats}
+              />
+              <small>Visitors who left</small>
+            </div>
           </div>
-
-          {/* PETITIONS */}
-
-          <div className="police-stat-card">
-            <span>Petitions / Complaints</span>
-
-            <strong>{loadingStats ? "—" : stats.petitionVisitors}</strong>
-
-            <small>Today's petition visitors</small>
+          <div className="police-stat-card stat-purple">
+            <div className="stat-icon">
+              <FaFileAlt />
+            </div>
+            <div>
+              <span>Petitions / Complaints</span>
+              <AnimatedCounter
+                value={stats.petitionVisitors}
+                loading={loadingStats}
+              />
+              <small>Today's petition visitors</small>
+            </div>
           </div>
         </section>
 
-        {/* ====================================
-            CASE INTELLIGENCE
-        ===================================== */}
-
-        <section className="police-case-intelligence">
+        <section className="police-case-intelligence pd-reveal pd-reveal-4">
           <div className="police-section-header">
             <div>
               <span className="police-section-label">CASE INTELLIGENCE</span>
-
               <h3>Case Workload</h3>
-
               <p>Live overview of evidence, priority and follow-up status.</p>
             </div>
-
             <button
               type="button"
               className="view-all-button"
               onClick={() => navigate("/police/visitors?caseFilter=all-cases")}
             >
-              View Cases →
+              View Cases <FaChevronRight />
             </button>
           </div>
-
           <div className="police-case-intelligence-grid">
             <button
               type="button"
               className="case-intelligence-card urgent"
               onClick={() => navigate("/police/visitors?caseFilter=urgent")}
             >
-              <span className="case-intelligence-icon">🔴</span>
+              <span className="case-intelligence-icon">
+                <FaExclamationTriangle />
+              </span>
               <span className="case-intelligence-content">
                 <strong>{urgentCaseCount}</strong>
                 <span>Urgent Cases</span>
               </span>
             </button>
-
             <button
               type="button"
               className="case-intelligence-card high"
               onClick={() => navigate("/police/visitors?caseFilter=high")}
             >
-              <span className="case-intelligence-icon">🟠</span>
+              <span className="case-intelligence-icon">
+                <FaExclamationTriangle />
+              </span>
               <span className="case-intelligence-content">
                 <strong>{highPriorityCount}</strong>
                 <span>High Priority</span>
               </span>
             </button>
-
             <button
               type="button"
               className="case-intelligence-card verification"
@@ -526,13 +482,14 @@ function PoliceDashboard() {
                 navigate("/police/visitors?caseFilter=verification")
               }
             >
-              <span className="case-intelligence-icon">🟡</span>
+              <span className="case-intelligence-icon">
+                <FaHourglassHalf />
+              </span>
               <span className="case-intelligence-content">
                 <strong>{verificationCount}</strong>
                 <span>Under Verification</span>
               </span>
             </button>
-
             <button
               type="button"
               className="case-intelligence-card evidence"
@@ -540,55 +497,61 @@ function PoliceDashboard() {
                 navigate("/police/visitors?caseFilter=evidence-pending")
               }
             >
-              <span className="case-intelligence-icon">📄</span>
+              <span className="case-intelligence-icon">
+                <FaFileUpload />
+              </span>
               <span className="case-intelligence-content">
                 <strong>{evidencePendingCount}</strong>
                 <span>Evidence Pending</span>
               </span>
             </button>
-
             <button
               type="button"
               className="case-intelligence-card ai"
               onClick={() => navigate("/police/visitors?caseFilter=ai-pending")}
             >
-              <span className="case-intelligence-icon">🤖</span>
+              <span className="case-intelligence-icon">
+                <FaRobot />
+              </span>
               <span className="case-intelligence-content">
                 <strong>{aiPendingCount}</strong>
                 <span>AI Analysis Pending</span>
               </span>
             </button>
-
             <button
               type="button"
               className="case-intelligence-card followup"
               onClick={() => navigate("/police/visitors?caseFilter=follow-up")}
             >
-              <span className="case-intelligence-icon">📅</span>
+              <span className="case-intelligence-icon">
+                <FaCalendarAlt />
+              </span>
               <span className="case-intelligence-content">
                 <strong>{followUpDueCount}</strong>
                 <span>Follow-ups Due</span>
               </span>
             </button>
-
             <button
               type="button"
               className="case-intelligence-card active"
               onClick={() => navigate("/police/visitors?caseFilter=active")}
             >
-              <span className="case-intelligence-icon">👮</span>
+              <span className="case-intelligence-icon">
+                <FaUserShield />
+              </span>
               <span className="case-intelligence-content">
                 <strong>{activeCaseCount}</strong>
                 <span>Active Cases</span>
               </span>
             </button>
-
             <button
               type="button"
               className="case-intelligence-card closed"
               onClick={() => navigate("/police/visitors?caseFilter=closed")}
             >
-              <span className="case-intelligence-icon">✅</span>
+              <span className="case-intelligence-icon">
+                <FaCheckCircle />
+              </span>
               <span className="case-intelligence-content">
                 <strong>{closedCaseCount}</strong>
                 <span>Closed Cases</span>
@@ -597,167 +560,142 @@ function PoliceDashboard() {
           </div>
         </section>
 
-        {/* ====================================
-            QUICK ACTIONS
-        ===================================== */}
-
-        <section className="police-quick-actions">
-          {/* ALL VISITORS */}
-
-          <div className="police-quick-card">
-            <div className="police-quick-icon">👥</div>
-
-            <div className="police-quick-content">
-              <h3>All Visitors</h3>
-
-              <p>View and search all registered visitors.</p>
+        <section className="police-quick-section pd-reveal pd-reveal-5">
+          <div className="police-section-header">
+            <div>
+              <span className="police-section-label">STATION OPERATIONS</span>
+              <h3>Quick Actions</h3>
+              <p>Access the most frequently used police station functions.</p>
             </div>
-
-            <button type="button" onClick={() => navigate("/police/visitors")}>
-              View Visitors →
-            </button>
           </div>
-
-          {/* CURRENTLY INSIDE */}
-
-          <div className="police-quick-card">
-            <div className="police-quick-icon">🟢</div>
-
-            <div className="police-quick-content">
-              <h3>Currently Inside</h3>
-
-              <p>View visitors currently inside the station.</p>
-            </div>
-
-            <button type="button" onClick={() => navigate("/police/inside")}>
-              View Inside →
+          <div className="police-quick-actions">
+            <button
+              className="police-quick-card"
+              type="button"
+              onClick={() => navigate("/police/visitors")}
+            >
+              <div className="police-quick-icon blue">
+                <FaUsers />
+              </div>
+              <div>
+                <h3>All Visitors</h3>
+                <p>View and search all registered visitors.</p>
+              </div>
+              <FaChevronRight className="quick-arrow" />
             </button>
-          </div>
-
-          {/* PETITIONS */}
-
-          <div className="police-quick-card">
-            <div className="police-quick-icon">📄</div>
-
-            <div className="police-quick-content">
-              <h3>Petitions / Complaints</h3>
-
-              <p>View today's petition and complaint visitors.</p>
-            </div>
-
-            <button type="button" onClick={() => navigate("/police/petitions")}>
-              View Petitions →
+            <button
+              className="police-quick-card"
+              type="button"
+              onClick={() => navigate("/police/inside")}
+            >
+              <div className="police-quick-icon green">
+                <FaDoorOpen />
+              </div>
+              <div>
+                <h3>Currently Inside</h3>
+                <p>View visitors currently inside the station.</p>
+              </div>
+              <FaChevronRight className="quick-arrow" />
             </button>
-          </div>
-
-          {/* VISIT HISTORY */}
-
-          <div className="police-quick-card">
-            <div className="police-quick-icon">🕒</div>
-
-            <div className="police-quick-content">
-              <h3>Visit History</h3>
-
-              <p>View complete visitor movement history.</p>
-            </div>
-
-            <button type="button" onClick={() => navigate("/police/history")}>
-              View History →
+            <button
+              className="police-quick-card"
+              type="button"
+              onClick={() => navigate("/police/petitions")}
+            >
+              <div className="police-quick-icon purple">
+                <FaFileAlt />
+              </div>
+              <div>
+                <h3>Petitions / Complaints</h3>
+                <p>View today's petition and complaint visitors.</p>
+              </div>
+              <FaChevronRight className="quick-arrow" />
+            </button>
+            <button
+              className="police-quick-card"
+              type="button"
+              onClick={() => navigate("/police/history")}
+            >
+              <div className="police-quick-icon amber">
+                <FaClock />
+              </div>
+              <div>
+                <h3>Visit History</h3>
+                <p>View complete visitor movement history.</p>
+              </div>
+              <FaChevronRight className="quick-arrow" />
+            </button>
+            <button
+              className="police-quick-card"
+              type="button"
+              onClick={() => navigate("/police/reports")}
+            >
+              <div className="police-quick-icon navy">
+                <FaBook />
+              </div>
+              <div>
+                <h3>Reports</h3>
+                <p>Generate and download visitor and case reports.</p>
+              </div>
+              <FaChevronRight className="quick-arrow" />
             </button>
           </div>
         </section>
 
-        {/* Reports section is added in the quick actions section of the police dashboard. */}
-
-        <div className="police-quick-card police-report-card">
-          <div className="police-quick-icon">📊</div>
-
-          <div className="police-quick-content">
-            <h3>Reports</h3>
-
-            <p>Generate and download visitor and case reports.</p>
-          </div>
-
-          <button type="button" onClick={() => navigate("/police/reports")}>
-            View Reports →
-          </button>
-        </div>
-
-        {/* ====================================
-            RECENT VISITOR ACTIVITY
-        ===================================== */}
-
-        <section className="police-section">
+        <section className="police-section police-activity-section pd-reveal pd-reveal-6">
           <div className="police-section-header">
             <div>
               <span className="police-section-label">LIVE ACTIVITY</span>
-
               <h3>Recent Visitor Activity</h3>
-
               <p>Latest visitor movements at the gate.</p>
             </div>
-
             <button
               type="button"
               className="view-all-button"
               onClick={() => navigate("/police/history")}
             >
-              View All →
+              View All <FaChevronRight />
             </button>
           </div>
-
-          {/* LOADING */}
-
           {loadingActivity ? (
             <div className="police-empty-state">
               <div className="police-loading-spinner"></div>
-
               <p>Loading visitor activity...</p>
             </div>
           ) : recentVisits.length === 0 ? (
-            /* NO VISITORS */
-
             <div className="police-empty-state">
-              <div className="police-empty-icon">👥</div>
-
+              <div className="police-empty-icon">
+                <FaUserFriends />
+              </div>
               <h4>No visitors today</h4>
-
               <p>
                 Visitor activity will appear here when someone enters the
                 station.
               </p>
             </div>
           ) : (
-            /* ACTIVITY TABLE */
-
             <div className="police-activity-table-wrapper">
               <table className="police-activity-table">
                 <thead>
                   <tr>
                     <th>Visitor</th>
-
                     <th>Visitor ID</th>
-
                     <th>Purpose</th>
-
                     <th>Entry</th>
-
                     <th>Exit</th>
-
                     <th>Status</th>
-
                     <th>Action</th>
                   </tr>
                 </thead>
-
                 <tbody>
-                  {recentVisits.map((visit) => {
+                  {recentVisits.map((visit, index) => {
                     const visitor = getVisitor(visit.visitorId);
-
                     return (
-                      <tr key={visit.id}>
-                        {/* VISITOR */}
-
+                      <tr
+                        key={visit.id}
+                        className="pd-row-anim"
+                        style={{ animationDelay: `${index * 25}ms` }}
+                      >
                         <td>
                           <div className="police-visitor-cell">
                             {visitor?.photoData ? (
@@ -772,65 +710,46 @@ function PoliceDashboard() {
                                   "?"}
                               </div>
                             )}
-
                             <div className="police-visitor-info">
                               <strong>{visitor?.fullName || "--"}</strong>
-
                               <span>
                                 {visitor?.mobileNumber || "No mobile"}
                               </span>
                             </div>
                           </div>
                         </td>
-
-                        {/* VISITOR ID */}
-
                         <td>
                           <span className="police-visitor-id">
                             {visit.visitorCode || "--"}
                           </span>
                         </td>
-
-                        {/* PURPOSE */}
-
                         <td>
                           <span className="police-purpose">
                             {visit.purpose || "--"}
                           </span>
                         </td>
-
-                        {/* ENTRY */}
-
                         <td>
                           <span className="police-time">
                             {formatTime(visit.entryTime)}
                           </span>
                         </td>
-
-                        {/* EXIT */}
-
                         <td>
                           <span className="police-time">
                             {formatTime(visit.exitTime)}
                           </span>
                         </td>
-
-                        {/* STATUS */}
-
                         <td>
                           <span
                             className={`police-status ${
-                              visit.status === "INSIDE" ? "inside" : "exited"
+                              visit.status === "INSIDE"
+                                ? "inside pulse-soft"
+                                : "exited"
                             }`}
                           >
                             <span className="police-status-dot"></span>
-
                             {visit.status || "UNKNOWN"}
                           </span>
                         </td>
-
-                        {/* ACTION */}
-
                         <td>
                           <button
                             type="button"

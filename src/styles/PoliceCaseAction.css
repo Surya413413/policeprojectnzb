@@ -1,3 +1,8 @@
+/* =========================================================
+   POLICE CASE ACTION
+   Light + Dark + Responsive
+========================================================= */
+
 .case-action-card {
   margin-top: 24px;
   padding: 24px;
@@ -5,8 +10,10 @@
   border-radius: 18px;
   background: #ffffff;
   box-shadow: 0 8px 30px rgba(15, 23, 42, 0.06);
+  color: #172033;
 }
 
+/* HEADER */
 .case-action-header {
   display: flex;
   justify-content: space-between;
@@ -17,12 +24,19 @@
 }
 
 .case-action-eyebrow {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 7px;
   margin-bottom: 6px;
   color: #64748b;
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.12em;
+}
+
+.case-action-eyebrow svg {
+  color: #2563eb;
+  font-size: 11px;
 }
 
 .case-action-header h2,
@@ -31,7 +45,13 @@
   color: #0f172a;
 }
 
+.case-action-header h2 {
+  font-size: 23px;
+  line-height: 1.35;
+}
+
 .case-action-header p {
+  max-width: 760px;
   margin: 8px 0 0;
   color: #64748b;
   font-size: 14px;
@@ -41,6 +61,7 @@
 .case-action-case-id {
   min-width: 150px;
   padding: 10px 14px;
+  border: 1px solid #e5eaf0;
   border-radius: 12px;
   background: #f8fafc;
   color: #64748b;
@@ -56,6 +77,57 @@
   word-break: break-all;
 }
 
+/* OFFICER */
+.case-action-officer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 18px;
+  padding: 13px 15px;
+  border: 1px solid #dbeafe;
+  border-radius: 12px;
+  background: #f8fbff;
+}
+
+.case-action-officer-icon {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #e0edff;
+  color: #1d4ed8;
+  font-size: 18px;
+}
+
+.case-action-officer > div:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.case-action-officer span {
+  color: #64748b;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.case-action-officer strong {
+  color: #0f172a;
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+
+.case-action-officer small {
+  color: #64748b;
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+
+/* FORM */
 .case-action-form {
   padding-top: 22px;
 }
@@ -70,6 +142,7 @@
   display: flex;
   flex-direction: column;
   gap: 7px;
+  min-width: 0;
 }
 
 .case-action-field.full-width {
@@ -90,13 +163,19 @@
   border: 1px solid #dbe1e8;
   border-radius: 10px;
   padding: 11px 12px;
-  background: #fff;
+  background: #ffffff;
   color: #0f172a;
   font: inherit;
   outline: none;
   transition:
-    border-color 0.2s,
-    box-shadow 0.2s;
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.case-action-field input,
+.case-action-field select {
+  min-height: 44px;
 }
 
 .case-action-field textarea {
@@ -111,24 +190,43 @@
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
+.case-action-field input::placeholder,
+.case-action-field textarea::placeholder {
+  color: #94a3b8;
+}
+
+/* MESSAGES */
 .case-action-success,
 .case-action-error {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
   margin-top: 16px;
   padding: 11px 13px;
   border-radius: 10px;
   font-size: 13px;
+  line-height: 1.5;
+}
+
+.case-action-success svg,
+.case-action-error svg {
+  flex: 0 0 auto;
+  margin-top: 2px;
 }
 
 .case-action-success {
   background: #ecfdf5;
+  border: 1px solid #bbf7d0;
   color: #047857;
 }
 
 .case-action-error {
   background: #fef2f2;
+  border: 1px solid #fecaca;
   color: #b91c1c;
 }
 
+/* FOOTER */
 .case-action-footer {
   display: flex;
   align-items: center;
@@ -146,26 +244,115 @@
 }
 
 .case-action-footer button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   flex-shrink: 0;
+  min-width: 165px;
   border: 0;
   border-radius: 10px;
   padding: 12px 18px;
   background: #2563eb;
-  color: #fff;
+  color: #ffffff;
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease,
+    opacity 0.2s ease;
 }
 
 .case-action-footer button:hover {
   background: #1d4ed8;
+  transform: translateY(-1px);
 }
 
 .case-action-footer button:disabled {
   opacity: 0.65;
   cursor: not-allowed;
+  transform: none;
 }
 
+/* EDIT */
+.case-action-edit-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+  padding: 13px 15px;
+  border: 1px solid #bfdbfe;
+  border-radius: 12px;
+  background: #eff6ff;
+}
+
+.case-action-edit-banner div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.case-action-edit-banner strong {
+  color: #1e3a8a;
+  font-size: 13px;
+}
+
+.case-action-edit-banner span {
+  color: #475569;
+  font-size: 12px;
+}
+
+.case-action-edit-banner button,
+.history-edit-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #334155;
+  padding: 7px 11px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.case-action-edit-banner button:hover,
+.history-edit-button:hover {
+  background: #f8fafc;
+}
+
+.history-edit-button {
+  color: #2563eb;
+  border-color: #bfdbfe;
+}
+
+.history-edit-button:hover {
+  background: #eff6ff;
+  border-color: #93c5fd;
+}
+
+.history-item-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.history-updated {
+  display: block;
+  margin-top: 4px;
+  color: #64748b;
+}
+
+/* HISTORY */
 .case-action-history {
   margin-top: 30px;
   padding-top: 24px;
@@ -179,9 +366,37 @@
   gap: 15px;
 }
 
-.history-heading > span {
+.history-heading-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   color: #64748b;
   font-size: 12px;
+}
+
+.history-record-count {
+  white-space: nowrap;
+}
+
+.history-live-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 8px;
+  border: 1px solid #bbf7d0;
+  border-radius: 999px;
+  background: #f0fdf4;
+  color: #15803d;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.history-live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #16a34a;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.12);
 }
 
 .history-list {
@@ -204,9 +419,10 @@
   align-items: center;
 }
 
-.history-item-top strong {
+.history-item-top > strong {
   color: #0f172a;
   font-size: 14px;
+  line-height: 1.4;
 }
 
 .history-status {
@@ -221,10 +437,21 @@
 .history-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 10px 14px;
   margin-top: 9px;
   color: #64748b;
   font-size: 11px;
+}
+
+.history-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.history-meta svg {
+  color: #94a3b8;
+  font-size: 10px;
 }
 
 .history-item p {
@@ -233,6 +460,7 @@
   font-size: 13px;
   line-height: 1.6;
   white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 
 .history-item small {
@@ -247,8 +475,156 @@
   border: 1px dashed #d8dee7;
   border-radius: 12px;
   color: #64748b;
+  background: #fafbfd;
   font-size: 13px;
   text-align: center;
+}
+
+/* DARK MODE */
+html[data-theme="dark"] .case-action-card {
+  background: #111827;
+  border-color: #263244;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
+  color: #f8fafc;
+}
+
+html[data-theme="dark"] .case-action-header,
+html[data-theme="dark"] .case-action-history {
+  border-color: #263244;
+}
+
+html[data-theme="dark"] .case-action-eyebrow,
+html[data-theme="dark"] .case-action-header p,
+html[data-theme="dark"] .case-action-footer p,
+html[data-theme="dark"] .case-action-field label,
+html[data-theme="dark"] .case-action-officer span,
+html[data-theme="dark"] .case-action-officer small,
+html[data-theme="dark"] .history-heading-right,
+html[data-theme="dark"] .history-meta,
+html[data-theme="dark"] .history-updated {
+  color: #94a3b8;
+}
+
+html[data-theme="dark"] .case-action-header h2,
+html[data-theme="dark"] .case-action-history h3,
+html[data-theme="dark"] .case-action-field label,
+html[data-theme="dark"] .case-action-officer strong,
+html[data-theme="dark"] .history-item-top > strong,
+html[data-theme="dark"] .history-item p {
+  color: #f8fafc;
+}
+
+html[data-theme="dark"] .case-action-case-id,
+html[data-theme="dark"] .case-action-info,
+html[data-theme="dark"] .case-action-field input,
+html[data-theme="dark"] .case-action-field select,
+html[data-theme="dark"] .case-action-field textarea,
+html[data-theme="dark"] .history-item,
+html[data-theme="dark"] .history-empty,
+html[data-theme="dark"] .case-action-empty {
+  background: #172033;
+  border-color: #334155;
+}
+
+html[data-theme="dark"] .case-action-case-id strong {
+  color: #f8fafc;
+}
+
+html[data-theme="dark"] .case-action-field input,
+html[data-theme="dark"] .case-action-field select,
+html[data-theme="dark"] .case-action-field textarea {
+  color: #f8fafc;
+}
+
+html[data-theme="dark"] .case-action-field input::placeholder,
+html[data-theme="dark"] .case-action-field textarea::placeholder {
+  color: #64748b;
+}
+
+html[data-theme="dark"] .case-action-field input:focus,
+html[data-theme="dark"] .case-action-field select:focus,
+html[data-theme="dark"] .case-action-field textarea:focus {
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.12);
+}
+
+html[data-theme="dark"] .case-action-officer {
+  background: #0f1d33;
+  border-color: #1e3a5f;
+}
+
+html[data-theme="dark"] .case-action-officer-icon {
+  background: #172554;
+  color: #93c5fd;
+}
+
+html[data-theme="dark"] .case-action-edit-banner {
+  background: #172554;
+  border-color: #1d4ed8;
+}
+
+html[data-theme="dark"] .case-action-edit-banner strong {
+  color: #bfdbfe;
+}
+
+html[data-theme="dark"] .case-action-edit-banner span {
+  color: #94a3b8;
+}
+
+html[data-theme="dark"] .case-action-edit-banner button,
+html[data-theme="dark"] .history-edit-button {
+  background: #111827;
+  border-color: #475569;
+  color: #cbd5e1;
+}
+
+html[data-theme="dark"] .case-action-edit-banner button:hover,
+html[data-theme="dark"] .history-edit-button:hover {
+  background: #1e293b;
+}
+
+html[data-theme="dark"] .history-edit-button {
+  color: #93c5fd;
+  border-color: #1d4ed8;
+}
+
+html[data-theme="dark"] .history-status {
+  background: #312e81;
+  color: #c7d2fe;
+}
+
+html[data-theme="dark"] .history-live-indicator {
+  background: #052e16;
+  border-color: #166534;
+  color: #86efac;
+}
+
+html[data-theme="dark"] .history-live-dot {
+  background: #4ade80;
+}
+
+html[data-theme="dark"] .history-empty,
+html[data-theme="dark"] .case-action-empty {
+  color: #94a3b8;
+}
+
+html[data-theme="dark"] .case-action-success {
+  background: #052e16;
+  border-color: #166534;
+  color: #86efac;
+}
+
+html[data-theme="dark"] .case-action-error {
+  background: #450a0a;
+  border-color: #7f1d1d;
+  color: #fca5a5;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .case-action-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 700px) {
@@ -261,6 +637,10 @@
   .case-action-footer {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .case-action-header h2 {
+    font-size: 20px;
   }
 
   .case-action-case-id {
@@ -277,76 +657,6 @@
     width: 100%;
   }
 
-  .history-item-top {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-}
-
-/* Edit case action */
-.case-action-edit-banner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 18px;
-  padding: 13px 15px;
-  border: 1px solid #bfdbfe;
-  border-radius: 12px;
-  background: #eff6ff;
-}
-
-.case-action-edit-banner div {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-
-.case-action-edit-banner strong {
-  color: #1e3a8a;
-  font-size: 13px;
-}
-
-.case-action-edit-banner span {
-  color: #475569;
-  font-size: 12px;
-}
-
-.case-action-edit-banner button,
-.history-edit-button {
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
-  background: #ffffff;
-  color: #334155;
-  padding: 7px 11px;
-  font-size: 11px;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.case-action-edit-banner button:hover,
-.history-edit-button:hover {
-  background: #f8fafc;
-}
-
-.history-item-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.history-edit-button {
-  color: #2563eb;
-  border-color: #bfdbfe;
-}
-
-.history-updated {
-  display: block;
-  margin-top: 4px;
-  color: #64748b;
-}
-
-@media (max-width: 700px) {
   .case-action-edit-banner {
     align-items: stretch;
     flex-direction: column;
@@ -356,54 +666,60 @@
     width: 100%;
   }
 
+  .history-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .history-heading-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .history-item-top {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
   .history-item-actions {
     width: 100%;
     justify-content: space-between;
   }
 }
 
-/* Logged-in officer identity */
-.case-action-officer {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-top: 18px;
-  padding: 13px 15px;
-  border: 1px solid #dbeafe;
-  border-radius: 12px;
-  background: #f8fbff;
+@media (max-width: 480px) {
+  .case-action-officer {
+    align-items: flex-start;
+    padding: 12px;
+  }
+
+  .case-action-officer-icon {
+    width: 38px;
+    height: 38px;
+    flex-basis: 38px;
+  }
+
+  .case-action-footer p {
+    font-size: 11px;
+  }
+
+  .history-item {
+    padding: 14px;
+  }
+
+  .history-meta {
+    flex-direction: column;
+    gap: 7px;
+  }
 }
 
-.case-action-officer-icon {
-  display: grid;
-  place-items: center;
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  background: #e0edff;
-  font-size: 20px;
-  flex-shrink: 0;
-}
-
-.case-action-officer div:last-child {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.case-action-officer span {
-  color: #64748b;
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-}
-
-.case-action-officer strong {
-  color: #0f172a;
-  font-size: 14px;
-}
-
-.case-action-officer small {
-  color: #64748b;
-  font-size: 11px;
+@media (prefers-reduced-motion: reduce) {
+  .case-action-field input,
+  .case-action-field select,
+  .case-action-field textarea,
+  .case-action-footer button,
+  .case-action-edit-banner button,
+  .history-edit-button {
+    transition: none;
+  }
 }

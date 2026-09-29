@@ -1113,3 +1113,301 @@
     inset: 10% 12%;
   }
 }
+
+/* =========================================================
+   POLICESETU AI UI UPDATE
+   React Icons + Light/Dark Theme + Shared Sidebar
+========================================================= */
+
+.register-page {
+  min-height: calc(100vh - 72px);
+  background: var(--bg-primary, #f5f7fb);
+  color: var(--text-primary, #172033);
+  padding: 28px 28px 44px;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+.register-container {
+  width: min(1120px, 100%);
+}
+
+.register-header {
+  padding: 4px 2px 22px;
+  border-bottom: 1px solid var(--border-color, #e5e9f0);
+}
+
+.register-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--primary-color, #2563eb);
+}
+
+.register-header h1,
+.section-heading h2,
+.existing-info h3,
+.success-card h1,
+.camera-header h3 {
+  color: var(--text-primary, #172033);
+}
+
+.register-header p,
+.section-heading p,
+.existing-info p,
+.success-card > p {
+  color: var(--text-secondary, #64748b);
+}
+
+.back-button,
+.cancel-button,
+.secondary-button,
+.camera-cancel-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--bg-card, #fff);
+  color: var(--text-primary, #334155);
+  border-color: var(--border-color, #d9dee8);
+}
+
+.form-section,
+.success-card {
+  background: var(--bg-card, #fff);
+  border-color: var(--border-color, #e5e9f0);
+}
+
+.form-field label,
+.photo-option strong,
+.purpose-content strong,
+.photo-size-info strong,
+.success-detail strong {
+  color: var(--text-primary, #334155);
+}
+
+.form-field input,
+.form-field textarea {
+  background: var(--input-bg, #fff);
+  color: var(--text-primary, #172033);
+  border-color: var(--border-color, #d9dee8);
+}
+
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+  color: var(--text-secondary, #94a3b8);
+}
+
+.form-field input:disabled,
+.form-field textarea:disabled {
+  background: var(--bg-secondary, #f8fafc);
+  color: var(--text-secondary, #64748b);
+}
+
+.photo-option,
+.photo-preview-container,
+.purpose-content {
+  background: var(--bg-secondary, #f8fafc);
+  border-color: var(--border-color, #dbe3ef);
+}
+
+.photo-option-icon,
+.section-number {
+  color: var(--primary-color, #2563eb);
+  background: rgba(37, 99, 235, 0.1);
+}
+
+.photo-option-icon svg,
+.purpose-icon svg,
+.capture-circle svg,
+.success-icon svg,
+.error-icon,
+.camera-error-icon {
+  width: 1em;
+  height: 1em;
+}
+
+.photo-option-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.purpose-content {
+  position: relative;
+  align-items: flex-start;
+  padding-top: 16px;
+}
+
+.purpose-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-color, #2563eb);
+  background: rgba(37, 99, 235, 0.1);
+}
+
+.retake-photo-button,
+.change-photo-button,
+.remove-photo,
+.capture-button,
+.submit-button,
+.primary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+
+.camera-modal {
+  background: var(--bg-card, #fff);
+}
+
+.camera-header,
+.camera-actions {
+  border-color: var(--border-color, #e5e7eb);
+}
+
+.camera-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.success-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.register-error {
+  align-items: center;
+}
+
+.error-icon {
+  flex: 0 0 auto;
+}
+
+html[data-theme="dark"] .register-page {
+  background: #0f172a;
+}
+
+html[data-theme="dark"] .register-error {
+  background: rgba(127, 29, 29, 0.2);
+  border-color: #7f1d1d;
+  color: #fca5a5;
+}
+
+html[data-theme="dark"] .register-error span {
+  color: #fee2e2;
+  background: #b91c1c;
+}
+
+html[data-theme="dark"] .form-section,
+html[data-theme="dark"] .success-card,
+html[data-theme="dark"] .camera-modal {
+  background: #1e293b;
+  border-color: #334155;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.2);
+}
+
+html[data-theme="dark"] .form-field input,
+html[data-theme="dark"] .form-field textarea {
+  background: #0f172a;
+  color: #f8fafc;
+  border-color: #334155;
+}
+
+html[data-theme="dark"] .form-field input:disabled,
+html[data-theme="dark"] .form-field textarea:disabled {
+  background: #172033;
+  color: #94a3b8;
+}
+
+html[data-theme="dark"] .photo-option,
+html[data-theme="dark"] .photo-preview-container,
+html[data-theme="dark"] .purpose-content,
+html[data-theme="dark"] .existing-visitor-card {
+  background: #172033;
+  border-color: #334155;
+}
+
+html[data-theme="dark"] .photo-option:hover {
+  background: #1d2a40;
+  border-color: #60a5fa;
+}
+
+html[data-theme="dark"] .purpose-option input:checked + .purpose-content {
+  background: rgba(37, 99, 235, 0.16);
+  border-color: #60a5fa;
+}
+
+html[data-theme="dark"]
+  .purpose-option
+  input:checked
+  + .purpose-content
+  strong {
+  color: #93c5fd;
+}
+
+html[data-theme="dark"] .back-button,
+html[data-theme="dark"] .cancel-button,
+html[data-theme="dark"] .secondary-button,
+html[data-theme="dark"] .camera-cancel-button,
+html[data-theme="dark"] .camera-close {
+  background: #172033;
+  color: #e2e8f0;
+  border-color: #334155;
+}
+
+html[data-theme="dark"] .change-photo-button {
+  color: #e2e8f0;
+  background: #334155;
+}
+
+html[data-theme="dark"] .remove-photo {
+  background: rgba(127, 29, 29, 0.25);
+  color: #fca5a5;
+  border-color: #7f1d1d;
+}
+
+html[data-theme="dark"] .camera-error {
+  background: #2a1717;
+  color: #fca5a5;
+}
+
+html[data-theme="dark"] .success-detail {
+  border-color: #334155;
+}
+
+html[data-theme="dark"] .success-details {
+  border-color: #334155;
+}
+
+@media (max-width: 900px) {
+  .register-page {
+    padding: 24px 20px 36px;
+  }
+}
+
+@media (max-width: 600px) {
+  .register-page {
+    padding: 18px 14px 30px;
+  }
+
+  .register-header h1 {
+    font-size: 27px;
+  }
+
+  .form-section {
+    border-radius: 14px;
+  }
+
+  .photo-options {
+    grid-template-columns: 1fr;
+  }
+}

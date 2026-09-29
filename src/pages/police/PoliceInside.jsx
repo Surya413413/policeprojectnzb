@@ -1,5 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  FaArrowLeft,
+  FaCheckCircle,
+  FaEye,
+  FaSearch,
+  FaTimes,
+  FaUserClock,
+  FaUsers,
+} from "react-icons/fa";
 
 import {
   subscribeToAllVisits,
@@ -13,15 +22,9 @@ function PoliceInside() {
 
   const [visits, setVisits] = useState([]);
   const [visitors, setVisitors] = useState([]);
-
   const [search, setSearch] = useState("");
-
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-
-  // ==========================================
-  // LOAD VISITS
-  // ==========================================
 
   useEffect(() => {
     const unsubscribe = subscribeToAllVisits(
@@ -31,19 +34,13 @@ function PoliceInside() {
       },
       (error) => {
         console.error("Police inside visitors error:", error);
-
         setError("Unable to load current visitors.");
-
         setLoading(false);
       },
     );
 
     return () => unsubscribe();
   }, []);
-
-  // ==========================================
-  // LOAD VISITORS
-  // ==========================================
 
   useEffect(() => {
     const unsubscribe = subscribeToVisitors(
@@ -52,7 +49,6 @@ function PoliceInside() {
       },
       (error) => {
         console.error("Police visitor information error:", error);
-
         setError("Unable to load visitor information.");
       },
     );
@@ -60,25 +56,13 @@ function PoliceInside() {
     return () => unsubscribe();
   }, []);
 
-  // ==========================================
-  // FIND CURRENTLY INSIDE VISITS
-  // ==========================================
-
   const insideVisits = useMemo(() => {
     return visits.filter((visit) => visit.status === "INSIDE");
   }, [visits]);
 
-  // ==========================================
-  // VISITOR LOOKUP
-  // ==========================================
-
   const getVisitor = (visitorId) => {
     return visitors.find((visitor) => visitor.id === visitorId);
   };
-
-  // ==========================================
-  // SEARCH
-  // ==========================================
 
   const filteredVisits = useMemo(() => {
     const value = search.trim().toLowerCase();
@@ -100,10 +84,6 @@ function PoliceInside() {
     });
   }, [insideVisits, visitors, search]);
 
-  // ==========================================
-  // FORMAT TIME
-  // ==========================================
-
   const formatTime = (timestamp) => {
     if (!timestamp) {
       return "--";
@@ -118,10 +98,6 @@ function PoliceInside() {
       return "--";
     }
   };
-
-  // ==========================================
-  // FORMAT DATE
-  // ==========================================
 
   const formatDate = (timestamp) => {
     if (!timestamp) {
@@ -141,37 +117,58 @@ function PoliceInside() {
 
   return (
     <div className="police-inside-page">
-      {/* HEADER */}
-
       <header className="police-inside-header">
-        <div>
+        <div className="inside-header-content">
           <button
             type="button"
             className="inside-back-button"
             onClick={() => navigate("/police")}
           >
-            ← Dashboard
+            <FaArrowLeft />
+            <span>Dashboard</span>
           </button>
 
-          <h1>Currently Inside</h1>
+          <div className="inside-title-row">
+            <div className="inside-title-icon">
+              <FaUserClock />
+            </div>
 
-          <p>Visitors currently inside the police station</p>
+            <div>
+              <h1>Currently Inside</h1>
+              <p>Visitors currently inside the police station</p>
+            </div>
+          </div>
         </div>
 
         <div className="inside-count-card">
-          <span>Currently Inside</span>
+          <div className="inside-count-icon">
+            <FaUsers />
+          </div>
 
-          <strong>{loading ? "—" : insideVisits.length}</strong>
+          <div>
+            <span>Currently Inside</span>
+            <strong>{loading ? "—" : insideVisits.length}</strong>
+          </div>
         </div>
       </header>
 
-      {/* ERROR */}
-
-      {error && <div className="inside-error">{error}</div>}
-
-      {/* SEARCH */}
+      {error && (
+        <div className="inside-error">
+          <span>{error}</span>
+          <button
+            type="button"
+            onClick={() => setError("")}
+            aria-label="Dismiss error"
+            title="Dismiss error"
+          >
+            <FaTimes />
+          </button>
+        </div>
+      )}
 
       <div className="inside-search-box">
+        <FaSearch className="inside-search-icon" />
+
         <input
           type="text"
           value={search}
@@ -180,26 +177,31 @@ function PoliceInside() {
         />
 
         {search && (
-          <button type="button" onClick={() => setSearch("")}>
-            Clear
+          <button
+            type="button"
+            className="inside-clear-button"
+            onClick={() => setSearch("")}
+            aria-label="Clear search"
+            title="Clear search"
+          >
+            <FaTimes />
+            <span>Clear</span>
           </button>
         )}
       </div>
 
-      {/* CONTENT */}
-
       {loading ? (
         <div className="inside-empty">
           <div className="inside-spinner"></div>
-
           <p>Loading current visitors...</p>
         </div>
       ) : filteredVisits.length === 0 ? (
         <div className="inside-empty">
-          <div className="inside-empty-icon">✓</div>
+          <div className="inside-empty-icon">
+            <FaCheckCircle />
+          </div>
 
           <h2>No Visitors Inside</h2>
-
           <p>There are currently no visitors inside the station.</p>
         </div>
       ) : (
@@ -223,8 +225,6 @@ function PoliceInside() {
 
                 return (
                   <tr key={visit.id}>
-                    {/* VISITOR */}
-
                     <td>
                       <div className="inside-visitor">
                         {visitor?.photoData ? (
@@ -241,13 +241,10 @@ function PoliceInside() {
 
                         <div>
                           <strong>{visitor?.fullName || "--"}</strong>
-
                           <span>{visitor?.mobileNumber || "No mobile"}</span>
                         </div>
                       </div>
                     </td>
-
-                    {/* VISITOR ID */}
 
                     <td>
                       <span className="inside-code">
@@ -255,23 +252,15 @@ function PoliceInside() {
                       </span>
                     </td>
 
-                    {/* PURPOSE */}
-
                     <td>
                       <span className="inside-purpose">
                         {visit.purpose || "--"}
                       </span>
                     </td>
 
-                    {/* DATE */}
-
                     <td>{formatDate(visit.entryTime)}</td>
 
-                    {/* TIME */}
-
                     <td>{formatTime(visit.entryTime)}</td>
-
-                    {/* STATUS */}
 
                     <td>
                       <span className="inside-status">
@@ -279,8 +268,6 @@ function PoliceInside() {
                         INSIDE
                       </span>
                     </td>
-
-                    {/* ACTION */}
 
                     <td>
                       <button
@@ -290,7 +277,8 @@ function PoliceInside() {
                           navigate(`/police/visitors/${visit.visitorId}`)
                         }
                       >
-                        View
+                        <FaEye />
+                        <span>View</span>
                       </button>
                     </td>
                   </tr>

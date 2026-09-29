@@ -1,10 +1,17 @@
+/* =========================================================
+   POLICE HISTORY
+   ========================================================= */
+
 .police-history-page {
   min-height: 100vh;
-  background: #f5f7fb;
+  background: var(--bg-primary, #f5f7fb);
+  color: var(--text-primary, #172033);
   padding: 30px;
 }
 
-/* HEADER */
+/* =========================================================
+   HEADER
+   ========================================================= */
 
 .police-history-header {
   display: flex;
@@ -14,51 +21,122 @@
   margin-bottom: 25px;
 }
 
+.history-header-content {
+  min-width: 0;
+}
+
 .history-back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+  padding: 0;
   border: none;
   background: transparent;
-  padding: 0;
-  color: #2563eb;
+  color: var(--primary-color, #2563eb);
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
 }
 
+.history-back-button svg {
+  width: 13px;
+  height: 13px;
+}
+
+.history-back-button:hover {
+  color: var(--primary-hover, #1d4ed8);
+}
+
+.history-title-row {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-top: 10px;
+}
+
+.history-title-icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1px solid rgba(37, 99, 235, 0.16);
+  border-radius: 12px;
+  background: rgba(37, 99, 235, 0.09);
+  color: var(--primary-color, #2563eb);
+}
+
+.history-title-icon svg {
+  width: 19px;
+  height: 19px;
+}
+
 .police-history-header h1 {
-  margin: 10px 0 5px;
-  color: #172033;
+  margin: 0 0 5px;
+  color: var(--text-primary, #172033);
   font-size: 30px;
   font-weight: 700;
+  line-height: 1.15;
 }
 
 .police-history-header p {
   margin: 0;
-  color: #667085;
+  color: var(--text-secondary, #667085);
   font-size: 14px;
 }
 
+/* =========================================================
+   COUNT CARD
+   ========================================================= */
+
 .history-count-card {
   min-width: 140px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
   padding: 14px 20px;
-  background: white;
-  border: 1px solid #e7ebf2;
+  background: var(--bg-card, #ffffff);
+  border: 1px solid var(--border-color, #e7ebf2);
   border-radius: 14px;
+  box-shadow: 0 4px 12px var(--shadow-color, rgba(15, 23, 42, 0.06));
+}
+
+.history-count-icon {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: rgba(37, 99, 235, 0.09);
+  color: var(--primary-color, #2563eb);
+}
+
+.history-count-icon svg {
+  width: 16px;
+  height: 16px;
 }
 
 .history-count-card span {
   display: block;
-  color: #667085;
+  color: var(--text-secondary, #667085);
   font-size: 12px;
 }
 
 .history-count-card strong {
   display: block;
-  margin-top: 4px;
-  color: #172033;
+  margin-top: 3px;
+  color: var(--text-primary, #172033);
   font-size: 25px;
+  line-height: 1;
 }
 
-/* DATE FILTER */
+/* =========================================================
+   DATE FILTER
+   ========================================================= */
 
 .history-filter-card {
   display: flex;
@@ -67,17 +145,26 @@
   gap: 25px;
   margin-bottom: 20px;
   padding: 20px;
-  background: white;
-  border: 1px solid #e7ebf2;
+  background: var(--bg-card, #ffffff);
+  border: 1px solid var(--border-color, #e7ebf2);
   border-radius: 16px;
+  box-shadow: 0 3px 10px var(--shadow-color, rgba(15, 23, 42, 0.04));
 }
 
 .history-date-section label {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 7px;
   margin-bottom: 8px;
-  color: #344054;
+  color: var(--text-primary, #344054);
   font-size: 12px;
   font-weight: 700;
+}
+
+.history-date-section label svg {
+  width: 12px;
+  height: 12px;
+  color: var(--primary-color, #2563eb);
 }
 
 .history-date-controls {
@@ -86,30 +173,44 @@
 }
 
 .history-date-controls input {
+  min-width: 175px;
   padding: 10px 12px;
-  border: 1px solid #d9dee8;
+  border: 1px solid var(--border-color, #d9dee8);
   border-radius: 9px;
   outline: none;
-  color: #344054;
+  background: var(--input-bg, #ffffff);
+  color: var(--text-primary, #344054);
+  font-family: inherit;
   font-size: 14px;
 }
 
 .history-date-controls input:focus {
-  border-color: #2563eb;
+  border-color: var(--primary-color, #2563eb);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.09);
 }
 
 .history-today-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
   padding: 0 16px;
   border: none;
   border-radius: 9px;
-  background: #2563eb;
-  color: white;
+  background: var(--primary-color, #2563eb);
+  color: #ffffff;
+  font-family: inherit;
   font-weight: 600;
   cursor: pointer;
 }
 
 .history-today-button:hover {
-  background: #1d4ed8;
+  background: var(--primary-hover, #1d4ed8);
+}
+
+.history-today-button svg {
+  width: 12px;
+  height: 12px;
 }
 
 .history-selected-date {
@@ -118,54 +219,87 @@
 
 .history-selected-date span {
   display: block;
-  color: #98a2b3;
+  color: var(--text-secondary, #98a2b3);
   font-size: 10px;
   font-weight: 700;
+  letter-spacing: 0.05em;
 }
 
 .history-selected-date strong {
   display: block;
   margin-top: 5px;
-  color: #172033;
+  color: var(--text-primary, #172033);
   font-size: 15px;
 }
 
-/* SEARCH */
+/* =========================================================
+   SEARCH
+   ========================================================= */
 
 .history-search-box {
+  position: relative;
   display: flex;
+  align-items: center;
   gap: 10px;
   margin-bottom: 20px;
-  padding: 15px;
-  background: white;
-  border: 1px solid #e7ebf2;
+  padding: 8px 10px 8px 14px;
+  background: var(--bg-card, #ffffff);
+  border: 1px solid var(--border-color, #e7ebf2);
   border-radius: 14px;
+  box-shadow: 0 3px 10px var(--shadow-color, rgba(15, 23, 42, 0.04));
+}
+
+.history-search-icon {
+  flex-shrink: 0;
+  color: var(--text-secondary, #98a2b3);
+  width: 14px;
+  height: 14px;
 }
 
 .history-search-box input {
   flex: 1;
-  padding: 12px 14px;
-  border: 1px solid #d9dee8;
-  border-radius: 10px;
+  min-width: 0;
+  padding: 9px 4px;
+  border: none;
   outline: none;
+  background: transparent;
+  color: var(--text-primary, #172033);
+  font-family: inherit;
   font-size: 14px;
 }
 
-.history-search-box input:focus {
-  border-color: #2563eb;
+.history-search-box input::placeholder {
+  color: var(--text-secondary, #98a2b3);
 }
 
-.history-search-box button {
-  padding: 0 18px;
+.history-clear-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 9px 13px;
   border: none;
-  border-radius: 10px;
-  background: #eef2f7;
-  color: #344054;
+  border-radius: 9px;
+  background: var(--bg-secondary, #eef2f7);
+  color: var(--text-primary, #344054);
+  font-family: inherit;
+  font-size: 12px;
   font-weight: 600;
   cursor: pointer;
 }
 
-/* ERROR */
+.history-clear-button:hover {
+  background: var(--border-color, #e4e7ec);
+}
+
+.history-clear-button svg {
+  width: 11px;
+  height: 11px;
+}
+
+/* =========================================================
+   ERROR
+   ========================================================= */
 
 .history-error {
   margin-bottom: 20px;
@@ -174,15 +308,19 @@
   border: 1px solid #fecdd3;
   border-radius: 10px;
   color: #be123c;
+  font-size: 13px;
 }
 
-/* TABLE */
+/* =========================================================
+   TABLE
+   ========================================================= */
 
 .history-table-wrapper {
   overflow-x: auto;
-  background: white;
-  border: 1px solid #e7ebf2;
+  background: var(--bg-card, #ffffff);
+  border: 1px solid var(--border-color, #e7ebf2);
   border-radius: 16px;
+  box-shadow: 0 3px 12px var(--shadow-color, rgba(15, 23, 42, 0.04));
 }
 
 .history-table {
@@ -193,26 +331,33 @@
 
 .history-table th {
   padding: 15px 18px;
-  background: #f8fafc;
-  border-bottom: 1px solid #e7ebf2;
+  background: var(--bg-secondary, #f8fafc);
+  border-bottom: 1px solid var(--border-color, #e7ebf2);
   text-align: left;
-  color: #667085;
+  color: var(--text-secondary, #667085);
   font-size: 12px;
   font-weight: 700;
+  white-space: nowrap;
 }
 
 .history-table td {
   padding: 15px 18px;
-  border-bottom: 1px solid #edf0f5;
-  color: #344054;
+  border-bottom: 1px solid var(--border-color, #edf0f5);
+  color: var(--text-primary, #344054);
   font-size: 13px;
 }
 
-.history-table tbody tr:hover {
-  background: #fafcff;
+.history-table tbody tr:last-child td {
+  border-bottom: none;
 }
 
-/* VISITOR */
+.history-table tbody tr:hover {
+  background: var(--bg-secondary, #fafcff);
+}
+
+/* =========================================================
+   VISITOR
+   ========================================================= */
 
 .history-visitor {
   display: flex;
@@ -233,49 +378,57 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #e8eefc;
-  color: #2563eb;
+  flex-shrink: 0;
+  background: rgba(37, 99, 235, 0.11);
+  color: var(--primary-color, #2563eb);
   font-size: 15px;
   font-weight: 700;
 }
 
 .history-visitor strong {
   display: block;
-  color: #172033;
+  color: var(--text-primary, #172033);
   font-size: 14px;
 }
 
 .history-visitor span {
   display: block;
   margin-top: 3px;
-  color: #98a2b3;
+  color: var(--text-secondary, #98a2b3);
   font-size: 11px;
 }
 
-/* CODES */
+/* =========================================================
+   CODES
+   ========================================================= */
 
 .history-code {
-  color: #475467;
+  color: var(--text-primary, #475467);
   font-family: monospace;
+  font-size: 12px;
   font-weight: 700;
 }
 
-/* DATE TIME */
+/* =========================================================
+   DATE TIME
+   ========================================================= */
 
 .history-date-time strong {
   display: block;
-  color: #344054;
+  color: var(--text-primary, #344054);
   font-size: 12px;
 }
 
 .history-date-time span {
   display: block;
   margin-top: 3px;
-  color: #98a2b3;
+  color: var(--text-secondary, #98a2b3);
   font-size: 11px;
 }
 
-/* STATUS */
+/* =========================================================
+   STATUS
+   ========================================================= */
 
 .history-status {
   display: inline-flex;
@@ -285,6 +438,7 @@
   border-radius: 20px;
   font-size: 10px;
   font-weight: 700;
+  white-space: nowrap;
 }
 
 .history-status.inside {
@@ -293,7 +447,7 @@
 }
 
 .history-status.exited {
-  background: #f1f5f9;
+  background: var(--bg-secondary, #f1f5f9);
   color: #64748b;
 }
 
@@ -304,32 +458,47 @@
   background: currentColor;
 }
 
-/* VIEW */
+/* =========================================================
+   VIEW
+   ========================================================= */
 
 .history-view-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
   padding: 8px 14px;
   border: none;
   border-radius: 8px;
-  background: #eff6ff;
-  color: #2563eb;
+  background: rgba(37, 99, 235, 0.09);
+  color: var(--primary-color, #2563eb);
+  font-family: inherit;
   font-size: 12px;
   font-weight: 700;
   cursor: pointer;
 }
 
 .history-view-button:hover {
-  background: #dbeafe;
+  background: rgba(37, 99, 235, 0.16);
 }
 
-/* EMPTY */
+.history-view-button svg {
+  width: 12px;
+  height: 12px;
+}
+
+/* =========================================================
+   EMPTY / LOADING
+   ========================================================= */
 
 .history-empty {
   padding: 60px 20px;
-  background: white;
-  border: 1px solid #e7ebf2;
+  background: var(--bg-card, #ffffff);
+  border: 1px solid var(--border-color, #e7ebf2);
   border-radius: 16px;
   text-align: center;
-  color: #667085;
+  color: var(--text-secondary, #667085);
+  box-shadow: 0 3px 12px var(--shadow-color, rgba(15, 23, 42, 0.04));
 }
 
 .history-empty-icon {
@@ -340,13 +509,18 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: #eff6ff;
-  font-size: 22px;
+  background: rgba(37, 99, 235, 0.09);
+  color: var(--primary-color, #2563eb);
+}
+
+.history-empty-icon svg {
+  width: 21px;
+  height: 21px;
 }
 
 .history-empty h2 {
   margin: 0 0 8px;
-  color: #172033;
+  color: var(--text-primary, #172033);
   font-size: 20px;
 }
 
@@ -359,8 +533,8 @@
   width: 32px;
   height: 32px;
   margin: 0 auto 12px;
-  border: 3px solid #e5e7eb;
-  border-top-color: #2563eb;
+  border: 3px solid var(--border-color, #e5e7eb);
+  border-top-color: var(--primary-color, #2563eb);
   border-radius: 50%;
   animation: history-spin 0.8s linear infinite;
 }
@@ -371,15 +545,73 @@
   }
 }
 
-/* RESULT */
+/* =========================================================
+   RESULT
+   ========================================================= */
 
 .history-result-count {
   margin-top: 15px;
-  color: #667085;
+  color: var(--text-secondary, #667085);
   font-size: 13px;
 }
 
-/* RESPONSIVE */
+.history-result-count strong {
+  color: var(--text-primary, #172033);
+}
+
+/* =========================================================
+   DARK MODE
+   ========================================================= */
+
+html[data-theme="dark"] .police-history-page {
+  background: var(--bg-primary, #0f172a);
+}
+
+html[data-theme="dark"] .history-error {
+  background: rgba(190, 18, 60, 0.12);
+  border-color: rgba(251, 113, 133, 0.28);
+  color: #fda4af;
+}
+
+html[data-theme="dark"] .history-status.inside {
+  background: rgba(34, 197, 94, 0.13);
+  color: #86efac;
+}
+
+html[data-theme="dark"] .history-status.exited {
+  background: rgba(148, 163, 184, 0.12);
+  color: #cbd5e1;
+}
+
+html[data-theme="dark"] .history-date-controls input {
+  color-scheme: dark;
+}
+
+html[data-theme="dark"] .history-table th {
+  background: #172033;
+}
+
+html[data-theme="dark"] .history-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.025);
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .police-history-page {
+    padding: 24px 20px;
+  }
+
+  .police-history-header {
+    align-items: flex-start;
+  }
+
+  .history-filter-card {
+    align-items: flex-start;
+  }
+}
 
 @media (max-width: 768px) {
   .police-history-page {
@@ -388,16 +620,32 @@
 
   .police-history-header {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
+    gap: 16px;
   }
 
   .history-count-card {
     width: 100%;
+    box-sizing: border-box;
   }
 
   .history-filter-card {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
+    gap: 18px;
+  }
+
+  .history-date-controls {
+    width: 100%;
+  }
+
+  .history-date-controls input {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .history-today-button {
+    min-height: 42px;
   }
 
   .history-selected-date {
@@ -405,10 +653,69 @@
   }
 
   .history-search-box {
+    margin-bottom: 16px;
+  }
+
+  .history-clear-button span {
+    display: none;
+  }
+
+  .history-clear-button {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 520px) {
+  .history-title-row {
+    align-items: flex-start;
+  }
+
+  .history-title-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .police-history-header h1 {
+    font-size: 25px;
+  }
+
+  .police-history-header p {
+    font-size: 13px;
+  }
+
+  .history-date-controls {
     flex-direction: column;
   }
 
-  .history-search-box button {
-    padding: 12px;
+  .history-date-controls input,
+  .history-today-button {
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 42px;
+  }
+
+  .history-selected-date strong {
+    font-size: 14px;
+  }
+
+  .history-search-box {
+    padding: 7px 8px 7px 12px;
+  }
+
+  .history-search-box input {
+    font-size: 13px;
+  }
+
+  .history-empty {
+    padding: 48px 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .history-spinner {
+    animation: none;
   }
 }

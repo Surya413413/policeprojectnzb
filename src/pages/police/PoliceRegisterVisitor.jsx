@@ -3,6 +3,23 @@ import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 
 import {
+  FaArrowLeft,
+  FaCamera,
+  FaCheckCircle,
+  FaFileAlt,
+  FaFilePdf,
+  FaImage,
+  FaLock,
+  FaMicrophone,
+  FaRedoAlt,
+  FaStop,
+  FaTimes,
+  FaTrashAlt,
+  FaUpload,
+  FaUser,
+} from "react-icons/fa";
+
+import {
   findVisitorByMobile,
   createVisitor,
   createVisitForExistingVisitor,
@@ -804,13 +821,13 @@ function PoliceRegisterVisitor() {
       ====================================== */}
 
       <div className="police-register-header">
-        <button
+        {/* <button
           type="button"
           className="police-register-back"
           onClick={() => navigate("/police/visitors")}
         >
           ← All Visitors
-        </button>
+        </button> */}
 
         <div>
           <div className="police-register-eyebrow">
@@ -855,7 +872,7 @@ function PoliceRegisterVisitor() {
                 <img src={photoPreview} alt="Visitor" />
               ) : (
                 <div className="photo-empty">
-                  <span>👤</span>
+                  <FaUser className="photo-empty-icon" />
                   <small>No photo</small>
                 </div>
               )}
@@ -868,7 +885,8 @@ function PoliceRegisterVisitor() {
                 onClick={openCamera}
                 disabled={!!existingVisitor}
               >
-                📷 Capture with Camera
+                <FaCamera />
+                <span>Capture with Camera</span>
               </button>
 
               <label
@@ -876,7 +894,8 @@ function PoliceRegisterVisitor() {
                   existingVisitor ? "disabled" : ""
                 }`}
               >
-                📁 Upload Photo
+                <FaUpload />
+                <span>Upload Photo</span>
                 <input
                   ref={fileInputRef}
                   type="file"
@@ -893,7 +912,8 @@ function PoliceRegisterVisitor() {
                   className="remove-photo-button"
                   onClick={handleRemovePhoto}
                 >
-                  Remove Photo
+                  <FaTrashAlt />
+                  <span>Remove Photo</span>
                 </button>
               )}
             </div>
@@ -915,7 +935,8 @@ function PoliceRegisterVisitor() {
                   className="capture-button"
                   onClick={capturePhoto}
                 >
-                  ● Capture Photo
+                  <FaCamera />
+                  <span>Capture Photo</span>
                 </button>
 
                 <button
@@ -923,7 +944,8 @@ function PoliceRegisterVisitor() {
                   className="camera-close-button"
                   onClick={stopCamera}
                 >
-                  Close Camera
+                  <FaTimes />
+                  <span>Close Camera</span>
                 </button>
               </div>
             </div>
@@ -1071,7 +1093,9 @@ function PoliceRegisterVisitor() {
           </div>
 
           <div className="voice-recorder-card">
-            <div className="voice-recorder-icon">🎙️</div>
+            <div className="voice-recorder-icon">
+              <FaMicrophone />
+            </div>
             <div className="voice-recorder-content">
               <strong>Add Voice Statement</strong>
               <span>Maximum recording size: 600 KB per recording</span>
@@ -1096,7 +1120,8 @@ function PoliceRegisterVisitor() {
                   className="start-recording-button"
                   onClick={startRecording}
                 >
-                  🎙 Start Recording
+                  <FaMicrophone />
+                  <span>Start Recording</span>
                 </button>
               ) : (
                 <button
@@ -1104,7 +1129,8 @@ function PoliceRegisterVisitor() {
                   className="stop-recording-button"
                   onClick={stopRecording}
                 >
-                  ■ Stop Recording
+                  <FaStop />
+                  <span>Stop Recording</span>
                 </button>
               )}
             </div>
@@ -1114,7 +1140,9 @@ function PoliceRegisterVisitor() {
             <div className="evidence-list">
               {voiceRecordings.map((item, index) => (
                 <div className="selected-document" key={item.id}>
-                  <div className="document-file-icon">🎙️</div>
+                  <div className="document-file-icon">
+                    <FaMicrophone />
+                  </div>
                   <div className="document-file-info">
                     <strong>{item.name}</strong>
                     <span>{(item.size / 1024).toFixed(1)} KB</span>
@@ -1130,7 +1158,8 @@ function PoliceRegisterVisitor() {
                     onClick={() => removeVoiceRecording(index)}
                     disabled={isRecording || submitting}
                   >
-                    Remove
+                    <FaTrashAlt />
+                    <span>Remove</span>
                   </button>
                 </div>
               ))}
@@ -1140,7 +1169,8 @@ function PoliceRegisterVisitor() {
                 onClick={clearVoiceRecordings}
                 disabled={isRecording || submitting}
               >
-                Remove All Recordings
+                <FaTrashAlt />
+                <span>Remove All Recordings</span>
               </button>
             </div>
           )}
@@ -1161,7 +1191,9 @@ function PoliceRegisterVisitor() {
 
           <div className="document-action-grid">
             <label className="document-upload-box document-action-button">
-              <div className="document-upload-icon">📁</div>
+              <div className="document-upload-icon">
+                <FaUpload />
+              </div>
               <div>
                 <strong>Browse Documents</strong>
                 <span>Multiple PDF, JPG or PNG files</span>
@@ -1183,7 +1215,9 @@ function PoliceRegisterVisitor() {
               onClick={openDocumentScanner}
               disabled={submitting}
             >
-              <div className="document-upload-icon">📄</div>
+              <div className="document-upload-icon">
+                <FaFileAlt />
+              </div>
               <div>
                 <strong>Scan Document</strong>
                 <span>Use device camera scanner</span>
@@ -1206,7 +1240,9 @@ function PoliceRegisterVisitor() {
               onClick={openDocumentCamera}
               disabled={submitting}
             >
-              <div className="document-upload-icon">📷</div>
+              <div className="document-upload-icon">
+                <FaCamera />
+              </div>
               <div>
                 <strong>Take Camera Picture</strong>
                 <span>Open camera and capture document</span>
@@ -1232,14 +1268,16 @@ function PoliceRegisterVisitor() {
                   className="capture-button"
                   onClick={captureDocumentPhoto}
                 >
-                  📷 Capture Document
+                  <FaCamera />
+                  <span>Capture Document</span>
                 </button>
                 <button
                   type="button"
                   className="camera-close-button"
                   onClick={stopDocumentCamera}
                 >
-                  Close Camera
+                  <FaTimes />
+                  <span>Close Camera</span>
                 </button>
               </div>
             </div>
@@ -1254,7 +1292,11 @@ function PoliceRegisterVisitor() {
               {documentEvidence.map((item, index) => (
                 <div className="selected-document" key={item.id}>
                   <div className="document-file-icon">
-                    {item.type === "application/pdf" ? "📕" : "🖼️"}
+                    {item.type === "application/pdf" ? (
+                      <FaFilePdf />
+                    ) : (
+                      <FaImage />
+                    )}
                   </div>
                   <div className="document-file-info">
                     <strong>{item.name}</strong>
@@ -1288,7 +1330,8 @@ function PoliceRegisterVisitor() {
                     onClick={() => removeDocument(index)}
                     disabled={submitting}
                   >
-                    Remove
+                    <FaTrashAlt />
+                    <span>Remove</span>
                   </button>
                 </div>
               ))}
@@ -1299,7 +1342,8 @@ function PoliceRegisterVisitor() {
                 onClick={clearDocuments}
                 disabled={submitting}
               >
-                Remove All Documents
+                <FaTrashAlt />
+                <span>Remove All Documents</span>
               </button>
             </div>
           )}
@@ -1311,7 +1355,9 @@ function PoliceRegisterVisitor() {
 
         <div className="police-register-footer">
           <div className="footer-security-note">
-            <span>🔒</span>
+            <span className="footer-security-icon">
+              <FaLock />
+            </span>
 
             <div>
               <strong>Secure Registration</strong>
@@ -1327,7 +1373,8 @@ function PoliceRegisterVisitor() {
               onClick={() => navigate("/police/visitors")}
               disabled={submitting}
             >
-              Cancel
+              <FaTimes />
+              <span>Cancel</span>
             </button>
 
             <button
@@ -1336,7 +1383,8 @@ function PoliceRegisterVisitor() {
               onClick={handleReset}
               disabled={submitting}
             >
-              Reset
+              <FaRedoAlt />
+              <span>Reset</span>
             </button>
 
             <button
@@ -1344,11 +1392,22 @@ function PoliceRegisterVisitor() {
               className="police-register-submit"
               disabled={submitting}
             >
-              {submitting
-                ? "Saving..."
-                : existingVisitor
-                  ? "Create New Visit"
-                  : "Register Visitor"}
+              {submitting ? (
+                <>
+                  <FaCheckCircle />
+                  <span>Saving...</span>
+                </>
+              ) : existingVisitor ? (
+                <>
+                  <FaCheckCircle />
+                  <span>Create New Visit</span>
+                </>
+              ) : (
+                <>
+                  <FaCheckCircle />
+                  <span>Register Visitor</span>
+                </>
+              )}
             </button>
           </div>
         </div>

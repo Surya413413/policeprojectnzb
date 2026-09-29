@@ -3,11 +3,19 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 // =========================
 // AUTH
 // =========================
+
 import Login from "./pages/Login";
+
+// =========================
+// SHARED LAYOUT
+// =========================
+
+import AppLayout from "./components/AppLayout";
 
 // =========================
 // WATCHMAN / GATE
 // =========================
+
 import GateDashboard from "./pages/GateDashboard";
 import RegisterVisitor from "./pages/gate/RegisterVisitor";
 import VisitorSearch from "./pages/gate/VisitorSearch";
@@ -18,6 +26,7 @@ import VisitorMovement from "./pages/gate/VisitorMovement";
 // =========================
 // POLICE
 // =========================
+
 import PoliceDashboard from "./pages/police/PoliceDashboard";
 import PoliceVisitors from "./pages/police/PoliceVisitors";
 import PoliceVisitorDetails from "./pages/police/PoliceVisitorDetails";
@@ -30,6 +39,7 @@ import PoliceReports from "./pages/police/PoliceReports";
 // =========================
 // COMMISSIONER
 // =========================
+
 import CommissionerDashboard from "./pages/commissioner/CommissionerDashboard";
 import CommissionerVisitors from "./pages/commissioner/CommissionerVisitors";
 import CommissionerCases from "./pages/commissioner/CommissionerCases";
@@ -40,6 +50,7 @@ import CommissionerStaff from "./pages/commissioner/CommissionerStaff";
 // =========================
 // ROUTE PROTECTION
 // =========================
+
 import RoleRoute from "./components/RoleRoute";
 
 function App() {
@@ -49,76 +60,100 @@ function App() {
         {/* =================================================
             PUBLIC ROUTES
         ================================================= */}
+
         <Route path="/" element={<Navigate to="/login" replace />} />
+
         <Route path="/login" element={<Login />} />
 
         {/* =================================================
             WATCHMAN / GATE ROUTES
+            Shared Sidebar + Header
         ================================================= */}
+
         <Route element={<RoleRoute allowedRole="WATCHMAN" />}>
-          <Route path="/gate" element={<GateDashboard />} />
-          <Route path="/gate/register" element={<RegisterVisitor />} />
-          <Route path="/gate/search" element={<VisitorSearch />} />
+          <Route element={<AppLayout role="WATCHMAN" />}>
+            <Route path="/gate" element={<GateDashboard />} />
 
-          <Route path="/gate/visitor/:visitorId" element={<VisitorDetails />} />
+            <Route path="/gate/register" element={<RegisterVisitor />} />
 
-          <Route path="/gate/pass/:visitId" element={<GatePass />} />
+            <Route path="/gate/search" element={<VisitorSearch />} />
 
-          <Route path="/gate/movement" element={<VisitorMovement />} />
+            <Route
+              path="/gate/visitor/:visitorId"
+              element={<VisitorDetails />}
+            />
+
+            <Route path="/gate/pass/:visitId" element={<GatePass />} />
+
+            <Route path="/gate/movement" element={<VisitorMovement />} />
+          </Route>
         </Route>
 
         {/* =================================================
             POLICE ROUTES
+            Shared Sidebar + Header
         ================================================= */}
+
         <Route element={<RoleRoute allowedRole="POLICE" />}>
-          <Route path="/police" element={<PoliceDashboard />} />
+          <Route element={<AppLayout role="POLICE" />}>
+            <Route path="/police" element={<PoliceDashboard />} />
 
-          <Route path="/police/visitors" element={<PoliceVisitors />} />
+            <Route path="/police/visitors" element={<PoliceVisitors />} />
 
-          <Route
-            path="/police/visitors/:visitorId"
-            element={<PoliceVisitorDetails />}
-          />
+            <Route
+              path="/police/visitors/:visitorId"
+              element={<PoliceVisitorDetails />}
+            />
 
-          <Route path="/police/inside" element={<PoliceInside />} />
+            <Route path="/police/inside" element={<PoliceInside />} />
 
-          <Route path="/police/petitions" element={<PolicePetitions />} />
+            <Route path="/police/petitions" element={<PolicePetitions />} />
 
-          <Route path="/police/history" element={<PoliceHistory />} />
+            <Route path="/police/history" element={<PoliceHistory />} />
 
-          <Route path="/police/register" element={<PoliceRegisterVisitor />} />
+            <Route
+              path="/police/register"
+              element={<PoliceRegisterVisitor />}
+            />
 
-          <Route path="/police/reports" element={<PoliceReports />} />
+            <Route path="/police/reports" element={<PoliceReports />} />
+          </Route>
         </Route>
 
         {/* =================================================
             COMMISSIONER ROUTES
+            Shared Sidebar + Header
         ================================================= */}
+
         <Route element={<RoleRoute allowedRole="COMMISSIONER" />}>
-          <Route path="/commissioner" element={<CommissionerDashboard />} />
+          <Route element={<AppLayout role="COMMISSIONER" />}>
+            <Route path="/commissioner" element={<CommissionerDashboard />} />
 
-          <Route
-            path="/commissioner/visitors"
-            element={<CommissionerVisitors />}
-          />
+            <Route
+              path="/commissioner/visitors"
+              element={<CommissionerVisitors />}
+            />
 
-          <Route path="/commissioner/cases" element={<CommissionerCases />} />
+            <Route path="/commissioner/cases" element={<CommissionerCases />} />
 
-          <Route
-            path="/commissioner/cases/:visitId"
-            element={<CommissionerCaseDetails />}
-          />
+            <Route
+              path="/commissioner/cases/:visitId"
+              element={<CommissionerCaseDetails />}
+            />
 
-          <Route
-            path="/commissioner/reports"
-            element={<CommissionerReports />}
-          />
-          <Route path="/commissioner/staff" element={<CommissionerStaff />} />
+            <Route
+              path="/commissioner/reports"
+              element={<CommissionerReports />}
+            />
+
+            <Route path="/commissioner/staff" element={<CommissionerStaff />} />
+          </Route>
         </Route>
 
         {/* =================================================
             UNKNOWN ROUTES
         ================================================= */}
+
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </BrowserRouter>

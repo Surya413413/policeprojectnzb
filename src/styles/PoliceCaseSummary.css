@@ -1,3 +1,8 @@
+/* =========================================================
+   POLICE CASE SUMMARY
+   Light + Dark + Responsive
+========================================================= */
+
 .police-case-summary {
   margin-top: 28px;
   padding: 28px;
@@ -5,8 +10,10 @@
   border: 1px solid #e4e9f1;
   border-radius: 18px;
   box-shadow: 0 8px 30px rgba(25, 45, 80, 0.06);
+  color: #172033;
 }
 
+/* HEADER */
 .case-summary-header {
   display: flex;
   align-items: flex-start;
@@ -14,6 +21,26 @@
   gap: 20px;
   padding-bottom: 24px;
   border-bottom: 1px solid #edf0f5;
+}
+
+.case-summary-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  min-width: 0;
+}
+
+.case-summary-title-icon {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 11px;
+  background: #eef4ff;
+  color: #315ea8;
+  font-size: 17px;
 }
 
 .case-summary-label {
@@ -29,12 +56,14 @@
   margin: 0;
   color: #172033;
   font-size: 24px;
+  line-height: 1.3;
 }
 
 .case-summary-header p {
   margin: 7px 0 0;
   color: #718096;
   font-size: 14px;
+  line-height: 1.5;
 }
 
 .case-summary-status {
@@ -51,6 +80,36 @@
   white-space: nowrap;
 }
 
+.case-summary-status.new {
+  background: #eef4ff;
+  color: #315ea8;
+}
+
+.case-summary-status.under-verification {
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+.case-summary-status.evidence-collection {
+  background: #f5f3ff;
+  color: #6d28d9;
+}
+
+.case-summary-status.referred {
+  background: #f0fdf4;
+  color: #28733b;
+}
+
+.case-summary-status.complaint-registered {
+  background: #fefce8;
+  color: #a16207;
+}
+
+.case-summary-status.fir-registered {
+  background: #fff0f0;
+  color: #c43d3d;
+}
+
 .case-summary-status.closed {
   background: #edf7ef;
   color: #28733b;
@@ -62,6 +121,7 @@
   color: #c43d3d;
 }
 
+/* CASE INFORMATION */
 .case-summary-info-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -70,6 +130,7 @@
 }
 
 .case-summary-info-card {
+  min-width: 0;
   padding: 17px;
   background: #f8fafc;
   border: 1px solid #edf0f4;
@@ -77,20 +138,37 @@
 }
 
 .case-summary-info-card span {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 7px;
   margin-bottom: 7px;
   color: #718096;
   font-size: 12px;
   font-weight: 600;
 }
 
+.case-summary-info-card span svg {
+  color: #94a3b8;
+  font-size: 11px;
+}
+
 .case-summary-info-card strong {
   display: block;
   color: #172033;
   font-size: 14px;
-  line-height: 1.4;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
 }
 
+.case-summary-info-card strong.ai-ready {
+  color: #15803d;
+}
+
+.case-summary-info-card strong.ai-pending {
+  color: #a16207;
+}
+
+/* SECTIONS */
 .case-summary-section {
   margin-top: 28px;
   padding-top: 25px;
@@ -121,14 +199,17 @@
   margin: 0;
   color: #1d2738;
   font-size: 16px;
+  line-height: 1.4;
 }
 
 .case-summary-section-title p {
   margin: 4px 0 0;
   color: #7a8494;
   font-size: 12px;
+  line-height: 1.5;
 }
 
+/* EVIDENCE */
 .case-summary-evidence-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -139,6 +220,7 @@
   display: flex;
   align-items: center;
   gap: 15px;
+  min-width: 0;
   padding: 18px;
   border: 1px solid #e8edf3;
   border-radius: 13px;
@@ -151,15 +233,28 @@
   justify-content: center;
   width: 44px;
   height: 44px;
+  flex: 0 0 44px;
   border-radius: 11px;
   background: #eef4ff;
-  font-size: 21px;
+  color: #315ea8;
+  font-size: 18px;
+}
+
+.case-summary-evidence-icon.voice {
+  background: #eef4ff;
+  color: #315ea8;
+}
+
+.case-summary-evidence-icon.document {
+  background: #f5f3ff;
+  color: #6d28d9;
 }
 
 .case-summary-evidence-card strong {
   display: block;
   color: #172033;
   font-size: 22px;
+  line-height: 1.2;
 }
 
 .case-summary-evidence-card span {
@@ -169,6 +264,7 @@
   font-size: 12px;
 }
 
+/* AI CONTENT */
 .case-summary-content {
   padding: 18px;
   border: 1px solid #e8edf3;
@@ -182,6 +278,7 @@
   font-size: 14px;
   line-height: 1.75;
   white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 
 .case-summary-content.legal {
@@ -194,6 +291,7 @@
   line-height: 1.6;
 }
 
+/* AI FOOTER */
 .case-summary-ai-footer {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -204,13 +302,16 @@
 }
 
 .case-summary-ai-footer > div {
+  min-width: 0;
   padding: 16px;
   background: #f8fafc;
   border-radius: 12px;
 }
 
 .case-summary-ai-footer span {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 7px;
   margin-bottom: 6px;
   color: #718096;
   font-size: 10px;
@@ -218,17 +319,41 @@
   letter-spacing: 1px;
 }
 
-.case-summary-ai-footer strong {
-  color: #172033;
-  font-size: 14px;
+.case-summary-ai-footer span svg {
+  color: #64748b;
 }
 
+.case-summary-ai-footer strong {
+  display: block;
+  color: #172033;
+  font-size: 14px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+/* DISCLAIMER */
 .case-summary-disclaimer {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
   margin-top: 18px;
   padding: 16px 18px;
   border: 1px solid #e7ebf2;
   border-radius: 12px;
   background: #f8fafc;
+}
+
+.case-summary-disclaimer-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
+  border-radius: 9px;
+  background: #eaf7ef;
+  color: #15803d;
+  font-size: 14px;
 }
 
 .case-summary-disclaimer strong {
@@ -245,6 +370,118 @@
   line-height: 1.6;
 }
 
+/* DARK MODE */
+html[data-theme="dark"] .police-case-summary {
+  background: #111827;
+  border-color: #263244;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
+  color: #f8fafc;
+}
+
+html[data-theme="dark"] .case-summary-header,
+html[data-theme="dark"] .case-summary-section,
+html[data-theme="dark"] .case-summary-ai-footer {
+  border-color: #263244;
+}
+
+html[data-theme="dark"] .case-summary-title-icon,
+html[data-theme="dark"] .case-summary-section-title > span {
+  background: #172554;
+  color: #93c5fd;
+}
+
+html[data-theme="dark"] .case-summary-label,
+html[data-theme="dark"] .case-summary-header p,
+html[data-theme="dark"] .case-summary-info-card span,
+html[data-theme="dark"] .case-summary-section-title p,
+html[data-theme="dark"] .case-summary-evidence-card span,
+html[data-theme="dark"] .case-summary-empty,
+html[data-theme="dark"] .case-summary-ai-footer span,
+html[data-theme="dark"] .case-summary-disclaimer p {
+  color: #94a3b8;
+}
+
+html[data-theme="dark"] .case-summary-header h2,
+html[data-theme="dark"] .case-summary-info-card strong,
+html[data-theme="dark"] .case-summary-section-title h3,
+html[data-theme="dark"] .case-summary-evidence-card strong,
+html[data-theme="dark"] .case-summary-content p,
+html[data-theme="dark"] .case-summary-ai-footer strong,
+html[data-theme="dark"] .case-summary-disclaimer strong {
+  color: #f8fafc;
+}
+
+html[data-theme="dark"] .case-summary-status {
+  background: #172554;
+  color: #93c5fd;
+}
+
+html[data-theme="dark"] .case-summary-status.under-verification {
+  background: #431407;
+  color: #fdba74;
+}
+
+html[data-theme="dark"] .case-summary-status.evidence-collection {
+  background: #2e1065;
+  color: #d8b4fe;
+}
+
+html[data-theme="dark"] .case-summary-status.referred,
+html[data-theme="dark"] .case-summary-status.closed {
+  background: #052e16;
+  color: #86efac;
+}
+
+html[data-theme="dark"] .case-summary-status.complaint-registered {
+  background: #422006;
+  color: #fde68a;
+}
+
+html[data-theme="dark"] .case-summary-status.fir-registered,
+html[data-theme="dark"] .case-summary-status.high,
+html[data-theme="dark"] .case-summary-status.critical {
+  background: #450a0a;
+  color: #fca5a5;
+}
+
+html[data-theme="dark"] .case-summary-info-card,
+html[data-theme="dark"] .case-summary-evidence-card,
+html[data-theme="dark"] .case-summary-content,
+html[data-theme="dark"] .case-summary-ai-footer > div,
+html[data-theme="dark"] .case-summary-disclaimer {
+  background: #172033;
+  border-color: #263244;
+}
+
+html[data-theme="dark"] .case-summary-info-card span svg,
+html[data-theme="dark"] .case-summary-ai-footer span svg {
+  color: #64748b;
+}
+
+html[data-theme="dark"] .case-summary-info-card strong.ai-ready {
+  color: #86efac;
+}
+
+html[data-theme="dark"] .case-summary-info-card strong.ai-pending {
+  color: #fde68a;
+}
+
+html[data-theme="dark"] .case-summary-evidence-icon.voice {
+  background: #172554;
+  color: #93c5fd;
+}
+
+html[data-theme="dark"] .case-summary-evidence-icon.document {
+  background: #2e1065;
+  color: #d8b4fe;
+}
+
+html[data-theme="dark"] .case-summary-disclaimer-icon {
+  background: #052e16;
+  color: #86efac;
+}
+
+/* RESPONSIVE */
 @media (max-width: 900px) {
   .case-summary-info-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -253,6 +490,7 @@
 
 @media (max-width: 650px) {
   .police-case-summary {
+    margin-top: 20px;
     padding: 20px;
     border-radius: 14px;
   }
@@ -261,13 +499,56 @@
     flex-direction: column;
   }
 
+  .case-summary-heading {
+    gap: 10px;
+  }
+
+  .case-summary-title-icon {
+    width: 36px;
+    height: 36px;
+    flex-basis: 36px;
+    font-size: 15px;
+  }
+
+  .case-summary-header h2 {
+    font-size: 21px;
+  }
+
+  .case-summary-header p {
+    font-size: 13px;
+  }
+
+  .case-summary-status {
+    align-self: flex-start;
+  }
+
   .case-summary-info-grid,
   .case-summary-evidence-grid,
   .case-summary-ai-footer {
     grid-template-columns: 1fr;
   }
 
-  .case-summary-header h2 {
-    font-size: 21px;
+  .case-summary-section {
+    margin-top: 22px;
+    padding-top: 20px;
+  }
+
+  .case-summary-content {
+    padding: 15px;
+  }
+
+  .case-summary-content p {
+    font-size: 13px;
+  }
+
+  .case-summary-disclaimer {
+    padding: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .police-case-summary,
+  .case-summary-evidence-card {
+    transition: none;
   }
 }

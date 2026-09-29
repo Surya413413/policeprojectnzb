@@ -1,4 +1,16 @@
 import React from "react";
+import {
+  FaBalanceScale,
+  FaBrain,
+  FaCheckCircle,
+  FaFileAlt,
+  FaFlag,
+  FaGavel,
+  FaMicrophone,
+  FaUserShield,
+} from "react-icons/fa";
+
+import "../../styles/PoliceCaseSummary.css";
 
 const formatDateTime = (timestamp) => {
   if (!timestamp) return "—";
@@ -42,6 +54,13 @@ const getEvidenceCounts = (visit) => {
   };
 };
 
+const getStatusClass = (status) => {
+  return String(status || "Not Started")
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, "-");
+};
+
 const PoliceCaseSummary = ({ visit }) => {
   if (!visit) {
     return null;
@@ -74,22 +93,22 @@ const PoliceCaseSummary = ({ visit }) => {
     <section className="police-case-summary">
       {/* HEADER */}
       <div className="case-summary-header">
-        <div>
-          <span className="case-summary-label">CASE OVERVIEW</span>
+        <div className="case-summary-heading">
+          <div className="case-summary-title-icon" aria-hidden="true">
+            <FaBalanceScale />
+          </div>
 
-          <h2>Police Case Summary</h2>
-
-          <p>
-            Quick overview of the visitor's current case, evidence and police
-            action.
-          </p>
+          <div>
+            <span className="case-summary-label">CASE OVERVIEW</span>
+            <h2>Police Case Summary</h2>
+            <p>
+              Quick overview of the visitor&apos;s current case, evidence and
+              police action.
+            </p>
+          </div>
         </div>
 
-        <span
-          className={`case-summary-status ${String(caseStatus)
-            .toLowerCase()
-            .replace(/\s+/g, "-")}`}
-        >
+        <span className={`case-summary-status ${getStatusClass(caseStatus)}`}>
           {caseStatus}
         </span>
       </div>
@@ -97,23 +116,37 @@ const PoliceCaseSummary = ({ visit }) => {
       {/* CASE INFORMATION */}
       <div className="case-summary-info-grid">
         <div className="case-summary-info-card">
-          <span>Priority</span>
+          <span>
+            <FaFlag />
+            Priority
+          </span>
           <strong>{priority}</strong>
         </div>
 
         <div className="case-summary-info-card">
-          <span>Assigned Officer</span>
+          <span>
+            <FaUserShield />
+            Assigned Officer
+          </span>
           <strong>{assignedOfficer}</strong>
         </div>
 
         <div className="case-summary-info-card">
-          <span>Latest Action</span>
+          <span>
+            <FaGavel />
+            Latest Action
+          </span>
           <strong>{latestAction}</strong>
         </div>
 
         <div className="case-summary-info-card">
-          <span>AI Status</span>
-          <strong>{hasAI ? "Analyzed" : "Not Analyzed"}</strong>
+          <span>
+            <FaBrain />
+            AI Status
+          </span>
+          <strong className={hasAI ? "ai-ready" : "ai-pending"}>
+            {hasAI ? "Analyzed" : "Not Analyzed"}
+          </strong>
         </div>
       </div>
 
@@ -129,8 +162,9 @@ const PoliceCaseSummary = ({ visit }) => {
 
         <div className="case-summary-evidence-grid">
           <div className="case-summary-evidence-card">
-            <div className="case-summary-evidence-icon">🎙</div>
-
+            <div className="case-summary-evidence-icon voice">
+              <FaMicrophone />
+            </div>
             <div>
               <strong>{voiceCount}</strong>
               <span>Voice Statements</span>
@@ -138,8 +172,9 @@ const PoliceCaseSummary = ({ visit }) => {
           </div>
 
           <div className="case-summary-evidence-card">
-            <div className="case-summary-evidence-icon">📄</div>
-
+            <div className="case-summary-evidence-icon document">
+              <FaFileAlt />
+            </div>
             <div>
               <strong>{documentCount}</strong>
               <span>Documents</span>
@@ -235,14 +270,18 @@ const PoliceCaseSummary = ({ visit }) => {
       {/* AI INFORMATION */}
       <div className="case-summary-ai-footer">
         <div>
-          <span>AI CONFIDENCE</span>
-
+          <span>
+            <FaBrain />
+            AI CONFIDENCE
+          </span>
           <strong>{visit.aiConfidence || "Not specified"}</strong>
         </div>
 
         <div>
-          <span>LAST ANALYZED</span>
-
+          <span>
+            <FaCheckCircle />
+            LAST ANALYZED
+          </span>
           <strong>{formatDateTime(visit.aiAnalyzedAt)}</strong>
         </div>
       </div>
@@ -250,13 +289,17 @@ const PoliceCaseSummary = ({ visit }) => {
       {/* DISCLAIMER */}
       {hasAI && (
         <div className="case-summary-disclaimer">
-          <strong>Officer Verification Required</strong>
-
-          <p>
-            AI output is provided as an assistance tool. Facts, evidence and
-            potentially relevant legal provisions must be independently verified
-            by the investigating officer.
-          </p>
+          <div className="case-summary-disclaimer-icon" aria-hidden="true">
+            <FaCheckCircle />
+          </div>
+          <div>
+            <strong>Officer Verification Required</strong>
+            <p>
+              AI output is provided as an assistance tool. Facts, evidence and
+              potentially relevant legal provisions must be independently
+              verified by the investigating officer.
+            </p>
+          </div>
         </div>
       )}
     </section>

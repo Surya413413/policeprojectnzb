@@ -1,5 +1,17 @@
 import React, { useEffect, useState } from "react";
 import {
+  FaArrowRight,
+  FaCalendarAlt,
+  FaCheckCircle,
+  FaEdit,
+  FaExclamationCircle,
+  FaHistory,
+  FaSave,
+  FaShieldAlt,
+  FaTimes,
+  FaUserShield,
+} from "react-icons/fa";
+import {
   saveCaseAction,
   updateCaseAction,
   subscribeToCaseActions,
@@ -321,7 +333,9 @@ export default function PoliceCaseAction({ visit, onUpdated }) {
       </div>
 
       <div className="case-action-officer">
-        <div className="case-action-officer-icon">👮</div>
+        <div className="case-action-officer-icon" aria-hidden="true">
+          <FaUserShield />
+        </div>
         <div>
           <span>LOGGED-IN POLICE OFFICER</span>
           <strong>
@@ -342,7 +356,8 @@ export default function PoliceCaseAction({ visit, onUpdated }) {
             </div>
 
             <button type="button" onClick={resetForm}>
-              Cancel Edit
+              <FaTimes />
+              <span>Cancel Edit</span>
             </button>
           </div>
         )}
@@ -433,8 +448,18 @@ export default function PoliceCaseAction({ visit, onUpdated }) {
           />
         </div>
 
-        {message && <div className="case-action-success">{message}</div>}
-        {error && <div className="case-action-error">{error}</div>}
+        {message && (
+          <div className="case-action-success" role="status">
+            <FaCheckCircle />
+            <span>{message}</span>
+          </div>
+        )}
+        {error && (
+          <div className="case-action-error" role="alert">
+            <FaExclamationCircle />
+            <span>{error}</span>
+          </div>
+        )}
 
         <div className="case-action-footer">
           <p>
@@ -444,6 +469,7 @@ export default function PoliceCaseAction({ visit, onUpdated }) {
           </p>
 
           <button type="submit" disabled={saving || loadingOfficer}>
+            {saving ? null : editingId ? <FaEdit /> : <FaSave />}
             {saving
               ? editingId
                 ? "Updating..."
@@ -458,17 +484,22 @@ export default function PoliceCaseAction({ visit, onUpdated }) {
       <div className="case-action-history">
         <div className="history-heading">
           <div>
-            <span className="case-action-eyebrow">AUDIT TRAIL</span>
+            <span className="case-action-eyebrow">
+              <FaHistory />
+              AUDIT TRAIL
+            </span>
             <h3>Action History</h3>
           </div>
           <div className="history-heading-right">
             {historyLive && (
               <span className="history-live-indicator">
                 <span className="history-live-dot" />
-                Live
+                <span>Live</span>
               </span>
             )}
-            <span>{history.length} record(s)</span>
+            <span className="history-record-count">
+              {history.length} record(s)
+            </span>
           </div>
         </div>
 
@@ -493,8 +524,10 @@ export default function PoliceCaseAction({ visit, onUpdated }) {
                         type="button"
                         className="history-edit-button"
                         onClick={() => startEdit(item)}
+                        title="Edit case action"
                       >
-                        Edit
+                        <FaEdit />
+                        <span>Edit</span>
                       </button>
                     )}
                   </div>
@@ -507,10 +540,16 @@ export default function PoliceCaseAction({ visit, onUpdated }) {
                   <span>
                     Assigned: {item.assignedOfficer || "Not assigned"}
                   </span>
-                  <span>Priority: {item.priority || "Medium"}</span>
+                  <span>
+                    <FaShieldAlt />
+                    Priority: {item.priority || "Medium"}
+                  </span>
 
                   {item.nextActionDate && (
-                    <span>Next: {item.nextActionDate}</span>
+                    <span>
+                      <FaCalendarAlt />
+                      Next: {item.nextActionDate}
+                    </span>
                   )}
                 </div>
 

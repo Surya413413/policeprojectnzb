@@ -1,5 +1,15 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  FaArrowLeft,
+  FaCalendarAlt,
+  FaClock,
+  FaEye,
+  FaHistory,
+  FaSearch,
+  FaTimes,
+  FaUserClock,
+} from "react-icons/fa";
 
 import {
   subscribeToVisitsByDate,
@@ -13,7 +23,6 @@ function PoliceHistory() {
 
   const getTodayDate = () => {
     const date = new Date();
-
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const day = String(date.getDate()).padStart(2, "0");
@@ -22,18 +31,11 @@ function PoliceHistory() {
   };
 
   const [selectedDate, setSelectedDate] = useState(getTodayDate());
-
   const [visits, setVisits] = useState([]);
   const [visitors, setVisitors] = useState([]);
-
   const [search, setSearch] = useState("");
-
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-
-  // ==========================================
-  // LOAD VISITORS
-  // ==========================================
 
   useEffect(() => {
     const unsubscribe = subscribeToVisitors(
@@ -42,17 +44,12 @@ function PoliceHistory() {
       },
       (error) => {
         console.error("Police history visitor error:", error);
-
         setError("Unable to load visitor information.");
       },
     );
 
     return () => unsubscribe();
   }, []);
-
-  // ==========================================
-  // LOAD VISITS FOR SELECTED DATE
-  // ==========================================
 
   useEffect(() => {
     setLoading(true);
@@ -68,9 +65,7 @@ function PoliceHistory() {
       },
       (error) => {
         console.error("Police history error:", error);
-
         setError("Unable to load visit history.");
-
         setLoading(false);
       },
     );
@@ -78,17 +73,9 @@ function PoliceHistory() {
     return () => unsubscribe();
   }, [selectedDate]);
 
-  // ==========================================
-  // VISITOR LOOKUP
-  // ==========================================
-
   const getVisitor = (visitorId) => {
     return visitors.find((visitor) => visitor.id === visitorId);
   };
-
-  // ==========================================
-  // SEARCH
-  // ==========================================
 
   const filteredVisits = useMemo(() => {
     const value = search.trim().toLowerCase();
@@ -111,10 +98,6 @@ function PoliceHistory() {
     });
   }, [visits, visitors, search]);
 
-  // ==========================================
-  // FORMAT DATE
-  // ==========================================
-
   const formatDate = (timestamp) => {
     if (!timestamp) {
       return "--";
@@ -131,10 +114,6 @@ function PoliceHistory() {
     }
   };
 
-  // ==========================================
-  // FORMAT TIME
-  // ==========================================
-
   const formatTime = (timestamp) => {
     if (!timestamp) {
       return "--";
@@ -150,17 +129,9 @@ function PoliceHistory() {
     }
   };
 
-  // ==========================================
-  // SET TODAY
-  // ==========================================
-
   const handleToday = () => {
     setSelectedDate(getTodayDate());
   };
-
-  // ==========================================
-  // DATE DISPLAY
-  // ==========================================
 
   const displaySelectedDate = () => {
     if (!selectedDate) {
@@ -181,39 +152,46 @@ function PoliceHistory() {
 
   return (
     <div className="police-history-page">
-      {/* =====================================
-          HEADER
-      ====================================== */}
-
       <header className="police-history-header">
-        <div>
+        <div className="history-header-content">
           <button
             type="button"
             className="history-back-button"
             onClick={() => navigate("/police")}
           >
-            ← Dashboard
+            <FaArrowLeft />
+            <span>Dashboard</span>
           </button>
 
-          <h1>Visit History</h1>
+          <div className="history-title-row">
+            <div className="history-title-icon">
+              <FaHistory />
+            </div>
 
-          <p>View visitor movement records by date</p>
+            <div>
+              <h1>Visit History</h1>
+              <p>View visitor movement records by date</p>
+            </div>
+          </div>
         </div>
 
         <div className="history-count-card">
-          <span>Visits</span>
-
-          <strong>{loading ? "—" : filteredVisits.length}</strong>
+          <div className="history-count-icon">
+            <FaUserClock />
+          </div>
+          <div>
+            <span>Visits</span>
+            <strong>{loading ? "—" : filteredVisits.length}</strong>
+          </div>
         </div>
       </header>
 
-      {/* =====================================
-          DATE FILTER
-      ====================================== */}
-
       <section className="history-filter-card">
         <div className="history-date-section">
-          <label htmlFor="history-date">Select Date</label>
+          <label htmlFor="history-date">
+            <FaCalendarAlt />
+            <span>Select Date</span>
+          </label>
 
           <div className="history-date-controls">
             <input
@@ -229,23 +207,21 @@ function PoliceHistory() {
               onClick={handleToday}
               className="history-today-button"
             >
-              Today
+              <FaCalendarAlt />
+              <span>Today</span>
             </button>
           </div>
         </div>
 
         <div className="history-selected-date">
           <span>SHOWING RECORDS FOR</span>
-
           <strong>{displaySelectedDate()}</strong>
         </div>
       </section>
 
-      {/* =====================================
-          SEARCH
-      ====================================== */}
-
       <div className="history-search-box">
+        <FaSearch className="history-search-icon" />
+
         <input
           type="text"
           value={search}
@@ -254,31 +230,31 @@ function PoliceHistory() {
         />
 
         {search && (
-          <button type="button" onClick={() => setSearch("")}>
-            Clear
+          <button
+            type="button"
+            className="history-clear-button"
+            onClick={() => setSearch("")}
+            aria-label="Clear search"
+            title="Clear search"
+          >
+            <FaTimes />
+            <span>Clear</span>
           </button>
         )}
       </div>
 
-      {/* =====================================
-          ERROR
-      ====================================== */}
-
       {error && <div className="history-error">{error}</div>}
-
-      {/* =====================================
-          TABLE
-      ====================================== */}
 
       {loading ? (
         <div className="history-empty">
           <div className="history-spinner"></div>
-
           <p>Loading visit history...</p>
         </div>
       ) : filteredVisits.length === 0 ? (
         <div className="history-empty">
-          <div className="history-empty-icon">🕒</div>
+          <div className="history-empty-icon">
+            <FaClock />
+          </div>
 
           <h2>No Visits Found</h2>
 
@@ -306,8 +282,6 @@ function PoliceHistory() {
 
                 return (
                   <tr key={visit.id}>
-                    {/* VISITOR */}
-
                     <td>
                       <div className="history-visitor">
                         {visitor?.photoData ? (
@@ -324,13 +298,10 @@ function PoliceHistory() {
 
                         <div>
                           <strong>{visitor?.fullName || "--"}</strong>
-
                           <span>{visitor?.mobileNumber || "No mobile"}</span>
                         </div>
                       </div>
                     </td>
-
-                    {/* VISITOR ID */}
 
                     <td>
                       <span className="history-code">
@@ -338,39 +309,27 @@ function PoliceHistory() {
                       </span>
                     </td>
 
-                    {/* VISIT ID */}
-
                     <td>
                       <span className="history-code">
                         {visit.visitCode || "--"}
                       </span>
                     </td>
 
-                    {/* PURPOSE */}
-
                     <td>{visit.purpose || "--"}</td>
-
-                    {/* ENTRY */}
 
                     <td>
                       <div className="history-date-time">
                         <strong>{formatDate(visit.entryTime)}</strong>
-
                         <span>{formatTime(visit.entryTime)}</span>
                       </div>
                     </td>
 
-                    {/* EXIT */}
-
                     <td>
                       <div className="history-date-time">
                         <strong>{formatDate(visit.exitTime)}</strong>
-
                         <span>{formatTime(visit.exitTime)}</span>
                       </div>
                     </td>
-
-                    {/* STATUS */}
 
                     <td>
                       <span
@@ -379,12 +338,9 @@ function PoliceHistory() {
                         }`}
                       >
                         <span className="history-status-dot"></span>
-
                         {visit.status || "UNKNOWN"}
                       </span>
                     </td>
-
-                    {/* ACTION */}
 
                     <td>
                       <button
@@ -394,7 +350,8 @@ function PoliceHistory() {
                           navigate(`/police/visitors/${visit.visitorId}`)
                         }
                       >
-                        View
+                        <FaEye />
+                        <span>View</span>
                       </button>
                     </td>
                   </tr>
@@ -404,8 +361,6 @@ function PoliceHistory() {
           </table>
         </div>
       )}
-
-      {/* RESULT */}
 
       {!loading && filteredVisits.length > 0 && (
         <div className="history-result-count">

@@ -875,3 +875,265 @@
     flex: none;
   }
 }
+
+/* =====================================================
+   REACT ICONS
+   ===================================================== */
+
+.police-register-back,
+.capture-camera-button,
+.upload-photo-button,
+.remove-photo-button,
+.capture-button,
+.camera-close-button,
+.start-recording-button,
+.stop-recording-button,
+.remove-recording-button,
+.remove-document-button,
+.police-register-cancel,
+.police-register-reset,
+.police-register-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+
+.police-register-back svg,
+.capture-camera-button svg,
+.upload-photo-button svg,
+.remove-photo-button svg,
+.capture-button svg,
+.camera-close-button svg,
+.start-recording-button svg,
+.stop-recording-button svg,
+.remove-recording-button svg,
+.remove-document-button svg,
+.police-register-cancel svg,
+.police-register-reset svg,
+.police-register-submit svg {
+  flex: 0 0 auto;
+}
+
+.photo-empty-icon {
+  font-size: 38px;
+  opacity: 0.55;
+}
+
+.footer-security-icon {
+  color: #16a34a;
+}
+
+/* =====================================================
+   DARK MODE
+   ===================================================== */
+
+html[data-theme="dark"] .police-register-page {
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(96, 165, 250, 0.1),
+      transparent 32%
+    ),
+    #0b1220;
+  color: #f8fafc;
+}
+
+html[data-theme="dark"] .police-register-back {
+  background: #162238;
+  border-color: #2c3c55;
+  color: #7db1ff;
+}
+html[data-theme="dark"] .police-register-back:hover {
+  background: #1b2b45;
+  border-color: #3b82f6;
+}
+html[data-theme="dark"] .police-register-eyebrow {
+  color: #7db1ff;
+}
+html[data-theme="dark"] .police-register-header p {
+  color: #9eacc1;
+}
+html[data-theme="dark"] .police-register-card {
+  background: #111c2d;
+  border-color: #2a3a52;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.28);
+}
+html[data-theme="dark"] .police-register-section {
+  border-bottom-color: #24344b;
+}
+html[data-theme="dark"] .section-icon {
+  background: rgba(59, 130, 246, 0.14);
+  color: #7db1ff;
+}
+html[data-theme="dark"] .section-heading h2,
+html[data-theme="dark"] .voice-recorder-content > strong,
+html[data-theme="dark"] .document-upload-box strong,
+html[data-theme="dark"] .document-file-info strong,
+html[data-theme="dark"] .footer-security-note strong {
+  color: #f8fafc;
+}
+html[data-theme="dark"] .section-heading p,
+html[data-theme="dark"] .voice-recorder-content > span,
+html[data-theme="dark"] .document-upload-box span,
+html[data-theme="dark"] .document-file-info span,
+html[data-theme="dark"] .footer-security-note small {
+  color: #91a1b7;
+}
+html[data-theme="dark"] .photo-preview-large {
+  border-color: #2c3c55;
+  background: #0e1828;
+}
+html[data-theme="dark"] .photo-empty {
+  color: #8292a8;
+}
+html[data-theme="dark"] .upload-photo-button {
+  background: #162238;
+  border-color: #33445f;
+  color: #dbe7f7;
+}
+html[data-theme="dark"] .upload-photo-button:hover {
+  background: #1c2b43;
+  border-color: #4d6b96;
+}
+html[data-theme="dark"] .remove-photo-button,
+html[data-theme="dark"] .remove-recording-button,
+html[data-theme="dark"] .remove-document-button {
+  background: rgba(220, 38, 38, 0.12);
+  border-color: rgba(248, 113, 113, 0.25);
+  color: #f87171;
+}
+html[data-theme="dark"] .remove-photo-button:hover,
+html[data-theme="dark"] .remove-recording-button:hover,
+html[data-theme="dark"] .remove-document-button:hover {
+  background: rgba(220, 38, 38, 0.18);
+}
+html[data-theme="dark"] .camera-panel,
+html[data-theme="dark"] .document-camera-panel {
+  background: #08111f;
+}
+html[data-theme="dark"] .capture-button {
+  background: #f8fafc;
+  color: #101828;
+}
+html[data-theme="dark"] .camera-close-button {
+  background: #34445f;
+  color: #f8fafc;
+}
+html[data-theme="dark"] .police-form-field label {
+  color: #d5dfed;
+}
+html[data-theme="dark"] .police-form-field input,
+html[data-theme="dark"] .police-form-field select,
+html[data-theme="dark"] .police-form-field textarea {
+  background: #0d1727;
+  border-color: #30415b;
+  color: #f8fafc;
+}
+html[data-theme="dark"] .police-form-field input::placeholder,
+html[data-theme="dark"] .police-form-field textarea::placeholder {
+  color: #667892;
+}
+html[data-theme="dark"] .police-form-field input:focus,
+html[data-theme="dark"] .police-form-field select:focus,
+html[data-theme="dark"] .police-form-field textarea:focus {
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.12);
+}
+html[data-theme="dark"] .police-form-field input:disabled,
+html[data-theme="dark"] .police-form-field textarea:disabled {
+  background: #172235;
+  color: #7789a2;
+}
+html[data-theme="dark"] .existing-visitor-box {
+  background: rgba(37, 99, 235, 0.12);
+  border-color: #315887;
+}
+html[data-theme="dark"] .existing-avatar,
+html[data-theme="dark"] .existing-badge {
+  background: rgba(59, 130, 246, 0.16);
+  color: #8ab8ff;
+}
+html[data-theme="dark"] .existing-info span {
+  color: #8ab8ff;
+}
+html[data-theme="dark"] .existing-info small {
+  color: #91a1b7;
+}
+html[data-theme="dark"] .voice-recorder-card {
+  background: #162238;
+  border-color: #2d3e58;
+}
+html[data-theme="dark"] .voice-recorder-icon,
+html[data-theme="dark"] .document-upload-icon {
+  background: rgba(59, 130, 246, 0.14);
+  color: #7db1ff;
+}
+html[data-theme="dark"] .document-upload-box {
+  background: #101b2b;
+  border-color: #3a4c66;
+}
+html[data-theme="dark"] .document-upload-box:hover {
+  background: #16253b;
+  border-color: #5274a6;
+}
+html[data-theme="dark"] .document-browse {
+  background: #162238;
+  border-color: #344862;
+  color: #8ab8ff;
+}
+html[data-theme="dark"] .selected-document {
+  background: #101b2b;
+  border-color: #2c3c55;
+}
+html[data-theme="dark"] .document-file-icon {
+  color: #8ab8ff;
+}
+html[data-theme="dark"] .police-register-footer {
+  background: #0e1929;
+  border-top-color: #24344b;
+}
+html[data-theme="dark"] .footer-security-note > span {
+  background: rgba(34, 197, 94, 0.12);
+  color: #4ade80;
+}
+html[data-theme="dark"] .footer-security-icon {
+  color: #4ade80;
+}
+html[data-theme="dark"] .police-register-cancel {
+  background: #202d40;
+  color: #d5dfed;
+}
+html[data-theme="dark"] .police-register-cancel:hover {
+  background: #2a3a50;
+}
+html[data-theme="dark"] .police-register-reset {
+  background: rgba(249, 115, 22, 0.12);
+  color: #fb923c;
+}
+html[data-theme="dark"] .police-register-reset:hover {
+  background: rgba(249, 115, 22, 0.18);
+}
+html[data-theme="dark"] .police-register-submit,
+html[data-theme="dark"] .start-recording-button {
+  background: #2563eb;
+  color: #fff;
+}
+html[data-theme="dark"] .police-register-submit:hover,
+html[data-theme="dark"] .start-recording-button:hover {
+  background: #3b82f6;
+}
+html[data-theme="dark"] .stop-recording-button {
+  background: #dc2626;
+  color: #fff;
+}
+html[data-theme="dark"] .police-register-alert.error {
+  background: rgba(190, 18, 60, 0.14);
+  border-color: rgba(251, 113, 133, 0.28);
+  color: #fb7185;
+}
+html[data-theme="dark"] .police-register-alert.success {
+  background: rgba(21, 128, 61, 0.14);
+  border-color: rgba(74, 222, 128, 0.25);
+  color: #4ade80;
+}

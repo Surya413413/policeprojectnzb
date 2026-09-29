@@ -1,5 +1,12 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  FaArrowLeft,
+  FaDownload,
+  FaFileAlt,
+  FaPrint,
+  FaSignOutAlt,
+} from "react-icons/fa";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../../firebase/config";
 import { getCurrentUserRole } from "../../services/authService";
@@ -397,7 +404,8 @@ export default function PoliceReports() {
           onClick={() => navigate("/police")}
           type="button"
         >
-          ← Dashboard
+          <FaArrowLeft />
+          <span>Dashboard</span>
         </button>
         <div>
           <span>POLICESETU AI</span>
@@ -406,7 +414,17 @@ export default function PoliceReports() {
         <div className="reports-header-user">
           <span>{officer.name || "Police Officer"}</span>
           <button type="button" onClick={handleLogout} disabled={loggingOut}>
-            {loggingOut ? "Logging out..." : "Logout"}
+            {loggingOut ? (
+              <>
+                <FaSignOutAlt />
+                <span>Logging out...</span>
+              </>
+            ) : (
+              <>
+                <FaSignOutAlt />
+                <span>Logout</span>
+              </>
+            )}
           </button>
         </div>
       </header>
@@ -471,7 +489,8 @@ export default function PoliceReports() {
               onClick={downloadCsv}
               disabled={loading || !reportRows.length}
             >
-              ↓ Download Excel / CSV
+              <FaDownload />
+              <span>Download Excel / CSV</span>
             </button>
             <button
               type="button"
@@ -479,7 +498,8 @@ export default function PoliceReports() {
               onClick={printReport}
               disabled={loading || !reportRows.length}
             >
-              🖨 Print / Save PDF
+              <FaPrint />
+              <span>Print / Save PDF</span>
             </button>
           </div>
           <small className="reports-note">

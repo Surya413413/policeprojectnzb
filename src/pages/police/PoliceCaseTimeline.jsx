@@ -1,4 +1,15 @@
 import React, { useEffect, useState } from "react";
+import {
+  FaHistory,
+  FaClock,
+  FaExclamationCircle,
+  FaCircleNotch,
+  FaCheckCircle,
+  FaUserShield,
+  FaCalendarAlt,
+  FaFlag,
+} from "react-icons/fa";
+
 import { subscribeToCaseActions } from "../../services/visitorService";
 import "../../styles/PoliceCaseTimeline.css";
 
@@ -74,14 +85,23 @@ const PoliceCaseTimeline = ({ visit }) => {
   return (
     <section className="police-case-timeline">
       <div className="case-timeline-header">
-        <div>
-          <span className="case-timeline-label">CASE HISTORY</span>
-          <h2>Case Timeline</h2>
-          <p>Chronological record of police actions and case updates.</p>
+        <div className="case-timeline-heading">
+          <div className="case-timeline-title-icon" aria-hidden="true">
+            <FaHistory />
+          </div>
+
+          <div>
+            <span className="case-timeline-label">CASE HISTORY</span>
+            <h2>Case Timeline</h2>
+            <p>Chronological record of police actions and case updates.</p>
+          </div>
         </div>
 
-        <div className="case-timeline-count">
-          {history.length}
+        <div
+          className="case-timeline-count"
+          aria-label={`${history.length} actions`}
+        >
+          <strong>{history.length}</strong>
           <span>Actions</span>
         </div>
       </div>
@@ -89,19 +109,24 @@ const PoliceCaseTimeline = ({ visit }) => {
       {!loading && !error && (
         <div className="case-timeline-live" role="status">
           <span className="case-timeline-live-dot" />
-          Live updates enabled
+          <span>Live updates enabled</span>
         </div>
       )}
 
       {loading && (
         <div className="case-timeline-state">
-          <div className="case-timeline-loader" />
+          <div className="case-timeline-loader" aria-hidden="true">
+            <FaCircleNotch />
+          </div>
           <p>Connecting to live case history...</p>
         </div>
       )}
 
       {!loading && error && (
-        <div className="case-timeline-error">
+        <div className="case-timeline-error" role="alert">
+          <div className="case-timeline-state-icon">
+            <FaExclamationCircle />
+          </div>
           <strong>Unable to load timeline</strong>
           <p>{error}</p>
         </div>
@@ -109,7 +134,9 @@ const PoliceCaseTimeline = ({ visit }) => {
 
       {!loading && !error && history.length === 0 && (
         <div className="case-timeline-empty">
-          <div className="case-timeline-empty-icon">🕒</div>
+          <div className="case-timeline-empty-icon" aria-hidden="true">
+            <FaClock />
+          </div>
           <h3>No case actions yet</h3>
           <p>
             Police actions and case updates will appear here after the first
@@ -126,7 +153,7 @@ const PoliceCaseTimeline = ({ visit }) => {
               key={item.id || `${item.createdAt || "action"}-${index}`}
             >
               <div className="case-timeline-marker-column">
-                <div className="case-timeline-marker">
+                <div className="case-timeline-marker" aria-hidden="true">
                   {history.length - index}
                 </div>
 
@@ -137,11 +164,11 @@ const PoliceCaseTimeline = ({ visit }) => {
 
               <div className="case-timeline-card">
                 <div className="case-timeline-card-header">
-                  <div>
+                  <div className="case-timeline-card-title">
                     <span className="case-timeline-date">
+                      <FaCalendarAlt />
                       {formatDateTime(item.createdAt)}
                     </span>
-
                     <h3>{item.actionType || "Case Action"}</h3>
                   </div>
 
@@ -156,12 +183,18 @@ const PoliceCaseTimeline = ({ visit }) => {
 
                 <div className="case-timeline-details">
                   <div>
-                    <span>Priority</span>
+                    <span>
+                      <FaFlag />
+                      Priority
+                    </span>
                     <strong>{item.priority || "—"}</strong>
                   </div>
 
                   <div>
-                    <span>Assigned Officer</span>
+                    <span>
+                      <FaUserShield />
+                      Assigned Officer
+                    </span>
                     <strong>
                       {item.assignedOfficer ||
                         item.officerName ||
@@ -171,7 +204,10 @@ const PoliceCaseTimeline = ({ visit }) => {
 
                   {item.nextActionDate && (
                     <div>
-                      <span>Next Action</span>
+                      <span>
+                        <FaClock />
+                        Next Action
+                      </span>
                       <strong>{item.nextActionDate}</strong>
                     </div>
                   )}
@@ -186,7 +222,10 @@ const PoliceCaseTimeline = ({ visit }) => {
 
                 {item.officerName && (
                   <div className="case-timeline-officer">
-                    Recorded by <strong>{item.officerName}</strong>
+                    <FaCheckCircle />
+                    <span>
+                      Recorded by <strong>{item.officerName}</strong>
+                    </span>
                   </div>
                 )}
               </div>

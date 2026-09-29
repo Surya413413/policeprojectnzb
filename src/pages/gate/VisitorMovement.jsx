@@ -1,9 +1,27 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  FaArrowLeft,
+  FaCalendarAlt,
+  FaCheckCircle,
+  FaClipboardList,
+  FaClock,
+  FaDoorOpen,
+  FaExclamationTriangle,
+  FaFilter,
+  FaHistory,
+  FaIdBadge,
+  FaMapMarkerAlt,
+  FaSearch,
+  FaSignOutAlt,
+  FaUser,
+  FaUsers,
+} from "react-icons/fa";
 
-import { subscribeToAllVisits } from "../../services/gateService";
-
-import { subscribeToVisitors } from "../../services/gateService";
+import {
+  subscribeToAllVisits,
+  subscribeToVisitors,
+} from "../../services/gateService";
 
 import "../../styles/VisitorMovement.css";
 
@@ -176,7 +194,10 @@ function VisitorMovement() {
 
       <header className="movement-page-header">
         <div>
-          <span className="movement-label">GATE PORTAL</span>
+          <span className="movement-label">
+            <FaHistory />
+            GATE PORTAL
+          </span>
 
           <h1>Complete Visitor Register</h1>
 
@@ -196,27 +217,44 @@ function VisitorMovement() {
 
       {/* ERROR */}
 
-      {error && <div className="movement-error">{error}</div>}
+      {error && (
+        <div className="movement-error">
+          <FaExclamationTriangle />
+          <span>{error}</span>
+        </div>
+      )}
 
       {/* SUMMARY */}
 
       <section className="movement-summary">
         <div className="movement-summary-card">
-          <span>Total Records</span>
-
-          <strong>{loading ? "—" : totalRecords}</strong>
+          <div className="movement-summary-icon">
+            <FaClipboardList />
+          </div>
+          <div>
+            <span>Total Records</span>
+            <strong>{loading ? "—" : totalRecords}</strong>
+          </div>
         </div>
 
-        <div className="movement-summary-card">
-          <span>Currently Inside</span>
-
-          <strong>{loading ? "—" : insideCount}</strong>
+        <div className="movement-summary-card movement-summary-inside">
+          <div className="movement-summary-icon">
+            <FaDoorOpen />
+          </div>
+          <div>
+            <span>Currently Inside</span>
+            <strong>{loading ? "—" : insideCount}</strong>
+          </div>
         </div>
 
-        <div className="movement-summary-card">
-          <span>Total Exited</span>
-
-          <strong>{loading ? "—" : exitedCount}</strong>
+        <div className="movement-summary-card movement-summary-exited">
+          <div className="movement-summary-icon">
+            <FaSignOutAlt />
+          </div>
+          <div>
+            <span>Total Exited</span>
+            <strong>{loading ? "—" : exitedCount}</strong>
+          </div>
         </div>
       </section>
 
@@ -231,6 +269,7 @@ function VisitorMovement() {
           </div>
 
           <span className="movement-record-count">
+            <FaClipboardList />
             {filteredVisits.length} Records
           </span>
         </div>
@@ -272,13 +311,17 @@ function VisitorMovement() {
 
         {loading ? (
           <div className="movement-empty">
-            <div className="movement-spinner"></div>
+            <div className="movement-spinner">
+              <FaClock />
+            </div>
 
             <p>Loading visitor records...</p>
           </div>
         ) : filteredVisits.length === 0 ? (
           <div className="movement-empty">
-            <div className="movement-empty-icon">📋</div>
+            <div className="movement-empty-icon">
+              <FaClipboardList />
+            </div>
 
             <h3>No records found</h3>
 
@@ -306,7 +349,12 @@ function VisitorMovement() {
 
                   return (
                     <tr key={visit.id}>
-                      <td>{formatDate(visit.entryTime)}</td>
+                      <td>
+                        <span className="movement-date">
+                          <FaCalendarAlt />
+                          {formatDate(visit.entryTime)}
+                        </span>
+                      </td>
 
                       <td>
                         <div className="movement-visitor">
@@ -317,8 +365,9 @@ function VisitorMovement() {
                             />
                           ) : (
                             <div className="movement-avatar">
-                              {visitor?.fullName?.charAt(0)?.toUpperCase() ||
-                                "?"}
+                              {visitor?.fullName?.charAt(0)?.toUpperCase() || (
+                                <FaUser />
+                              )}
                             </div>
                           )}
 
@@ -338,15 +387,40 @@ function VisitorMovement() {
                         </div>
                       </td>
 
-                      <td>{visit.visitorCode || "--"}</td>
+                      <td>
+                        <span className="movement-code">
+                          <FaIdBadge />
+                          {visit.visitorCode || "--"}
+                        </span>
+                      </td>
 
-                      <td>{visit.visitCode || "--"}</td>
+                      <td>
+                        <span className="movement-code">
+                          <FaClipboardList />
+                          {visit.visitCode || "--"}
+                        </span>
+                      </td>
 
-                      <td>{visit.purpose || "--"}</td>
+                      <td>
+                        <span className="movement-purpose">
+                          <FaMapMarkerAlt />
+                          {visit.purpose || "--"}
+                        </span>
+                      </td>
 
-                      <td>{formatTime(visit.entryTime)}</td>
+                      <td>
+                        <span className="movement-time">
+                          <FaClock />
+                          {formatTime(visit.entryTime)}
+                        </span>
+                      </td>
 
-                      <td>{formatTime(visit.exitTime)}</td>
+                      <td>
+                        <span className="movement-time">
+                          <FaSignOutAlt />
+                          {formatTime(visit.exitTime)}
+                        </span>
+                      </td>
 
                       <td>
                         <span

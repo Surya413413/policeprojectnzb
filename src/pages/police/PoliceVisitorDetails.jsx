@@ -2,6 +2,21 @@ import React, { useEffect, useMemo, useState } from "react";
 
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 
+import {
+  FaArrowLeft,
+  FaCheckCircle,
+  FaDownload,
+  FaEdit,
+  FaEye,
+  FaFileAlt,
+  FaMicrophone,
+  FaSave,
+  FaSignOutAlt,
+  FaTimes,
+  FaTrashAlt,
+  FaUser,
+} from "react-icons/fa";
+
 import PoliceCaseEvidence from "./PoliceCaseEvidence";
 import PoliceCaseSummary from "./PoliceCaseSummary";
 import "../../styles/PoliceCaseSummary.css";
@@ -620,7 +635,8 @@ const PoliceVisitorDetails = () => {
             className="details-back-button"
             onClick={() => navigate("/police/visitors")}
           >
-            ← All Visitors
+            <FaArrowLeft />
+            <span>All Visitors</span>
           </button>
         </div>
 
@@ -629,8 +645,9 @@ const PoliceVisitorDetails = () => {
 
           <p>The visitor record could not be found or may have been deleted.</p>
 
-          <button onClick={() => navigate("/police/visitors")}>
-            Back to Visitors
+          <button type="button" onClick={() => navigate("/police/visitors")}>
+            <FaArrowLeft />
+            <span>Back to Visitors</span>
           </button>
         </div>
       </div>
@@ -653,7 +670,8 @@ const PoliceVisitorDetails = () => {
             className="details-back-button"
             onClick={() => navigate("/police/visitors")}
           >
-            ← All Visitors
+            <FaArrowLeft />
+            <span>All Visitors</span>
           </button>
 
           <h1>Visitor Details</h1>
@@ -670,7 +688,17 @@ const PoliceVisitorDetails = () => {
               setEditingVisitor((previous) => !previous);
             }}
           >
-            {editingVisitor ? "Cancel Edit" : "Edit Visitor"}
+            {editingVisitor ? (
+              <>
+                <FaTimes />
+                <span>Cancel Edit</span>
+              </>
+            ) : (
+              <>
+                <FaEdit />
+                <span>Edit Visitor</span>
+              </>
+            )}
           </button>
 
           <button
@@ -678,7 +706,8 @@ const PoliceVisitorDetails = () => {
             onClick={handleDeleteVisitor}
             disabled={deleting}
           >
-            {deleting ? "Deleting..." : "Delete Visitor"}
+            <FaTrashAlt />
+            <span>{deleting ? "Deleting..." : "Delete Visitor"}</span>
           </button>
         </div>
       </div>
@@ -693,7 +722,14 @@ const PoliceVisitorDetails = () => {
         <div className="police-details-error">
           {error}
 
-          <button onClick={() => setError("")}>×</button>
+          <button
+            type="button"
+            onClick={() => setError("")}
+            aria-label="Dismiss error"
+            title="Dismiss error"
+          >
+            <FaTimes />
+          </button>
         </div>
       )}
 
@@ -794,7 +830,8 @@ const PoliceVisitorDetails = () => {
                   onClick={handleSaveVisitor}
                   disabled={saving}
                 >
-                  {saving ? "Saving..." : "Save Changes"}
+                  <FaSave />
+                  <span>{saving ? "Saving..." : "Save Changes"}</span>
                 </button>
               </div>
             </div>
@@ -856,7 +893,8 @@ const PoliceVisitorDetails = () => {
               onClick={() => handleCheckout(activeVisit)}
               disabled={saving}
             >
-              Checkout Visitor
+              <FaSignOutAlt />
+              <span>Checkout Visitor</span>
             </button>
           </div>
 
@@ -1054,11 +1092,13 @@ const PoliceVisitorDetails = () => {
 
                         <div className="visit-edit-actions">
                           <button
+                            type="button"
                             className="details-cancel-button"
                             onClick={handleCancelVisitEdit}
                             disabled={saving}
                           >
-                            Cancel
+                            <FaTimes />
+                            <span>Cancel</span>
                           </button>
 
                           <button
@@ -1066,7 +1106,8 @@ const PoliceVisitorDetails = () => {
                             onClick={handleSaveVisit}
                             disabled={saving}
                           >
-                            {saving ? "Saving..." : "Save Visit"}
+                            <FaSave />
+                            <span>{saving ? "Saving..." : "Save Visit"}</span>
                           </button>
                         </div>
                       </div>
@@ -1125,7 +1166,9 @@ const PoliceVisitorDetails = () => {
                                     key={item.id || `voice-${index}`}
                                   >
                                     <div className="history-attachment-heading">
-                                      <span>🎙</span>
+                                      <span className="history-evidence-icon">
+                                        <FaMicrophone />
+                                      </span>
                                       <strong>
                                         {item.name ||
                                           `Voice Recording ${index + 1}`}
@@ -1170,7 +1213,8 @@ const PoliceVisitorDetails = () => {
                                         type="button"
                                         onClick={() => handleOpenDocument(item)}
                                       >
-                                        Open
+                                        <FaEye />
+                                        <span>Open</span>
                                       </button>
                                       <button
                                         type="button"
@@ -1197,7 +1241,8 @@ const PoliceVisitorDetails = () => {
                               onClick={() => handleCheckout(visit)}
                               disabled={saving}
                             >
-                              Checkout
+                              <FaSignOutAlt />
+                              <span>Checkout</span>
                             </button>
                           )}
 
@@ -1206,7 +1251,8 @@ const PoliceVisitorDetails = () => {
                             onClick={() => handleEditVisit(visit)}
                             disabled={saving}
                           >
-                            Edit
+                            <FaEdit />
+                            <span>Edit</span>
                           </button>
 
                           <button
@@ -1214,7 +1260,8 @@ const PoliceVisitorDetails = () => {
                             onClick={() => handleDeleteVisit(visit)}
                             disabled={saving}
                           >
-                            Delete
+                            <FaTrashAlt />
+                            <span>Delete</span>
                           </button>
                         </div>
                       </>
