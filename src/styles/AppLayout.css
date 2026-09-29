@@ -933,3 +933,114 @@ html[data-theme="dark"] .status-dot {
     text-overflow: ellipsis;
   }
 }
+
+/* =========================================================
+   NN AI SOLUTIONS
+   COMPANY ATTRIBUTION
+========================================================= */
+
+.sidebar-company {
+  flex-shrink: 0;
+  margin: 8px 12px 0;
+  padding: 10px 8px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  border-top: 1px solid var(--border-color, #e4e7ec);
+}
+
+.sidebar-company-logo {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+
+  display: block;
+
+  object-fit: contain;
+  object-position: center;
+
+  border-radius: 8px;
+  background: #ffffff;
+
+  padding: 2px;
+
+  box-sizing: border-box;
+
+  box-shadow: 0 2px 7px rgba(15, 23, 42, 0.08);
+}
+
+.sidebar-company-content {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sidebar-company-label {
+  color: var(--text-secondary, #667085);
+
+  font-size: 8px;
+  font-weight: 600;
+
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.sidebar-company-content strong {
+  color: var(--text-primary, #172033);
+
+  font-size: 9px;
+  font-weight: 800;
+
+  letter-spacing: 0.04em;
+
+  white-space: nowrap;
+}
+
+/* =========================================================
+   COLLAPSED SIDEBAR
+========================================================= */
+
+.app-layout.sidebar-collapsed .sidebar-company {
+  margin-left: 8px;
+  margin-right: 8px;
+
+  padding: 9px 0;
+}
+
+.app-layout.sidebar-collapsed .sidebar-company-logo {
+  width: 44px;
+  height: 44px;
+  flex-basis: 44px;
+
+  margin: 0 auto;
+}
+
+.app-layout.sidebar-collapsed .sidebar-company-content {
+  display: none;
+}
+
+/* =========================================================
+   DARK MODE
+========================================================= */
+
+html[data-theme="dark"] .sidebar-company {
+  border-top-color: var(--border-color, #334155);
+}
+
+html[data-theme="dark"] .sidebar-company-logo {
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+html[data-theme="dark"] .sidebar-company-label {
+  color: #94a3b8;
+}
+
+html[data-theme="dark"] .sidebar-company-content strong {
+  color: #f8fafc;
+}

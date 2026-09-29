@@ -369,11 +369,30 @@ function Login() {
 
       {/* FOOTER */}
       <footer className="login-footer">
-        <span>POLICESETU AI</span>
+        {/* SYSTEM */}
+        <div className="login-footer-system">
+          <strong>POLICESETU AI</strong>
+          <span>Nizamabad Police Commissionerate</span>
+        </div>
 
-        <span>Nizamabad Police Commissionerate</span>
+        {/* COMPANY */}
+        <div className="login-footer-company">
+          <span className="login-footer-powered">Powered by</span>
 
-        <span>Smart Police Station Management Platform</span>
+          <img
+            src="/public/nnaisolutioncomapanylogo.png"
+            alt="NN AI Solutions"
+            className="login-footer-company-logo"
+          />
+
+          <strong>NN AI SOLUTIONS</strong>
+        </div>
+
+        {/* PLATFORM */}
+        <div className="login-footer-platform">
+          <span>Smart Police Station Management Platform</span>
+          <span>@2026</span>
+        </div>
       </footer>
     </main>
   );

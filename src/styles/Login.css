@@ -1058,7 +1058,7 @@ body {
 /* =========================================================
    FOOTER
    ========================================================= */
-
+/* 
 .login-footer {
   position: relative;
 
@@ -1085,6 +1085,229 @@ body {
   font-weight: 800;
 
   text-shadow: 0 2px 5px rgba(0, 0, 0, 0.55);
+} */
+
+/* =========================================================
+   LOGIN FOOTER
+========================================================= */
+
+.login-footer {
+  position: relative;
+  z-index: 4;
+
+  width: min(1500px, calc(100% - 72px));
+
+  margin: 0 auto;
+
+  padding: 14px 0 20px;
+
+  display: grid;
+
+  grid-template-columns: 1fr auto 1fr;
+
+  align-items: center;
+
+  gap: 24px;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+
+  color: #dce8f2;
+
+  font-size: 9px;
+
+  animation: loginFadeUp 0.8s ease 0.5s both;
+}
+
+/* =========================================================
+   SYSTEM
+========================================================= */
+
+.login-footer-system {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+
+  text-align: left;
+}
+
+.login-footer-system strong {
+  color: #ffffff;
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 0.07em;
+}
+
+.login-footer-system span {
+  color: rgba(255, 255, 255, 0.68);
+
+  font-size: 8px;
+}
+
+/* =========================================================
+   COMPANY
+========================================================= */
+
+.login-footer-company {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  min-width: 190px;
+
+  padding: 5px 12px;
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  border-radius: 10px;
+
+  background: rgba(5, 35, 60, 0.28);
+
+  backdrop-filter: blur(8px);
+
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.login-footer-powered {
+  color: rgba(255, 255, 255, 0.65);
+
+  font-size: 7px;
+  font-weight: 600;
+
+  letter-spacing: 0.05em;
+
+  text-transform: uppercase;
+}
+
+.login-footer-company-logo {
+  width: 30px;
+  height: 30px;
+
+  flex: 0 0 30px;
+
+  display: block;
+
+  object-fit: contain;
+
+  background: #ffffff;
+
+  border-radius: 6px;
+
+  padding: 1px;
+
+  box-sizing: border-box;
+}
+
+.login-footer-company strong {
+  color: #ffffff;
+
+  font-size: 9px;
+  font-weight: 900;
+
+  letter-spacing: 0.06em;
+
+  white-space: nowrap;
+}
+
+/* =========================================================
+   PLATFORM
+========================================================= */
+
+.login-footer-platform {
+  text-align: right;
+
+  color: rgba(255, 255, 255, 0.68);
+
+  font-size: 8px;
+}
+
+/* =========================================================
+   HOVER
+========================================================= */
+
+.login-footer-company {
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    background 0.25s ease;
+}
+
+.login-footer-company:hover {
+  transform: translateY(-2px);
+
+  border-color: rgba(91, 208, 255, 0.5);
+
+  background: rgba(5, 50, 82, 0.42);
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 850px) {
+  .login-footer {
+    width: calc(100% - 40px);
+
+    grid-template-columns: 1fr;
+
+    justify-items: center;
+
+    gap: 10px;
+
+    text-align: center;
+  }
+
+  .login-footer-system,
+  .login-footer-platform {
+    text-align: center;
+  }
+
+  .login-footer-company {
+    order: 2;
+  }
+
+  .login-footer-system {
+    order: 1;
+  }
+
+  .login-footer-platform {
+    order: 3;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-footer {
+    width: calc(100% - 28px);
+
+    padding: 12px 0 16px;
+
+    gap: 8px;
+  }
+
+  .login-footer-company {
+    min-width: 0;
+
+    max-width: 100%;
+
+    padding: 5px 10px;
+  }
+
+  .login-footer-company-logo {
+    width: 28px;
+    height: 28px;
+    flex-basis: 28px;
+  }
+
+  .login-footer-company strong {
+    font-size: 8px;
+  }
+
+  .login-footer-platform {
+    font-size: 7px;
+  }
 }
 
 /* =========================================================

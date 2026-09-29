@@ -491,6 +491,23 @@ const AppLayout = ({ role, children }) => {
           ))}
         </nav>
 
+        {/* COMPANY ATTRIBUTION */}
+        <div className="sidebar-company">
+          <img
+            src="/public/nnaisolutioncomapanylogo.png"
+            alt="NN AI Solutions"
+            className="sidebar-company-logo"
+          />
+
+          {!sidebarCollapsed && (
+            <div className="sidebar-company-content">
+              <span className="sidebar-company-label">Powered by</span>
+
+              <strong>NN AI SOLUTIONS</strong>
+            </div>
+          )}
+        </div>
+
         <div className="sidebar-bottom">
           <button
             type="button"
