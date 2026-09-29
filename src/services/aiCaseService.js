@@ -11,9 +11,18 @@ const ai = getAI(app, {
   backend: new GoogleAIBackend(),
 });
 
+// const model = getGenerativeModel(ai, {
+//   model: "gemini-3.6-flash",
+//   // model: "gemini-3.8-flash",
+// });
+
 const model = getGenerativeModel(ai, {
-  model: "gemini-3.6-flash",
-  // model: "gemini-3.8-flash",
+  model: "gemini-3.8-flash",
+  generationConfig: {
+    thinkingConfig: {
+      thinkingLevel: "LOW",
+    },
+  },
 });
 
 /* =========================================================
