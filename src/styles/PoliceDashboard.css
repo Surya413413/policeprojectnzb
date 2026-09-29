@@ -1248,3 +1248,73 @@ html[data-theme="dark"] .police-dashboard .police-dashboard-error {
   border-color: rgba(255, 102, 116, 0.3);
   color: #ff8a95;
 }
+.hero-emblem {
+  position: relative;
+  z-index: 1;
+
+  width: 125px;
+  height: 125px;
+
+  flex: 0 0 125px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 10px;
+
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.18),
+    inset 0 0 25px rgba(255, 255, 255, 0.05);
+
+  overflow: hidden;
+}
+
+/* Police Logo */
+.hero-emblem img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: contain;
+  object-position: center;
+
+  border-radius: 50%;
+
+  background: #ffffff;
+
+  padding: 5px;
+
+  box-sizing: border-box;
+
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.18));
+
+  transition:
+    transform 0.3s ease,
+    filter 0.3s ease;
+}
+
+/* Premium hover effect */
+.hero-emblem:hover img {
+  transform: scale(1.06);
+
+  filter: drop-shadow(0 7px 14px rgba(0, 0, 0, 0.25));
+}
+@media (max-width: 700px) {
+  .hero-emblem {
+    width: 78px;
+    height: 78px;
+    flex-basis: 78px;
+    padding: 6px;
+  }
+
+  .hero-emblem img {
+    padding: 3px;
+  }
+}

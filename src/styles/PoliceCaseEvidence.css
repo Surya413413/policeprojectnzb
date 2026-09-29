@@ -139,6 +139,7 @@
   font-size: 12px;
   font-weight: 700;
   cursor: pointer;
+  color: white;
 }
 
 .start-record-button {
@@ -1444,5 +1445,108 @@ html[data-theme="dark"] .ai-disclaimer p {
 @media (prefers-reduced-motion: reduce) {
   .recording-indicator span {
     animation: none;
+  }
+}
+
+/* =====================================================
+   EVIDENCE FOOTER + SAVE BUTTON FIX
+===================================================== */
+
+/* Evidence count text only */
+.evidence-footer > div > span {
+  color: #2563eb;
+  font-family: monospace;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* Save button */
+.evidence-footer .save-evidence-button,
+.evidence-footer .save-evidence-button span {
+  color: #ffffff;
+}
+
+.evidence-footer .save-evidence-button {
+  background: #2563eb;
+  border: 1px solid #2563eb;
+  min-height: 40px;
+  white-space: nowrap;
+  visibility: visible;
+}
+
+.evidence-footer .save-evidence-button:hover:not(:disabled) {
+  background: #1d4ed8;
+  border-color: #1d4ed8;
+}
+
+/* Keep button visible even when disabled */
+.evidence-footer .save-evidence-button:disabled {
+  opacity: 1;
+  background: #93c5fd;
+  border-color: #93c5fd;
+  color: #ffffff;
+  cursor: not-allowed;
+}
+
+.evidence-footer .save-evidence-button:disabled span,
+.evidence-footer .save-evidence-button:disabled svg {
+  color: #ffffff;
+}
+
+/* =====================================================
+   DARK MODE
+===================================================== */
+
+html[data-theme="dark"] .evidence-footer {
+  background: #111827;
+  border-color: #334155;
+}
+
+html[data-theme="dark"] .evidence-footer strong {
+  color: #e2e8f0;
+}
+
+html[data-theme="dark"] .evidence-footer > div > span {
+  color: #93c5fd;
+}
+
+/* Save button stays clearly visible in dark mode */
+html[data-theme="dark"] .evidence-footer .save-evidence-button,
+html[data-theme="dark"] .evidence-footer .save-evidence-button span,
+html[data-theme="dark"] .evidence-footer .save-evidence-button svg {
+  color: #ffffff;
+}
+
+html[data-theme="dark"] .evidence-footer .save-evidence-button {
+  background: #2563eb;
+  border-color: #2563eb;
+}
+
+html[data-theme="dark"]
+  .evidence-footer
+  .save-evidence-button:hover:not(:disabled) {
+  background: #1d4ed8;
+  border-color: #1d4ed8;
+}
+
+html[data-theme="dark"] .evidence-footer .save-evidence-button:disabled {
+  background: #3b82f6;
+  border-color: #3b82f6;
+  opacity: 0.65;
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 768px) {
+  .evidence-footer {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .evidence-footer .save-evidence-button {
+    width: 100%;
+    min-height: 44px;
   }
 }

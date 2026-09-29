@@ -369,7 +369,7 @@ function CommissionerDashboard() {
 
   return (
     <div className="commissioner-dashboard">
-      <header className="commissioner-header">
+      {/* <header className="commissioner-header">
         <div className="commissioner-header-left">
           <div className="commissioner-logo">PS</div>
 
@@ -409,7 +409,7 @@ function CommissionerDashboard() {
             {loggingOut ? t("common.loggingOut") : t("common.logout")}
           </button>
         </div>
-      </header>
+      </header> */}
 
       <main className="commissioner-main">
         <section className="commissioner-heading">
@@ -421,12 +421,12 @@ function CommissionerDashboard() {
             <p>{t("commissioner.dashboardDescription")}</p>
           </div>
 
-          <div className="commissioner-live">
+          {/* <div className="commissioner-live">
             <span className="commissioner-live-dot">
               <FaCircle />
             </span>
             {t("commissioner.liveFirestoreData")}
-          </div>
+          </div> */}
         </section>
 
         {error && <div className="commissioner-error">{error}</div>}

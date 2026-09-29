@@ -234,6 +234,7 @@
   margin-bottom: 18px;
   padding: 20px;
   border-radius: 14px;
+  flex-direction: column;
 }
 
 .profile-photo {

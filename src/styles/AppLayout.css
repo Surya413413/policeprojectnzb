@@ -6,7 +6,7 @@
   width: 100%;
   display: flex;
 
-  background: var(--bg-primary, #f5f7fb);
+  background: var(--bg-primary, #bccbea);
   color: var(--text-primary, #172033);
 }
 
@@ -55,22 +55,55 @@
   border-bottom: 1px solid var(--border-color, #e4e7ec);
 }
 
-.sidebar-brand-icon {
-  width: 40px;
-  height: 40px;
+/* =========================
+   SIDEBAR LOGO
+========================= */
 
-  flex: 0 0 40px;
+.sidebar-brand-icon {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  flex: 0 0 48px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
+  overflow: hidden;
+  box-sizing: border-box;
+
   border-radius: 10px;
 
-  background: var(--primary-color, #2563eb);
-  color: #ffffff;
+  /* White background keeps the police logo clear */
+  background: #ffffff;
 
-  font-size: 19px;
+  border: 1px solid var(--border-color, #e4e7ec);
+
+  padding: 3px;
+
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+}
+
+/* Logo image */
+.sidebar-brand-icon img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: contain;
+  object-position: center;
+}
+
+/* Collapsed sidebar */
+.app-layout.sidebar-collapsed .sidebar-brand-icon {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  flex-basis: 44px;
+
+  margin: 0 auto;
+  padding: 3px;
 }
 
 .sidebar-brand-text {

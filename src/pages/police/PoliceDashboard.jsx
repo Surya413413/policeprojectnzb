@@ -342,7 +342,8 @@ function PoliceDashboard() {
         <section className="police-hero pd-reveal pd-reveal-1">
           <div className="hero-content">
             <span className="hero-kicker">
-              <FaShieldAlt /> POLICE STATION COMMAND CENTER
+              {/* <FaShieldAlt /> */}
+              POLICE STATION COMMAND CENTER
             </span>
             <h1>Officer Dashboard</h1>
             <p>
@@ -360,7 +361,8 @@ function PoliceDashboard() {
             </div>
           </div>
           <div className="hero-emblem">
-            <FaShieldAlt />
+            {/* <FaShieldAlt /> */}
+            <img src="/logo.png" alt="Logo" />
           </div>
         </section>
 

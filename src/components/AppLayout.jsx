@@ -448,7 +448,8 @@ const AppLayout = ({ role, children }) => {
       >
         <div className="sidebar-brand">
           <div className="sidebar-brand-icon">
-            <FaShieldAlt />
+            {/* <FaShieldAlt /> */}
+            <img src="/logo.png" alt="Logo" />
           </div>
 
           {!sidebarCollapsed && (
