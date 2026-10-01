@@ -1,46 +1,36 @@
 import { useEffect, useState } from "react";
-
 import { Navigate, Outlet } from "react-router-dom";
-
 import { onAuthStateChanged } from "firebase/auth";
 
 import { auth } from "../firebase/config";
-
 import { getCurrentUserRole } from "../services/authService";
+
+import "../styles/RoleRoute.css";
 
 function RoleRoute({ allowedRole }) {
   const [loading, setLoading] = useState(true);
-
   const [authenticated, setAuthenticated] = useState(false);
-
   const [role, setRole] = useState(null);
 
   useEffect(() => {
     let mounted = true;
 
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (!mounted) {
-        return;
-      }
+      if (!mounted) return;
 
-      // Not logged in
       if (!user) {
         setAuthenticated(false);
         setRole(null);
         setLoading(false);
-
         return;
       }
 
       try {
         const userRole = await getCurrentUserRole();
 
-        if (!mounted) {
-          return;
-        }
+        if (!mounted) return;
 
         setAuthenticated(true);
-
         setRole(userRole?.role || null);
       } catch (error) {
         console.error("Role check failed:", error);
@@ -56,34 +46,52 @@ function RoleRoute({ allowedRole }) {
 
     return () => {
       mounted = false;
-
       unsubscribe();
     };
   }, []);
 
-  // Loading
+  /* =========================
+     LOADING
+  ========================= */
+
   if (loading) {
     return (
-      <div
-        style={{
-          minHeight: "100vh",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          fontFamily: "Arial, sans-serif",
-        }}
-      >
-        Loading...
+      <div className="policesetu-loader">
+        <div className="policesetu-loader-box">
+          <img
+            src="/logo.png"
+            alt="Nizamabad Police Commissionerate"
+            className="policesetu-loader-logo"
+          />
+
+          <div className="policesetu-loader-title">POLICESETU AI</div>
+
+          <div className="policesetu-loader-subtitle">
+            Nizamabad Police Commissionerate
+          </div>
+
+          <div className="policesetu-loader-spinner"></div>
+
+          <div className="policesetu-loader-status">
+            Verifying secure access...
+          </div>
+        </div>
       </div>
     );
   }
 
-  // Not logged in
+  /* =========================
+     NOT LOGGED IN
+  ========================= */
+
   if (!authenticated) {
     return <Navigate to="/login" replace />;
   }
 
-  // Wrong role
+  /* =========================
+     WRONG ROLE
+  ========================= */
+
   if (role !== allowedRole) {
     if (role === "WATCHMAN") {
       return <Navigate to="/gate" replace />;
@@ -96,10 +104,14 @@ function RoleRoute({ allowedRole }) {
     if (role === "COMMISSIONER") {
       return <Navigate to="/commissioner" replace />;
     }
+
     return <Navigate to="/login" replace />;
   }
 
-  // Correct role
+  /* =========================
+     CORRECT ROLE
+  ========================= */
+
   return <Outlet />;
 }
 

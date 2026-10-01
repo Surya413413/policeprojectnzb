@@ -41,6 +41,12 @@ function GateDashboard() {
   const [todayFilter, setTodayFilter] = useState("ALL");
   const [yesterdayFilter, setYesterdayFilter] = useState("ALL");
 
+  // Separate pagination for Today and Yesterday sections
+  const [todayPage, setTodayPage] = useState(1);
+  const [yesterdayPage, setYesterdayPage] = useState(1);
+  const TODAY_PAGE_SIZE = 10;
+  const YESTERDAY_PAGE_SIZE = 10;
+
   // =========================================================
   // DATE HELPERS
   // =========================================================
@@ -257,6 +263,164 @@ function GateDashboard() {
   }, [yesterdayVisits, yesterdayFilter]);
 
   // =========================================================
+  // PAGINATION - TODAY
+  // =========================================================
+
+  const todayTotalPages = Math.max(
+    1,
+    Math.ceil(filteredTodayVisits.length / TODAY_PAGE_SIZE),
+  );
+
+  const paginatedTodayVisits = useMemo(() => {
+    const start = (todayPage - 1) * TODAY_PAGE_SIZE;
+    return filteredTodayVisits.slice(start, start + TODAY_PAGE_SIZE);
+  }, [filteredTodayVisits, todayPage]);
+
+  // =========================================================
+  // PAGINATION - YESTERDAY
+  // =========================================================
+
+  const yesterdayTotalPages = Math.max(
+    1,
+    Math.ceil(filteredYesterdayVisits.length / YESTERDAY_PAGE_SIZE),
+  );
+
+  const paginatedYesterdayVisits = useMemo(() => {
+    const start = (yesterdayPage - 1) * YESTERDAY_PAGE_SIZE;
+    return filteredYesterdayVisits.slice(start, start + YESTERDAY_PAGE_SIZE);
+  }, [filteredYesterdayVisits, yesterdayPage]);
+
+  // Reset each section's page when its filter/data changes.
+  useEffect(() => {
+    setTodayPage(1);
+  }, [todayFilter]);
+
+  useEffect(() => {
+    setYesterdayPage(1);
+  }, [yesterdayFilter]);
+
+  // Keep the current page valid when real-time Firestore data changes.
+  useEffect(() => {
+    setTodayPage((page) => Math.min(page, todayTotalPages));
+  }, [todayTotalPages]);
+
+  useEffect(() => {
+    setYesterdayPage((page) => Math.min(page, yesterdayTotalPages));
+  }, [yesterdayTotalPages]);
+
+  // =========================================================
+  // PAGINATION UI
+  // =========================================================
+
+  const renderPagination = (currentPage, setPage, totalPages, totalRecords) => {
+    if (totalRecords <= 10) {
+      return null;
+    }
+
+    const pages = [];
+
+    if (totalPages <= 7) {
+      for (let page = 1; page <= totalPages; page += 1) {
+        pages.push(page);
+      }
+    } else {
+      pages.push(1);
+
+      if (currentPage > 3) {
+        pages.push("LEFT_DOTS");
+      }
+
+      const start = Math.max(2, currentPage - 1);
+      const end = Math.min(totalPages - 1, currentPage + 1);
+
+      for (let page = start; page <= end; page += 1) {
+        pages.push(page);
+      }
+
+      if (currentPage < totalPages - 2) {
+        pages.push("RIGHT_DOTS");
+      }
+
+      pages.push(totalPages);
+    }
+
+    const startRecord = (currentPage - 1) * 10 + 1;
+    const endRecord = Math.min(currentPage * 10, totalRecords);
+
+    return (
+      <div className="gate-pagination">
+        <div className="gate-pagination-info">
+          Showing <strong>{startRecord}</strong> - <strong>{endRecord}</strong>{" "}
+          of <strong>{totalRecords}</strong> records
+        </div>
+
+        <div className="gate-pagination-controls">
+          <button
+            type="button"
+            className="gate-page-button"
+            disabled={currentPage === 1}
+            onClick={() => setPage(1)}
+            title="First page"
+          >
+            «
+          </button>
+
+          <button
+            type="button"
+            className="gate-page-button"
+            disabled={currentPage === 1}
+            onClick={() => setPage((page) => Math.max(1, page - 1))}
+            title="Previous page"
+          >
+            ‹
+          </button>
+
+          <div className="gate-page-numbers">
+            {pages.map((page) =>
+              page === "LEFT_DOTS" || page === "RIGHT_DOTS" ? (
+                <span key={page} className="gate-page-dots">
+                  ...
+                </span>
+              ) : (
+                <button
+                  key={page}
+                  type="button"
+                  className={`gate-page-button ${
+                    currentPage === page ? "active" : ""
+                  }`}
+                  onClick={() => setPage(page)}
+                >
+                  {page}
+                </button>
+              ),
+            )}
+          </div>
+
+          <button
+            type="button"
+            className="gate-page-button"
+            disabled={currentPage === totalPages}
+            onClick={() => setPage((page) => Math.min(totalPages, page + 1))}
+            title="Next page"
+          >
+            ›
+          </button>
+
+          <button
+            type="button"
+            className="gate-page-button"
+            disabled={currentPage === totalPages}
+            onClick={() => setPage(totalPages)}
+            title="Last page"
+          >
+            »
+          </button>
+        </div>
+      </div>
+    );
+  };
+
+  // =========================================================
   // CHECKOUT
   // =========================================================
 
@@ -381,7 +545,9 @@ function GateDashboard() {
     if (data.length === 0) {
       return (
         <div className="empty-state">
-          <div className="empty-icon"><FaUserFriends /></div>
+          <div className="empty-icon">
+            <FaUserFriends />
+          </div>
 
           <h4>{emptyTitle}</h4>
 
@@ -523,14 +689,14 @@ function GateDashboard() {
                           disabled={checkoutId === visit.id}
                         >
                           {checkoutId === visit.id ? (
-                              <>
-                                <FaClock /> Checking...
-                              </>
-                            ) : (
-                              <>
-                                <FaSignOutAlt /> Check Out
-                              </>
-                            )}
+                            <>
+                              <FaClock /> Checking...
+                            </>
+                          ) : (
+                            <>
+                              <FaSignOutAlt /> Check Out
+                            </>
+                          )}
                         </button>
                       ) : (
                         <span className="completed-action">Completed</span>
@@ -620,7 +786,9 @@ function GateDashboard() {
             <div className="stat-card-top">
               <span className="stat-title">Today's Visitors</span>
 
-              <div className="stat-icon blue"><FaUserFriends /></div>
+              <div className="stat-icon blue">
+                <FaUserFriends />
+              </div>
             </div>
 
             <div className="stat-number">
@@ -636,7 +804,9 @@ function GateDashboard() {
             <div className="stat-card-top">
               <span className="stat-title">Currently Inside</span>
 
-              <div className="stat-icon green"><FaCheckCircle /></div>
+              <div className="stat-icon green">
+                <FaCheckCircle />
+              </div>
             </div>
 
             <div className="stat-number">
@@ -652,7 +822,9 @@ function GateDashboard() {
             <div className="stat-card-top">
               <span className="stat-title">Exited Today</span>
 
-              <div className="stat-icon orange"><FaSignOutAlt /></div>
+              <div className="stat-icon orange">
+                <FaSignOutAlt />
+              </div>
             </div>
 
             <div className="stat-number">
@@ -668,7 +840,9 @@ function GateDashboard() {
             <div className="stat-card-top">
               <span className="stat-title">Yesterday's Visitors</span>
 
-              <div className="stat-icon purple"><FaHistory /></div>
+              <div className="stat-icon purple">
+                <FaHistory />
+              </div>
             </div>
 
             <div className="stat-number">
@@ -707,11 +881,20 @@ function GateDashboard() {
               <p>Loading today's visitors...</p>
             </div>
           ) : (
-            renderVisitorTable(
-              filteredTodayVisits,
-              "No visitors today",
-              "Registered visitors will appear here.",
-            )
+            <>
+              {renderVisitorTable(
+                paginatedTodayVisits,
+                "No visitors today",
+                "Registered visitors will appear here.",
+              )}
+
+              {renderPagination(
+                todayPage,
+                setTodayPage,
+                todayTotalPages,
+                filteredTodayVisits.length,
+              )}
+            </>
           )}
         </section>
 
@@ -743,11 +926,20 @@ function GateDashboard() {
               <p>Loading yesterday's visitors...</p>
             </div>
           ) : (
-            renderVisitorTable(
-              filteredYesterdayVisits,
-              "No visitors yesterday",
-              "No visitor records were found for yesterday.",
-            )
+            <>
+              {renderVisitorTable(
+                paginatedYesterdayVisits,
+                "No visitors yesterday",
+                "No visitor records were found for yesterday.",
+              )}
+
+              {renderPagination(
+                yesterdayPage,
+                setYesterdayPage,
+                yesterdayTotalPages,
+                filteredYesterdayVisits.length,
+              )}
+            </>
           )}
         </section>
       </main>

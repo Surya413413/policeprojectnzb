@@ -64,7 +64,7 @@
   font-size: 14px;
 }
 
-.register-error span {
+/* .register-error span {
   width: 22px;
   height: 22px;
   display: grid;
@@ -73,6 +73,48 @@
   background: #be123c;
   color: white;
   font-weight: 700;
+} */
+
+.register-error {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  box-sizing: border-box;
+
+  background: #fff1f2;
+  border: 1px solid #fecdd3;
+  color: #be123c;
+
+  padding: 13px 16px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.register-error .error-icon {
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+  color: #be123c;
+}
+
+.register-error span {
+  min-width: 0;
+  flex: 1;
+
+  display: inline;
+  width: auto;
+  height: auto;
+
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+
+  font-weight: 600;
+  line-height: 1.5;
 }
 
 /* Form */
@@ -182,7 +224,7 @@
 }
 
 .field-error {
-  color: #dc2626;
+  color: #f70505;
   font-size: 12px;
 }
 
@@ -1296,15 +1338,30 @@ html[data-theme="dark"] .register-page {
   background: #0f172a;
 }
 
+/* html[data-theme="dark"] .register-error {
+  background: rgba(127, 29, 29, 0.2);
+  border-color: #7f1d1d;
+  color: #fca5a5;
+} */
+
 html[data-theme="dark"] .register-error {
   background: rgba(127, 29, 29, 0.2);
   border-color: #7f1d1d;
   color: #fca5a5;
 }
 
-html[data-theme="dark"] .register-error span {
+html[data-theme="dark"] .register-error .error-icon {
+  color: #fca5a5;
+}
+
+/* html[data-theme="dark"] .register-error span {
   color: #fee2e2;
   background: #b91c1c;
+} */
+
+html[data-theme="dark"] .register-error span {
+  color: inherit;
+  background: transparent;
 }
 
 html[data-theme="dark"] .form-section,
